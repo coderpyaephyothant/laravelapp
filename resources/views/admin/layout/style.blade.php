@@ -61,7 +61,7 @@
           </li>
 
          <li class="nav-item">
-            <a href="{{route('admin#user')}}" class="nav-link">
+            <a href="{{route('admin#userList')}}" class="nav-link">
             <i class="fas fa-users"></i>
               <p>
                 User
@@ -74,6 +74,15 @@
               <i class="fas fa-book"></i>
               <p>
                 Order
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="{{route('admin#message')}}" class="nav-link">
+              <i class="fas fa-comment-dots"></i>
+              <p>
+                Messages
               </p>
             </a>
           </li>
@@ -119,5 +128,7 @@
 <script src="{{asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <script src="{{asset('dist/js/adminlte.min.js')}}"></script>
 <script src="{{asset('dist/js/demo.js')}}"></script>
+<script src="{{asset('dist/js/md.js')}}"></script>
+
 </body>
 </html>

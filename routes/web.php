@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\PizzaController;
+use App\Http\Controllers\Admin\UserMessageController;
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -38,8 +39,12 @@ Route::middleware([
 
 //admin panel
 Route::group(['prefix'=>'admin', 'namespace'=>'Admin'],function(){
-    
-    Route::get('profile','CategoryController@profile')->name('admin#profile');
+
+    Route::get('profile','AdminController@profile')->name('admin#profile');
+    Route::post('profile/{id}','AdminController@profileUpdate')->name('admin#profileUpdate');
+    Route::get('passwordChange','AdminController@passwordChange')->name('admin#passwordChange');
+    Route::post('passwordChange/{id}','AdminController@checkPassword')->name('admin#checkPassword');
+
 
     //admin->category
     Route::get('category','CategoryController@category')->name('admin#category');
@@ -48,29 +53,57 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Admin'],function(){
     Route::get('categoryDelete/{id}','CategoryController@categoryDelete')->name('admin#categoryDelete');
     Route::get('categoryEdit/{id}','CategoryController@categoryEdit')->name('admin#categoryEdit');
     Route::post('updateCategory/{id}','CategoryController@updateCategory')->name('admin#updateCategory');
-    Route::post('category','CategoryController@searchCategory')->name('admin#searchCategory');
+    Route::get('category/search','CategoryController@searchCategory')->name('admin#searchCategory');
+    Route::get('categoryItem/{id}','CategoryController@categoryItem')->name('admin#categoryItem');
+    Route::get('categoryItemsearch','CategoryController@categoryItemSearch')->name('admin#categoryItemSearch');
+    Route::get('categoryItemDelete/{id}','CategoryController@categoryItemDelete')->name('admin#categoryItemDelete');
 
 
     //admin->pizza
     Route::get('pizza','PizzaController@pizza')->name('admin#pizza');
     Route::get('pizzaCreate','PizzaController@pizzaCreate')->name('admin#pizzaCreate');
     Route::post('pizzaCreate','PizzaController@pizzaInsert')->name('admin#pizzaInsert');
-    Route::post('pizzaSearch','PizzaController@pizzaSearch')->name('admin#pizzaSearch');
+    Route::get('pizzaSearch','PizzaController@pizzaSearch')->name('admin#pizzaSearch');
     Route::get('pizzaDelete/{id}','PizzaController@pizzaDelete')->name('admin#pizzaDelete');
     Route::get('pizzaEdit/{id}','PizzaController@pizzaEdit')->name('admin#pizzaEdit');
     Route::post('pizzaUpdate/{id}','PizzaController@pizzaUpdate')->name('admin#pizzaUpdate');
     Route::get('pizzaDetail/{id}','PizzaController@pizzaDetail')->name('admin#pizzaDetail');
 
+    //admin->user
+    Route::get('userList','UserController@userList')->name('admin#userList');
+    Route::get('adminList','UserController@adminList')->name('admin#adminList');
+    Route::get('userList/search','UserCOntroller@userListSearch')->name('admin#userListSearch');
+    Route::get('adminList/Search','UserController@adminListSearch')->name('admin#adminListSearch');
+    Route::get('userDelete/{id}','UserController@userDelete')->name('admin#userDelete');
+
+    // admin->messages
+    Route::get('userMessage','UserMessageController@index')->name('admin#message');
+    Route::get('userMessageId/{id}','UserMessageController@messageId')->name('admin#userMessageId');
+    Route::get('messageSearch','UserMessageController@messageSearch')->name('admin#messageSearch');
 
 
 
-
-    Route::get('user','AdminController@user')->name('admin#user');
     Route::get('order','AdminController@order')->name('admin#order');
     Route::get('carrier','AdminController@carrier')->name('admin#carrier');
 
 });
 
+
+//customer Users
 Route::group(['prefix'=>'user'],function(){
-    Route::get('/','UserController@index')->name('user#index');
+    Route::get('/home','UserController@index')->name('user#index');
+    Route::post('sendMessage','UserController@sendMessage')->name('user#sendMessage');
+    Route::get('pizzaDetail/{id}','UserController@pizzaDetails')->name('user#pizzaDetails');
+    Route::get('chooseByCatName/{id}','UserController@chooseByCatName')->name('user#chooseByCatName');
+    Route::post('/home','UserController@searchByPrice')->name('user#searchByPrice');
+    Route::post('/home/date','UserController@searchByDate')->name('user#searchByDate');
+    //I solved same post method and same route error By using Laravel HTTP redirect method from Laravel Documents. 6:25pm july31/22
+    
+    // cart
+    Route::post('addToCart/{id}','UserController@addToCart')->name('user#addToCart');
+    Route::get('orderList','UserController@orderList')->name('user#orderList');
+    Route::post('quantityUpdate/{id}', 'UserController@quantityUpdate')->name('user#quantityUpdate');
+    Route::get('deleteOrderItem/{id}','UserController@deleteOrderItem')->name('user#deleteOrderItem');
+    Route::get('checkout','UserController@checkout')->name('user#checkout');
+    Route::get('clearCart','UserController@clearCart')->name('user#cartClear');
 });

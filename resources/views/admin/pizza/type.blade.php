@@ -32,7 +32,7 @@
                 <h3 class="card-title">Pizza Table</h3>
                 <div class="">
 
-                  <form action="{{route('admin#pizzaSearch')}}" method="POST">
+                  <form action="{{route('admin#pizzaSearch')}}" method="">
                     @csrf
                     <div class="input-group input-group-sm" style="">
                       <input type="text" name="search" class="form-control" placeholder="Search">
@@ -44,7 +44,10 @@
                       </div>
                     </div>
                   </form>
+                  
+
                 </div>
+                <span><a class="btn btn-sm btn-success">Total Pizzas: {{$pizzaData->total()}}</a></span>
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">

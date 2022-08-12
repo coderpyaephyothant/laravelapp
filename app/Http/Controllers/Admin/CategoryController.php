@@ -4,9 +4,12 @@ namespace app\Http\Controllers\Admin;
 
 
 use App\Models\User;
+use App\Models\pizza;
 use App\Models\category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
@@ -16,19 +19,18 @@ class CategoryController extends Controller
     // }
 
 
-    //profile
-    public function profile(){
-        $userID = auth()->user()->id; //2
-        $ID =User::where('id',$userID)->first();
-        // dd($userID);
-        // dd($ID->toArray());        
-        return view('admin.profile.index')->with(['userID' => $ID]);
-    }
+   
 
 
     //category
     public function category(){
-        $data = category::orderBy('category_id','desc')->paginate(2); 
+        $data = category::select('categories.*',DB::raw('COUNT(pizzas.category_id) as count'))
+                    ->leftjoin('pizzas','pizzas.category_id','categories.category_id')
+                    ->groupBy('categories.category_id')
+                    ->orderBy('categories.category_id','desc')
+        ->paginate(2); 
+        // dd($data->toArray());
+
         return view('admin.category.list')->with(['categoriesData'=> $data] );
     }
 
@@ -91,12 +93,51 @@ class CategoryController extends Controller
 
     // searchCategory
     public function searchCategory(Request $request){
+        // dd($request->search);
         $searchData = $request->search;
-        $data = Category::where('category_name','like','%'.$searchData.'%')->paginate(2);
-        return view('admin.category.list')->with(['categoriesData'=> $data]);
+        // if ($request->search == null) {
+        //   return redirect()->route('admin#category');
+        // }
+
+        $data = category::select('categories.*',DB::raw('COUNT(pizzas.category_id)as count') )
+                ->leftjoin('pizzas','pizzas.category_id','categories.category_id')
+                ->groupBy('categories.category_id')
+                ->where('category_name','like','%'.$searchData.'%')
+                ->get();
+                dd($data->toArray());
+                // ->paginate(2);
+                // return view('admin.category.list')->with(['categoriesData'=> $data]); 
     }
 
+    //Category Itemn
+    public function categoryItem($id, Request $request){
+        // dd($id);
+       $data = pizza::select('*')
+       ->where('pizzas.category_id',$id)
+       ->join('categories','categories.category_id','pizzas.category_id')
+       ->paginate(2);
+    //    dd($data->toArray()['pizza_name']);
+
+       return view('admin.category.categoryItem')->with(['pizzaData' => $data]);
+    }
    
+    //Category Item Search 
+    public function categoryItemSearch(Request $request){
+        
+        dd($request->all());
+    }
+
+    // Category Item Delete
+    public function categoryItemDelete($id){
+        $pizzaImage = pizza::select('image')->where('pizza_id',$id)->first();  
+        $pizzaImageName = $pizzaImage['image'];
+            // dd($pizzaImage);
+        if(File::exists(public_path().'/uploadedImages/'.$pizzaImageName)){
+            File::delete(public_path().'/uploadedImages/'.$pizzaImageName);
+        }
+        pizza::where('pizza_id',$id)->delete();
+        return back()->with(['successDelete'=> 'Successfully Deleted!']);       
+    }
 
     //user
     public function user(){

@@ -15,6 +15,7 @@ class PizzaController extends Controller
      //pizza type
      public function pizza(){
         $pizzaData = pizza::orderBy('pizza_id','desc')->paginate(2);
+        
         // dd(count($pizzaData));
         if(count($pizzaData) == 0){
             $fileNumber = 0;
@@ -83,6 +84,7 @@ class PizzaController extends Controller
     public function pizzaSearch(Request $request){
         $searchData = $request->search;
         $data = pizza::where('pizza_name','like','%'.$searchData.'%')->paginate(2);
+        $data->appends($request->all());
         if(count($data) == 0){
             $fileNumber = 0;
         }else{
@@ -93,8 +95,11 @@ class PizzaController extends Controller
     
     //pizza Delete
     public function pizzaDelete($id){
-        $folderImage = pizza::select('image')->where('pizza_id',$id)->first();
+        
+        $folderImage = pizza::select('image')->where('pizza_id',$id)->first();  
+        
         $folderImageName = $folderImage['image'];
+            // dd($folderImage);
         if(File::exists(public_path().'/uploadedImages/'.$folderImageName)){
             File::delete(public_path().'/uploadedImages/'.$folderImageName);
         }
@@ -196,7 +201,7 @@ class PizzaController extends Controller
         return redirect()->route('admin#pizza')->with(['updated'=>'successfully updated!']);
         }      
     }
-
+    //pizza details
     public function pizzaDetail($id){
         $data= pizza::where('pizza_id',$id)->first();
         $categoryData = category::get();
