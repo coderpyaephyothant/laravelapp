@@ -109,7 +109,7 @@
               @csrf
               <div class="nav-link">
                 <i class="fas fa-sign-out-alt"></i>
-                <input type="submit" value="Logout" class="btn btn-sm btn-dark">
+                <p><input type="submit" value="Logout" class="btn btn-sm btn-dark"></p>
               </div>
           </form>
           </li>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {   
@@ -34,7 +35,27 @@ class UserController extends Controller
                         return $searchData;
     }
 
-  
+    //add Users / Customers
+
+    public function addUsers(){
+        return view('admin.user.addUsers')
+        ;
+    }
+
+    // create users / Customers
+    public function createUsers(Request $request){
+    //    dd($request->all());
+    $data = [
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => Hash::make($request->password),
+        'phone'=>$request->phone,
+        'address' => $request->address,
+
+    ];
+    User::create($data);
+    return back();
+    }
 
     //AdminList
     public function adminList(){

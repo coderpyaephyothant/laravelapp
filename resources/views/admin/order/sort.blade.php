@@ -10,18 +10,23 @@
         <div class="row mt-4">
           <div class="col-12">
             <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">Order Table</h3>
+              <div class="card-header bg-success">
+                <p class="card-title">Order Table</p>
 
-                <div class="card-tools">
+                <div class="card-tools mt-2">
                   <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-                    <div class="input-group-append">
-                      <button type="submit" class="btn btn-default">
-                        <i class="fas fa-search"></i>
-                      </button>
-                    </div>
+                    <form action="{{route('admin#orderSearch')}}" method="">
+                      @csrf
+                      <div class="input-group input-group-sm" style="">
+                        <input type="text" name="search" class="form-control" placeholder="Search">
+    
+                        <div class="input-group-append">
+                          <button type="submit" class="btn btn-white">
+                            <i class="fas fa-search text-white"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </form>
                   </div>
                 </div>
               </div>
@@ -32,44 +37,38 @@
                     <tr>
                       <th>Order ID</th>
                       <th>Customer Name</th>
-                      <th>Pizza Name</th>
-                      <th>Carrier Name</th>
-                      <th>Payment With</th>
-                      <th>Order Time</th>
+                      <th>Total Quatntity</th>
+                      <th>Total Price</th>
+                      <th>Order Date</th>
                       <th></th>
+
                     </tr>
                   </thead>
                   <tbody>
+                    @foreach ($saleOrders as $item)
                     <tr>
-                      <td>1</td>
-                      <td>Sithu</td>
-                      <td>Seafood Pizza</td>
-                      <td>Mg Kyaw Kyaw</td>
-                      <td>Card</td>
-                      <td>2/2/2021</td>
+                      <td>{{$item->saleId}}</td>
+                      <td>{{$item->name}}</td>
+                      <td>{{$item->total_quantity}}</td>
+                      <td>{{$item->total_price}}</td>
+                      <td>{{date('d-m-Y',strtotime($item->created_at))}}</td>
+
                       <td>
-                        <button class="btn btn-sm bg-dark text-white"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-sm bg-danger text-white"><i class="fas fa-trash-alt"></i></button>
+                        <form action="{{route('admin#orderDetails',$item->saleId)}}" method="post">
+                          @csrf
+                        <button class="btn btn-sm btn-warning">More Details</button>
+
+                        </form>
                       </td>
                     </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>Tun Tun</td>
-                      <td>Seafood Pizza</td>
-                      <td>Mg Kyaw Kyaw</td>
-                      <td>Card</td>
-                      <td>2/2/2021</td>
-                      <td>
-                        <button class="btn btn-sm bg-dark text-white"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-sm bg-danger text-white"><i class="fas fa-trash-alt"></i></button>
-                      </td>
-                    </tr>
+                    @endforeach
                   </tbody>
                 </table>
               </div>
               <!-- /.card-body -->
             </div>
             <!-- /.card -->
+            {{$saleOrders->links()}}
           </div>
         </div>
 

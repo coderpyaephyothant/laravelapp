@@ -84,6 +84,7 @@ class PizzaController extends Controller
     public function pizzaSearch(Request $request){
         $searchData = $request->search;
         $data = pizza::where('pizza_name','like','%'.$searchData.'%')->paginate(2);
+        dd($request->all());
         $data->appends($request->all());
         if(count($data) == 0){
             $fileNumber = 0;

@@ -108,6 +108,8 @@
             </div>
 
       <!-- pizzas and menus end -->
+      
+
 
        <!-- Lists start -->
 <div class="container-fluid">
@@ -144,7 +146,9 @@
                 <p class="text-danger"><b>No  Datas to show here. . . .</b></p>
                     
                 @endif
+                
           @foreach ($pizzas as $item)
+          @if ($item->publish_status > 0  && $item->quantity > 0 )
 
           <div class="card mt-5 shadow-sm" style="width: 15rem; height: 30rem;">
             <div class=" overflow-hidden" style="height: 10rem;">
@@ -152,20 +156,29 @@
             </div>
 
             <div class="text-center card-bg bg-success pB " style="height:20rem">
-              <a href="{{route('user#pizzaDetails',$item->pizza_id)}}" class="text-decoration-none text-warning">
+              <a href="{{route('user#pizzaDetails',$item->pizza_id)}}" class="text-decoration-none itemText">
               <div class="card-text mt-1"><b>{{$item->pizza_name}}</b></div>
               </a>
               
               <small>{{$item->description}}</small><br>
               <small>{{$item->price}} Kyat</small><br>
-              <form action="{{route('user#addToCart',$item->pizza_id)}}" method="post">
-                @csrf
-                <button class="btn btn-success btn-sm pBtn"><i class="fas fa-cart-shopping text-white"></i>Add to cart</button>
+              <div class="d-flex align-items-center justify-content-around pBtn  w-100">
+                <a href="{{route('user#pizzaDetails',$item->pizza_id)}}"> 
+                <button class="btn  btn-sm mainBtn">More details</button>
+                   </a>
+                <form action="{{route('user#addToCart',$item->pizza_id)}}" method="post">
+                  @csrf
+                  <button type="submit" class="btn  btn-sm mainBtn"><i class="fas fa-cart-shopping "></i>Add to cart</button>
+                
+                </form>
+              </div>
               
-              </form>
 
             </div>
           </div>
+              
+          @endif
+
           @endforeach
 
           </div>

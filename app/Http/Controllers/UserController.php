@@ -20,8 +20,12 @@ class UserController extends Controller
         $totalQty = Session::get('cart');
         
        $pizzaData =  pizza::get();
+       
        $categoryData = category::get();
-    //    dd($pizzaData->all());
+       $public = $pizzaData->toArray();
+        $count = count($public);
+        
+        
     if(count($pizzaData) == 0){
         $Number = 0;
     }else{
@@ -238,7 +242,7 @@ class UserController extends Controller
         // $itemsInThe = Session::get('cart');
         // $cart = new Cart($itemsInThe);
         $items = session()->forget('cart');
-        return back();
+        return redirect()->route('user#index');
         }
         
       

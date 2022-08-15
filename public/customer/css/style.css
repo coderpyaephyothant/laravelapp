@@ -44,7 +44,7 @@ body{
     width: 50px;
     border-radius: 50%; /* Rounded corners */
     font-size: 25px; /* Increase font size */
-    transition: 0.4s;
+    transition: 1s;
   }
   
   #myBtn:hover {
@@ -69,9 +69,7 @@ body{
 
   .pBtn{
     position: absolute;
-    bottom: 0px;
-    left: 0;
-    right: 0;
+    bottom: 10px;
 
   }
 
@@ -89,4 +87,27 @@ body{
   /* input box qty input */
   .orderQtyInput{
     width:50px;
+  }
+
+  /* btn for home pizzas */
+
+  .mainBtn{
+    background-color: #F0BE0D; 
+    color: #3B3939; 
+    transition: 1s;
+  }
+
+  .mainBtn:hover {
+    background-color: #fff; /* Add a dark-grey background on hover */
+    color: green;
+    transition: 0.5s;
+  }
+
+  .itemText{
+    color: #F0BE0D;
+    transition: 0.5s;
+  }
+
+  .itemText:hover {
+    color: #EFEAE7;
   }

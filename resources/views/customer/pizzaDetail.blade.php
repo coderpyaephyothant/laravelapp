@@ -3,9 +3,11 @@
     <!--================Single Product Area =================-->
 	<div class="">
 		<div class="container  mybody">
-			<a href="{{route('user#index')}}" class="btn btn-sm btn-danger mt-3"><i class="fas fa-arrow-left "></i> Back</a>
 
-			<div class=" row py-3 d-flex align-items-center justify-content-center flex-wrap">
+			<div class="row">
+				<div class="col-12">
+			<a href="{{route('user#index')}}" class="btn btn-sm btn-danger mt-3"><i class="fas fa-arrow-left "></i> Back</a>
+			<div class="  py-3 d-flex align-items-center justify-content-center flex-wrap">
 				@foreach ($data as $item)
 				<div class="col-lg-6 ">
 					<div class="">
@@ -24,7 +26,7 @@
 						@csrf
 					<div class=" d-flex align-items-center justify-content-start ">
 						<input type="number" name="quantity" class="form-control me-3" style="width:100px;" value="1">
-					<button type="submit" class="btn btn-sm btn-warning">Add to Cart</button>	
+					<button type="submit" class="btn btn-sm mainBtn">Add to Cart</button>	
 					</div>			
 					</form>
 					 <hr>
@@ -34,6 +36,10 @@
 									</div>
 										@endforeach										
 									</div>
+				</div>
+
+				
+			</div>
 								</div>
 							</div>
 	<!--================End Single Product Area =================-->

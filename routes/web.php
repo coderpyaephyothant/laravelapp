@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\Admin\PizzaController;
-use App\Http\Controllers\Admin\UserMessageController;
-use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\Admin\PizzaController;
+use App\Http\Controllers\Admin\UserMessageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,6 +76,9 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Admin'],function(){
     Route::get('userList/search','UserCOntroller@userListSearch')->name('admin#userListSearch');
     Route::get('adminList/Search','UserController@adminListSearch')->name('admin#adminListSearch');
     Route::get('userDelete/{id}','UserController@userDelete')->name('admin#userDelete');
+    Route::get('addUsers','UserController@addUsers')->name('admin#addUsers');
+    Route::post('addUsers','UserController@createUsers')->name('admin#createUsers');
+
 
     // admin->messages
     Route::get('userMessage','UserMessageController@index')->name('admin#message');
@@ -82,8 +86,15 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Admin'],function(){
     Route::get('messageSearch','UserMessageController@messageSearch')->name('admin#messageSearch');
 
 
+    //admin->order
+    Route::get('order','OrderController@order')->name('admin#order');
+    Route::post('order/{id}','OrderController@orderDetails')->name('admin#orderDetails');
+    Route::get('order/search','OrderController@orderSearch')->name('admin#orderSearch');
 
-    Route::get('order','AdminController@order')->name('admin#order');
+
+
+
+
     Route::get('carrier','AdminController@carrier')->name('admin#carrier');
 
 });

@@ -14,8 +14,11 @@
               </div>
               @endif
         <div class="row mt-4">
+          <div class="mt-2">
+            <a href="{{route('admin#addUsers')}}"><button class="btn btn-sm btn-warning"> <i class="fas fa-plus"></i> Create Users</button></a>
+              </div>
           <div class="col-12">
-            
+              
             <div class="card mt-3">
               
               <div class="card-header bg-success">
