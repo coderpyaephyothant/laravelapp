@@ -4,12 +4,14 @@
 <div class="content-wrapper">
     <section class="content">
       <div class="container-fluid">
-        <div class="row mt-4">
-          <div class="col-12  mt-3">
-            <div class="col-md-12">
+        <div class="row ">
+          
+          <div class="col-10 offset-1  mt-3">
+            <a href="{{route('admin#pizza')}}" class="btn btn-danger mb-2 btn-sm">Back</a>
+            <div class="">
               <div class="card">
-                <div class="bg-success p-1">
-                  <h5 class="text-center text-white">Edit Pizzas Details Now...&nbsp;<i class="fas fa-pizza-slice"></i></h5>
+                <div class="bg-success p-2">
+                  <p class="text-center text-white">Edit Pizzas Details Now...&nbsp;<i class="fas fa-pizza-slice"></i></p>
                 </div>
                 <div class="card-body">
                   <div class="tab-content">
@@ -29,7 +31,7 @@
                             <label for="image" class="col-sm-2 col-form-label"> Image</label>
                             <div class="col-sm-10">
                                 <img src="{{asset('uploadedImages/'.$data->image)}}" alt="" width="200px"> <br>
-                                <p for="">{{$data->image}}</p>
+                                {{-- <p for="">{{$data->image}}</p> --}}
                                 <p for="image" class="text-success">you can choose new image to update...</p>
                               <input type="file" class="form-control" name="image" >
                               @if ($errors->has('image'))
@@ -74,13 +76,22 @@
                                 </div>
                               </div>
                               <div class="form-group row">
-                                <label for="discount" class="col-sm-2 col-form-label">Discount Price</label>
+                                <label for="discount" class="col-sm-2 col-form-label">Discount Percentage (%)</label>
                                 <div class="col-sm-10">
-                                  <input type="text" class="form-control" placeholder="discount"  name="discount" value="{{old('discount',$data->discount_price)}}">
-                                  @if ($errors->has('discount'))
-                                      <p class="text-danger">{{$errors->first('discount')}}</p>
+                                  <input type="text" class="form-control" placeholder="discount percentage"  name="discount_percentage" value="{{old('discount_percentage',$data->discount_percentage)}}">
+                                  @if ($errors->has('discount_percentage'))
+                                      <p class="text-danger">{{$errors->first('discount_percentage')}}</p>
                                   @endif
                                 </div>
+                              </div>
+                                <div class="form-group row">
+                                  <label for="discount" class="col-sm-2 col-form-label">Discount Price </label>
+                                  <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="discount"  name="discount" value="{{old('discount',$data->discount_price)}}">
+                                    @if ($errors->has('discount'))
+                                        <p class="text-danger">{{$errors->first('discount')}}</p>
+                                    @endif
+                                  </div>
                               </div>
                               <div class="form-group row">
                                 <label for="category" class="col-sm-2 col-form-label">Category</label>
@@ -128,8 +139,8 @@
                                   @endif
                                 </div>
                               </div>
-                        <a href="{{route('admin#pizza')}}" class="btn btn-success">Back</a>
-                        <input type="submit" value="Update" class="btn btn-danger">
+                        
+                        <div class="d-flex align-items-center justify-content-center"><input type="submit" value="Update" class="btn btn-warning"></div>
                       </form>
                       
                     </div>

@@ -121,8 +121,8 @@ class PizzaController extends Controller
 
     //pizza update
     public function pizzaUpdate($id,Request $request){
-        // dd($request->toArray());
        
+    //    dd($request->toArray());
         
        
         if(!empty($request->image)){
@@ -130,6 +130,7 @@ class PizzaController extends Controller
                 'name' => 'required',
                 'price' => 'required',
                 'ps' => 'required',
+                'discount_percentage' => 'required',
                 'discount' => 'required',
                 'category' => 'required',
                 'bg' => 'required',
@@ -143,6 +144,7 @@ class PizzaController extends Controller
                             ->withErrors($validator)
                             ->withInput();
             }
+
             $file = $request->file('image');
             $uniqueId = uniqid();
             $name = $uniqueId.'_Adminthant_'. $file->getClientOriginalName();
@@ -151,6 +153,7 @@ class PizzaController extends Controller
                 'pizza_name' => $request->name,
                 'image' => $name,
                 'price' => $request->price,
+                'discount_percentage' => $request->discount_percentage,
                 'publish_status' => $request->ps,
                 'discount_price' => $request->discount,
                 'category_id' => $request->category,
@@ -171,6 +174,7 @@ class PizzaController extends Controller
                 'name' => 'required',
                 'price' => 'required',
                 'ps' => 'required',
+                'discount_percentage' => 'required',
                 'discount' => 'required',
                 'category' => 'required',
                 'bg' => 'required',
@@ -188,6 +192,7 @@ class PizzaController extends Controller
                 'pizza_name' => $request->name,
                 'price' => $request->price,
                 'publish_status' => $request->ps,
+                'discount_percentage' => $request->discount_percentage,
                 'discount_price' => $request->discount,
                 'category_id' => $request->category,
                 'buy_one_get_one' => $request->bg,

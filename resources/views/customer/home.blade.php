@@ -150,18 +150,31 @@
           @foreach ($pizzas as $item)
           @if ($item->publish_status > 0  && $item->quantity > 0 )
 
-          <div class="card mt-5 shadow-sm" style="width: 15rem; height: 30rem;">
+          <div class="card mt-5 shadow-sm pB " style="width: 15rem; height: 25rem;">
             <div class=" overflow-hidden" style="height: 10rem;">
             <img src="{{asset('uploadedImages/'.$item->image)}}" class="card-img-top img-fluid pImg" alt="Sunset Over the Sea" style="object-fit:cover;height: 100% !important;"/>
             </div>
 
-            <div class="text-center card-bg bg-success pB " style="height:20rem">
-              <a href="{{route('user#pizzaDetails',$item->pizza_id)}}" class="text-decoration-none itemText">
-              <div class="card-text mt-1"><b>{{$item->pizza_name}}</b></div>
-              </a>
-              
-              <small>{{$item->description}}</small><br>
-              <small>{{$item->price}} Kyat</small><br>
+            <div class="card-bg bg-success " style="height:20rem">
+              @if ($item->discount_price > 0)
+              <div style="width:40%;position: absolute; top:0px;margin-radius:5px;" class="text-white  bg-danger d-flex align-items-center justify-content-center">
+                <small>promotion</small>
+                </div>
+              @endif
+              <div class="text-center ">
+                <a href="{{route('user#pizzaDetails',$item->pizza_id)}}" class="text-decoration-none itemText">
+                  <div class="card-text mt-1"><b>{{$item->pizza_name}}</b></div>
+                  </a>
+              </div>
+              <div class="w-100  p-2">
+                <small style="text-align:center !important;">{{substr($item->description,0,150).'...'}}</small>
+              </div>
+              <div class="d-flex p-2  align-items-center  justify-content-start  w-100 pBtn2">
+                <div>
+                  <div class="text-warning">{{$item->price - $item->discount_price}} Ks</div>
+                <small class="text-decoration-line-through">{{$item->price}} Ks</small>
+                </div>
+              </div>
               <div class="d-flex align-items-center justify-content-around pBtn  w-100">
                 <a href="{{route('user#pizzaDetails',$item->pizza_id)}}"> 
                 <button class="btn  btn-sm mainBtn">More details</button>

@@ -13,15 +13,14 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
               </div>
               @endif
-        <div class="row mt-4">
-          <div class="mt-2">
-            <a href="{{route('admin#addUsers')}}"><button class="btn btn-sm btn-warning"> <i class="fas fa-plus"></i> Create Users</button></a>
-              </div>
+        <div class="row ">
+
           <div class="col-12">
               
             <div class="card mt-3">
               
               <div class="card-header bg-success">
+                <a href="{{route('admin#addUsers')}}"><button class="btn btn-sm btn-danger"> <i class="fas fa-plus"></i> </button></a>
                 <a href="{{route('admin#userList')}}"><button class="btn btn-sm btn-success text-decoration-underline">Customers</button></a>
                 <a href="{{route('admin#adminList')}}"><button class="btn btn-sm btn-white">Admin</button></a>
                 <div class="card-tools mt-1">

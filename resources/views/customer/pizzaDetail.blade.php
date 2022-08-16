@@ -15,12 +15,13 @@
 					</div>
 			</div>
 			<div class="col-lg-5 offset-lg-1 mt-1">					
-					<h3 class=""> {{$item->pizza_name}} </h3> <p class="text-primary" style="">Normal Price : ({{$item->price}} Kyat)</p><hr>
+					<h3 class=""> {{$item->pizza_name}} </h3>
+					<h3 class="text-danger"><b>{{$item->price - $item->discount_price}} Ks</b></h3>
+					<p class="text-primary text-decoration-line-through" style=""> ({{$item->price}} Ks)</p><hr>
 					{{-- <p>Category : <span class="text-primary">{{$item->category_name}}</span> </p> <hr> --}}
-					<p class="text-primary">Discount Price : {{$item->discount_price}} Kyat </p> <hr>
+					<h2 class="text-danger"> <b>{{$item->discount_percentage}} % OFF</b> </h2> <hr>
 					<p class="" style="text-align: justify">{{$item->description}}</p>
 						<hr>
-					<p class="text-danger"  name="price"> Now : <b>{{$item->price - $item->discount_price}}</b> Kyat</p> <hr> 
 					<!-- Add to cart -->
 					<form action="{{route('user#addToCart',$item->pizza_id)}}" method="post">
 						@csrf

@@ -73,6 +73,11 @@ body{
 
   }
 
+  .pBtn2{
+    position: absolute;
+    bottom: 40px;
+  }
+
   .mybody {
  height: 100vh !important;
 

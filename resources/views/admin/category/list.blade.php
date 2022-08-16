@@ -24,12 +24,12 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-        <div class="row mt-3 col-12">
+        <div class="row  col-12">
           <div class="">
             <div class="card mt-3">
               <div class="card-header bg-success">
                 <h3 class="card-title">
-                  <a href="{{route('admin#addCategory')}}"><button class="btn btn-sm btn-danger">Add Category</button></a>
+                  <a href="{{route('admin#addCategory')}}"><button class="btn btn-sm btn-danger"><i class="fa fa-plus"></i></button></a>
                   <a class="btn btn-sm btn-success">Total Categories: {{$categoriesData->total()}}</a>
                   
                 </h3>

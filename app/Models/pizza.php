@@ -13,6 +13,7 @@ class pizza extends Model
         'pizza_name',
         'image',
         'price',
+        'discount_percentage',
         'publish_status',
         'discount_price',
         'category_id',

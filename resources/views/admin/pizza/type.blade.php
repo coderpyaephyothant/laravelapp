@@ -59,7 +59,7 @@
                       <th>Image</th>
                       <th>Price</th>
                       <th>Publish Status</th>
-                      <th>Buy 1 Get 1 Status</th>
+                      <th>Discount Percentage</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -90,11 +90,12 @@
                           Unpublish      
                           @endif
                           </td>
-                      <td> @if ($item->buy_one_get_one == 1)
+                      {{-- <td> @if ($item->buy_one_get_one == 1)
                         Yes
                         @elseif ($item->buy_one_get_one == 0) 
                         Not Now      
-                        @endif</td>
+                        @endif</td> --}}
+                        <td>{{$item->discount_percentage}}</td>
                       <td>
                         <a class="text-decoration-none text-success" href="{{route('admin#pizzaEdit',$item->pizza_id)}}">Edit</a> &nbsp;
                         <a class="text-decoration-none text-danger" onclick="return confirm('Are you sure?')" href="{{route('admin#pizzaDelete',$item->pizza_id)}}">Delete</a> &nbsp;
