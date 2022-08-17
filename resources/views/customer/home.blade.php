@@ -171,8 +171,12 @@
               </div>
               <div class="d-flex p-2  align-items-center  justify-content-start  w-100 pBtn2">
                 <div>
+                  @if ($item->discount_price > 0 )
                   <div class="text-warning">{{$item->price - $item->discount_price}} Ks</div>
-                <small class="text-decoration-line-through">{{$item->price}} Ks</small>
+                  @endif
+                <small class="@if ($item->discount_price > 0)
+                text-decoration-line-through
+                @endif">{{$item->price}} Ks</small>
                 </div>
               </div>
               <div class="d-flex align-items-center justify-content-around pBtn  w-100">

@@ -88,8 +88,9 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Admin'],function(){
 
     //admin->order
     Route::get('order','OrderController@order')->name('admin#order');
-    Route::post('order/{id}','OrderController@orderDetails')->name('admin#orderDetails');
     Route::get('order/search','OrderController@orderSearch')->name('admin#orderSearch');
+    Route::get('orderDetal/{id}','OrderController@orderDetail')->name('admin#orderDetail');
+
 
 
 

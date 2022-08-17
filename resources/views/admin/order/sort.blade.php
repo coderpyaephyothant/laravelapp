@@ -45,6 +45,11 @@
                     </tr>
                   </thead>
                   <tbody>
+                    @if ($number == 0)
+                    <tr ><td colspan="6">
+                      <p class="text-danger">No  datas to show here. . . .</p>
+                      </td></tr>
+                  @else
                     @foreach ($saleOrders as $item)
                     <tr>
                       <td>{{$item->saleId}}</td>
@@ -54,14 +59,15 @@
                       <td>{{date('d-m-Y',strtotime($item->created_at))}}</td>
 
                       <td>
-                        <form action="{{route('admin#orderDetails',$item->saleId)}}" method="post">
-                          @csrf
-                        <button class="btn btn-sm btn-warning">More Details</button>
 
-                        </form>
+                          <a href="{{route('admin#orderDetail',$item->saleId)}}">
+                        <button class="btn btn-sm btn-link">More Details</button>
+                             
+                          </a>
                       </td>
                     </tr>
                     @endforeach
+                    @endif
                   </tbody>
                 </table>
               </div>
