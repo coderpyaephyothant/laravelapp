@@ -85,11 +85,11 @@
                                 </div>
                               </div>
                                 <div class="form-group row">
-                                  <label for="discount" class="col-sm-2 col-form-label">Discount Price </label>
+                                  <label for="quantity" class="col-sm-2 col-form-label">Quantity </label>
                                   <div class="col-sm-10">
-                                    <input type="text" class="form-control" placeholder="discount"  name="discount" value="{{old('discount',$data->discount_price)}}">
-                                    @if ($errors->has('discount'))
-                                        <p class="text-danger">{{$errors->first('discount')}}</p>
+                                    <input type="text" class="form-control" placeholder="quantity"  name="quantity" value="{{old('quantity',$data->quantity)}}">
+                                    @if ($errors->has('quantity'))
+                                        <p class="text-danger">{{$errors->first('quantity')}}</p>
                                     @endif
                                   </div>
                               </div>

@@ -21,33 +21,43 @@
   </div>
   @endif
 
+
+
+  
+
+
+
+
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
         <div class="row ">
-          <div class="col-12 mt-3">
-            <div class="card">
-              <div class="card-header d-flex justify-content-between align-items-center bg-success ">
-                <div class=""><a href="{{route('admin#pizzaCreate')}}"><button class="btn btn-danger btn-sm"><i class="fa fa-plus"></i></button></a></div>
-                <h3 class="card-title">Pizza Table</h3>
-                <div class="">
-
-                  <form action="{{route('admin#pizzaSearch')}}" method="">
-                    @csrf
-                    <div class="input-group input-group-sm" style="">
-                      <input type="text" name="search" class="form-control" placeholder="Search">
-  
-                      <div class="input-group-append">
-                        <button type="submit" class="btn btn-white">
-                          <i class="fas fa-search text-white"></i>
-                        </button>
+          <div class="col-12 ">
+            <div class="card mt-3">
+              <div class="bg-success d-flex align-items-center flex-wrap justify-content-around p-3">
+                <a class="me-3" href="{{route('admin#pizzaCreate')}}"><button class="btn btn-danger btn-sm"><i class="fa fa-plus"></i></button></a>
+                <a class=" text-decoration-none me-3 text-white">Pizza Table</a>
+                  <div class="">
+                    <a class="btn btn-sm btn-success">Total: {{$pizzaData->total()}}</a>
+                    <a class=" text-decoration-none btn btn-sm btn-success" href="">csv download <i class="fas fa-download"></i></a>
+                  </div>
+                  <div class="mt-1">
+                    <form action="{{route('admin#pizzaSearch')}}" method="">
+                      @csrf
+                      <div class="input-group input-group-sm" style="">
+                        <input type="text" name="search" class="form-control" placeholder="Search">
+    
+                        <div class="input-group-append">
+                          <button type="submit" class="btn btn-white">
+                            <i class="fas fa-search text-white"></i>
+                          </button>
+                        </div>
                       </div>
-                    </div>
-                  </form>
+                    </form>
+                  </div>
                   
 
-                </div>
-                <span><a class="btn btn-sm btn-success">Total Pizzas: {{$pizzaData->total()}}</a></span>
+
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
@@ -58,8 +68,8 @@
                       <th>Pizza Name</th>
                       <th>Image</th>
                       <th>Price</th>
-                      <th>Publish Status</th>
-                      <th>Discount Percentage</th>
+                      <th>Discount (Ks)</th>
+                      {{-- <th>Discount (%)</th> --}}
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -84,18 +94,19 @@
                       </td>
                       <td>{{$item->price}}</td>
                       <td>
-                          @if ($item->publish_status == 1)
+                        {{$item->discount_price}}
+                          {{-- @if ($item->publish_status == 1)
                           Publish
                           @elseif ($item->publish_status == 0) 
                           Unpublish      
-                          @endif
+                          @endif --}}
                           </td>
                       {{-- <td> @if ($item->buy_one_get_one == 1)
                         Yes
                         @elseif ($item->buy_one_get_one == 0) 
                         Not Now      
                         @endif</td> --}}
-                        <td>{{$item->discount_percentage}}</td>
+                        {{-- <td>{{$item->discount_percentage}}</td> --}}
                       <td>
                         <a class="text-decoration-none text-success" href="{{route('admin#pizzaEdit',$item->pizza_id)}}">Edit</a> &nbsp;
                         <a class="text-decoration-none text-danger" onclick="return confirm('Are you sure?')" href="{{route('admin#pizzaDelete',$item->pizza_id)}}">Delete</a> &nbsp;

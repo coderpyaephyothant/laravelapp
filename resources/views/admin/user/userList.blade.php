@@ -18,11 +18,23 @@
           <div class="col-12">
               
             <div class="card mt-3">
+
+              <!-- Example single danger button -->
+
               
-              <div class="card-header bg-success">
+              <div class="card-header bg-success p-3">
                 <a href="{{route('admin#addUsers')}}"><button class="btn btn-sm btn-danger"> <i class="fas fa-plus"></i> </button></a>
-                <a href="{{route('admin#userList')}}"><button class="btn btn-sm btn-success text-decoration-underline">Customers</button></a>
-                <a href="{{route('admin#adminList')}}"><button class="btn btn-sm btn-white">Admin</button></a>
+                <div class="btn-group">
+                  <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    Select
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{{route('admin#userList')}}">Customers</a></li>
+                    <li><a class="dropdown-item" href="{{route('admin#adminList')}}">Admins</a></li>
+                  </ul>
+                </div>
+                <a class=" text-decoration-none btn btn-sm btn-success" href="">csv download <i class="fas fa-download"></i></a>
+
                 <div class="card-tools mt-1">
                   <form action="{{route('admin#userListSearch')}}" method="get">
                     @csrf

@@ -27,15 +27,16 @@
         <div class="row  col-12">
           <div class="">
             <div class="card mt-3">
-              <div class="card-header bg-success">
-                <h3 class="card-title">
-                  <a href="{{route('admin#addCategory')}}"><button class="btn btn-sm btn-danger"><i class="fa fa-plus"></i></button></a>
-                  <a class="btn btn-sm btn-success">Total Categories: {{$categoriesData->total()}}</a>
-                  
-                </h3>
+              <div class="bg-success d-flex align-items-center flex-wrap justify-content-around p-3">
+                <a class="me-3" href="{{route('admin#addCategory')}}"><button class="btn btn-sm btn-danger"><i class="fa fa-plus"></i></button></a>
+                  <a class=" text-decoration-none me-3 text-white">Category Table</a>
+                <div class="">
+                  <a class="btn btn-sm btn-success">Total: {{$categoriesData->total()}}</a>
+                  <a class=" text-decoration-none btn btn-sm btn-success" href="">csv download <i class="fas fa-download"></i></a>
+                </div>
                 
-
-                <div class="card-tools mt-1">
+                
+                <div class=" mt-1">
                   <form action="{{route('admin#searchCategory')}}" method="get">
                     @csrf
                     <div class="input-group input-group-sm" style="width: 150px;">
@@ -47,7 +48,7 @@
                         </button>
                       </div>
                     </div>
-                  </form>
+                  </form> 
                 </div>
               </div>
               <!-- /.card-header -->

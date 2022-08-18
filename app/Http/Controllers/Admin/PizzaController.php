@@ -119,19 +119,19 @@ class PizzaController extends Controller
         return view('admin.pizza.edit')->with(['data'=>$data,'categoryData'=>$categoryData]);
     }
 
+
+
     //pizza update
     public function pizzaUpdate($id,Request $request){
-       
+        $discount_price = ($request->price) * ($request->discount_percentage/100);
     //    dd($request->toArray());
-        
-       
         if(!empty($request->image)){
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
                 'price' => 'required',
                 'ps' => 'required',
                 'discount_percentage' => 'required',
-                'discount' => 'required',
+                'quantity' => 'required',
                 'category' => 'required',
                 'bg' => 'required',
                 'wt' => 'required',
@@ -155,7 +155,8 @@ class PizzaController extends Controller
                 'price' => $request->price,
                 'discount_percentage' => $request->discount_percentage,
                 'publish_status' => $request->ps,
-                'discount_price' => $request->discount,
+                'discount_price' =>$discount_price,
+                'quantity' =>$request->quantity,
                 'category_id' => $request->category,
                 'buy_one_get_one' => $request->bg,
                 'waiting_time' => $request->wt,
@@ -164,7 +165,6 @@ class PizzaController extends Controller
                 'updated_at' => Carbon::now(),
             ];
 
-            // dd($data);
             pizza::where('pizza_id',$id)->update($data);
         return redirect()->route('admin#pizza')->with(['updated'=>'successfully updated!']);
 
@@ -175,7 +175,7 @@ class PizzaController extends Controller
                 'price' => 'required',
                 'ps' => 'required',
                 'discount_percentage' => 'required',
-                'discount' => 'required',
+                'quantity' => 'required',
                 'category' => 'required',
                 'bg' => 'required',
                 'wt' => 'required',
@@ -193,7 +193,8 @@ class PizzaController extends Controller
                 'price' => $request->price,
                 'publish_status' => $request->ps,
                 'discount_percentage' => $request->discount_percentage,
-                'discount_price' => $request->discount,
+                'quantity' =>$request->quantity,
+                'discount_price' => $discount_price,
                 'category_id' => $request->category,
                 'buy_one_get_one' => $request->bg,
                 'waiting_time' => $request->wt,
