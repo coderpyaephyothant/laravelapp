@@ -6,8 +6,9 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-            <div class="d-flex bg-success col-12 justify-content-between align-items-center">
+            <div class="d-flex bg-success col-12 justify-content-between align-items-center p-3">
                 <div class=""><p class=" bg-success text-center">Messages</p></div>
+
             <div class="card-tools ">
                 <form action="{{route('admin#messageSearch')}}" method="get">
                   @csrf

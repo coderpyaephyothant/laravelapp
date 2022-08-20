@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
@@ -18,20 +19,95 @@ class CategoryController extends Controller
     //     return view('admin.home');
     // }
 
-
-   
-
+        
+    
 
     //category
     public function category(){
+        if (Session::has('searchData')) {
+            Session::forget('searchData');
+
+        }
         $data = category::select('categories.*',DB::raw('COUNT(pizzas.category_id) as count'))
                     ->leftjoin('pizzas','pizzas.category_id','categories.category_id')
                     ->groupBy('categories.category_id')
                     ->orderBy('categories.category_id','desc')
-        ->paginate(2); 
+        ->paginate(5); 
+       
         // dd($data->toArray());
 
         return view('admin.category.list')->with(['categoriesData'=> $data] );
+    }
+
+    //for search session data that will delete next search button or back to category lit again..
+    // searchCategory
+    public function searchCategory(Request $request){
+        if (Session::has('searchData')) {
+            Session::forget('searchData');
+
+        }
+        // dd($request->search);
+        $searchData = $request->search;
+        // if ($request->search == null) {
+        //   return redirect()->route('admin#category');
+        // }
+        Session::put('searchData',$searchData);
+
+        $data = category::select('categories.*',DB::raw('COUNT(pizzas.category_id)as count') )
+                ->leftjoin('pizzas','pizzas.category_id','categories.category_id')
+                ->groupBy('categories.category_id')
+                ->where('category_name','like','%'.$searchData.'%')
+                ->paginate(5);
+                // dd($data->toArray());
+                // ->paginate(2);
+                return view('admin.category.list')->with(['categoriesData'=> $data]); 
+    }
+
+
+    //categoryDownLoad
+
+    public function categoryDownload(){
+
+        if (Session::has('searchData')) {
+           $searchWord=  Session::get('searchData');
+           $data = category::select('categories.*',DB::raw('COUNT(pizzas.category_id)as count') )
+           ->leftjoin('pizzas','pizzas.category_id','categories.category_id')
+           ->groupBy('categories.category_id')
+           ->where('category_name','like','%'.$searchWord.'%')
+           ->get();
+        //    dd($data->toArray());
+
+        }else{
+            $data = category::select('categories.*',DB::raw('COUNT(pizzas.category_id) as count'))
+            ->leftjoin('pizzas','pizzas.category_id','categories.category_id')
+            ->groupBy('categories.category_id')
+            ->orderBy('categories.category_id','desc')
+            ->get(); 
+        }
+
+        
+            $csvExporter = new \Laracsv\Export();
+                
+            $csvExporter->build($data, [
+                'category_id' => 'Id',
+                'category_name' => 'Category name',
+                'count' => 'Qyantity',
+                'created_at' => 'Created at',
+                'updated_at' => 'Updatede at',
+            ]);
+            
+            $csvReader = $csvExporter->getReader();
+            $csvReader->setOutputBOM(\League\Csv\Reader::BOM_UTF8);
+
+            $filename = 'categoryList19822.csv';
+    
+            return response((string) $csvReader)
+                ->header('Content-Type', 'text/csv; charset=UTF-8')
+                ->header('Content-Disposition', 'attachment; filename="'.$filename.'"');
+
+            
+
+
     }
 
     //addCategory
@@ -91,23 +167,7 @@ class CategoryController extends Controller
         return redirect()->route('admin#category')->with(['updated'=>'new category name is successfully updated']);
     }
 
-    // searchCategory
-    public function searchCategory(Request $request){
-        // dd($request->search);
-        $searchData = $request->search;
-        // if ($request->search == null) {
-        //   return redirect()->route('admin#category');
-        // }
-
-        $data = category::select('categories.*',DB::raw('COUNT(pizzas.category_id)as count') )
-                ->leftjoin('pizzas','pizzas.category_id','categories.category_id')
-                ->groupBy('categories.category_id')
-                ->where('category_name','like','%'.$searchData.'%')
-                ->get();
-                dd($data->toArray());
-                // ->paginate(2);
-                // return view('admin.category.list')->with(['categoriesData'=> $data]); 
-    }
+    
 
     //Category Itemn
     public function categoryItem($id, Request $request){

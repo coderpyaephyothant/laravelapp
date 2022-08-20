@@ -4,7 +4,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OrderController;
+use App\Http\Middleware\AdminCheckMiddleware;
 use App\Http\Controllers\Admin\PizzaController;
+use App\Http\Middleware\CustomerCheckMiddleware;
 use App\Http\Controllers\Admin\UserMessageController;
 
 /*
@@ -39,7 +41,7 @@ Route::middleware([
 });
 
 //admin panel
-Route::group(['prefix'=>'admin', 'namespace'=>'Admin'],function(){
+Route::group(['prefix'=>'admin', 'namespace'=>'Admin','middleware'=>AdminCheckMiddleware::class],function(){
 
     Route::get('profile','AdminController@profile')->name('admin#profile');
     Route::post('profile/{id}','AdminController@profileUpdate')->name('admin#profileUpdate');
@@ -58,6 +60,7 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Admin'],function(){
     Route::get('categoryItem/{id}','CategoryController@categoryItem')->name('admin#categoryItem');
     Route::get('categoryItemsearch','CategoryController@categoryItemSearch')->name('admin#categoryItemSearch');
     Route::get('categoryItemDelete/{id}','CategoryController@categoryItemDelete')->name('admin#categoryItemDelete');
+    Route::get('category/dowmload','CategoryController@categoryDownload')->name('admin#categoryDownload');
 
 
     //admin->pizza
@@ -69,10 +72,13 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Admin'],function(){
     Route::get('pizzaEdit/{id}','PizzaController@pizzaEdit')->name('admin#pizzaEdit');
     Route::post('pizzaUpdate/{id}','PizzaController@pizzaUpdate')->name('admin#pizzaUpdate');
     Route::get('pizzaDetail/{id}','PizzaController@pizzaDetail')->name('admin#pizzaDetail');
+    Route::get('pizza/download', 'PizzaController@pizzaDownload')->name('admin#pizzaDownload');
 
     //admin->user
     Route::get('userList','UserController@userList')->name('admin#userList');
+    Route::get('userList/userListDownload','UserController@userListDownload')->name('admin#userListDownload');
     Route::get('adminList','UserController@adminList')->name('admin#adminList');
+    Route::get('adminList/download','UserController@adminListDownload')->name('admin#adminListDownload');
     Route::get('userList/search','UserCOntroller@userListSearch')->name('admin#userListSearch');
     Route::get('adminList/Search','UserController@adminListSearch')->name('admin#adminListSearch');
     Route::get('userDelete/{id}','UserController@userDelete')->name('admin#userDelete');
@@ -88,6 +94,7 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Admin'],function(){
 
     //admin->order
     Route::get('order','OrderController@order')->name('admin#order');
+    Route::get('order/orderDownload','OrderController@orderDownload')->name('admin#orderDownload');
     Route::get('order/search','OrderController@orderSearch')->name('admin#orderSearch');
     Route::get('orderDetal/{id}','OrderController@orderDetail')->name('admin#orderDetail');
 
@@ -102,7 +109,7 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Admin'],function(){
 
 
 //customer Users
-Route::group(['prefix'=>'user'],function(){
+Route::group(['prefix'=>'user','middleware'=>CustomerCheckMiddleware::class],function(){
     Route::get('/home','UserController@index')->name('user#index');
     Route::post('sendMessage','UserController@sendMessage')->name('user#sendMessage');
     Route::get('pizzaDetail/{id}','UserController@pizzaDetails')->name('user#pizzaDetails');

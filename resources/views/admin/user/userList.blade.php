@@ -33,8 +33,8 @@
                     <li><a class="dropdown-item" href="{{route('admin#adminList')}}">Admins</a></li>
                   </ul>
                 </div>
-                <a class=" text-decoration-none btn btn-sm btn-success" href="">csv download <i class="fas fa-download"></i></a>
-
+                <a class="btn btn-sm btn-success">Total Customer :  {{$userRole->total()}} </a>
+                <a class=" text-decoration-none btn btn-sm btn-success" href="{{route('admin#userListDownload')}}">csv download <i class="fas fa-download"></i></a>
                 <div class="card-tools mt-1">
                   <form action="{{route('admin#userListSearch')}}" method="get">
                     @csrf
@@ -50,7 +50,6 @@
                   </form>
                   
                 </div>
-                <span class="btn btn-sm btn-success">Total Customer :  {{$userRole->total()}} </span>
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">

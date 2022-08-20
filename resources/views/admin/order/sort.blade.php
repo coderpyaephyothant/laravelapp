@@ -10,8 +10,9 @@
         <div class="row mt-4">
           <div class="col-12">
             <div class="card">
-              <div class="card-header bg-success">
-                <p class="card-title">Order Table</p>
+              <div class="card-header bg-success p-3">
+                <a class="text-decoration-none">Order Table</a>
+                <a class=" text-decoration-none btn btn-sm btn-success" href="{{route('admin#orderDownload')}}">csv download <i class="fas fa-download"></i></a>
 
                 <div class="card-tools mt-2">
                   <div class="input-group input-group-sm" style="width: 150px;">

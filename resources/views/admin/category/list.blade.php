@@ -32,7 +32,7 @@
                   <a class=" text-decoration-none me-3 text-white">Category Table</a>
                 <div class="">
                   <a class="btn btn-sm btn-success">Total: {{$categoriesData->total()}}</a>
-                  <a class=" text-decoration-none btn btn-sm btn-success" href="">csv download <i class="fas fa-download"></i></a>
+                  <a class=" text-decoration-none btn btn-sm btn-success" href="{{route('admin#categoryDownload')}}">csv download <i class="fas fa-download"></i></a>
                 </div>
                 
                 

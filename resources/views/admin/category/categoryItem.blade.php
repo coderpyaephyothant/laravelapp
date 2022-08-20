@@ -15,7 +15,7 @@
       <div class="container-fluid">
         <div class="row mt-3 col-12">
           <div class="">
-            <div class=""><a href="{{route('admin#category')}}" class="btn btn-sm btn-outline-secondary"><i class="fas fa-arrow-left "> Back</i></a></div>
+            <div class=""><a href="{{route('admin#category')}}" class="btn btn-sm btn-danger"><i class="fas fa-arrow-left "> Back</i></a></div>
             <div class="card mt-3">
               <div class="card-header bg-success">
                 <h3 class="card-title">

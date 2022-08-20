@@ -8,13 +8,17 @@ use App\Models\category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 class PizzaController extends Controller
 {
      //pizza type
      public function pizza(){
-        $pizzaData = pizza::orderBy('pizza_id','desc')->paginate(2);
+        if (Session::has('searchData')) {
+            Session::forget('searchData');
+        }
+        $pizzaData = pizza::orderBy('pizza_id','desc')->paginate(3);
         
         // dd(count($pizzaData));
         if(count($pizzaData) == 0){
@@ -32,6 +36,56 @@ class PizzaController extends Controller
         return view('admin.pizza.create')->with(['categoryData'=>$categoryData]);
     }
 
+     //pizza search
+     public function pizzaSearch(Request $request){
+        if (Session::has('searchData')) {
+            Session::forget('searchData');
+        }
+        $searchData = $request->search;
+        $searchWord = $searchData;
+        Session::put('searchData',$searchWord);
+        $data = pizza::where('pizza_name','like','%'.$searchData.'%')->paginate(2);
+        // dd($request->all());
+        $data->appends($request->all());
+        if(count($data) == 0){
+            $fileNumber = 0;
+        }else{
+            $fileNumber = 1;
+        }
+        return view('admin.pizza.type')->with(['pizzaData'=>$data,'fileNumber'=> $fileNumber]);
+    }
+    
+
+    //pizzaDownload
+    public function pizzaDownload(){
+        if (Session::has('searchData')) {
+            $sessionSearchWord = Session::get('searchData');
+            $data = pizza::where('pizza_name','like','%'.$sessionSearchWord.'%')->get();   
+        }else{
+            $data = pizza::orderBy('pizza_id','desc')->get();
+        }
+            $csvExporter = new \Laracsv\Export();
+                
+            $csvExporter->build($data, [
+                'pizza_id' => 'Id',
+                'pizza_name' => 'Pizza name',
+                'price' => 'Normal price',
+                'discount_percentage' => 'Discount percentage',
+                'quantity' => 'Instock',
+                'created_at' => 'Created at',
+                'updated_at' => 'Updatede at',
+            ]);
+            
+            $csvReader = $csvExporter->getReader();
+            $csvReader->setOutputBOM(\League\Csv\Reader::BOM_UTF8);
+
+            $filename = 'pizzaList19822.csv';
+
+            return response((string) $csvReader)
+                ->header('Content-Type', 'text/csv; charset=UTF-8')
+                ->header('Content-Disposition', 'attachment; filename="'.$filename.'"');
+
+    }
 
     //pizza insert
     public function pizzaInsert(Request $request){
@@ -80,20 +134,7 @@ class PizzaController extends Controller
         return redirect()->route('admin#pizza')->with(['success'=>'new pizza is successfully created']);
     }
 
-    //pizza search
-    public function pizzaSearch(Request $request){
-        $searchData = $request->search;
-        $data = pizza::where('pizza_name','like','%'.$searchData.'%')->paginate(2);
-        dd($request->all());
-        $data->appends($request->all());
-        if(count($data) == 0){
-            $fileNumber = 0;
-        }else{
-            $fileNumber = 1;
-        }
-        return view('admin.pizza.type')->with(['pizzaData'=>$data,'fileNumber'=> $fileNumber]);
-    }
-    
+   
     //pizza Delete
     public function pizzaDelete($id){
         

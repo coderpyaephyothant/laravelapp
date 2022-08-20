@@ -39,7 +39,7 @@
                 <a class=" text-decoration-none me-3 text-white">Pizza Table</a>
                   <div class="">
                     <a class="btn btn-sm btn-success">Total: {{$pizzaData->total()}}</a>
-                    <a class=" text-decoration-none btn btn-sm btn-success" href="">csv download <i class="fas fa-download"></i></a>
+                    <a class=" text-decoration-none btn btn-sm btn-success" href="{{route('admin#pizzaDownload')}}">csv download <i class="fas fa-download"></i></a>
                   </div>
                   <div class="mt-1">
                     <form action="{{route('admin#pizzaSearch')}}" method="">
