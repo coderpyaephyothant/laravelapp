@@ -6,7 +6,7 @@
        <nav class="navbar navbar-expand-lg navbar-light bg-success d-flex justify-content-around  align-items-center">
         
         <div class="">
-          <a class="navbar-brand text-white hedname me-5" href="#">Pizza Myanmar</a>
+          <a class="navbar-brand text-white hedname me-5" href="#">Oppa's Pizzas</a>
         </div>
 
         
@@ -27,7 +27,7 @@
 
             <div class="d-flex justify-content-end">
               <div class=" ">
-                <a class="nav-link active text-white" aria-current="page" href="#">Home</a>
+                <a class="nav-link active text-white" aria-current="page" href="{{route('user#home')}}">Home</a>
               </div>
               <div class=" ">
                 <a class="nav-link text-white" aria-current="page" href="#">Service</a>
@@ -35,10 +35,12 @@
               <div class="">
                 <a class="nav-link text-white " aria-current="page" href="#">Contact</a>
               </div> 
+              @if (Auth::check())
               <div class=" text-white btn  btn-outline-warning me-2">
                 <i class="fas fa-user "></i>
               {{auth()->user()->name}}
               </div>
+              @endif
               <div class="">
                 <form action="{{ route('logout') }}" method="POST">
                   @csrf

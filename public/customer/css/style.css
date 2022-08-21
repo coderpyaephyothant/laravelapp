@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500&display=swap');
 body{
     background-color:#EFEAE7;
 }
@@ -53,11 +55,11 @@ body{
     transition: 0.5s;
   }
   .pmg{
-    transition: all 1s;
+    transition: all 2s;
     
   }
   .pImg:hover {
-    transform: scale(1.08);
+    transform: scale(1.07);
     transition: transform 2s;
 
   }
@@ -115,4 +117,34 @@ body{
 
   .itemText:hover {
     color: #EFEAE7;
+  }
+
+  /*  first page intro font */
+  .myfont {
+    font-family: 'Roboto Slab', 'serif';
+    font-size: 20px;
+  }
+  .myfont2{
+    font-family: 'Roboto Slab', 'serif';
+  }
+
+  /* products page cards */
+
+  .productcard{
+    width: 20rem;
+    height: 20rem;
+    background-color: #198754;
+    color: #fff;
+    overflow: hidden;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+  }
+  .productimgdiv{
+    width: 100%;
+    height: 70%;
+    object-fit: cover;
+    overflow: hidden;
+  }
+  .productp{
+    text-align: center;
   }

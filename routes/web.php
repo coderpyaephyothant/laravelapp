@@ -21,24 +21,33 @@ use App\Http\Controllers\Admin\UserMessageController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    if (Auth::check()) {
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    Route::get('/dashboard', function () {
-        if(Auth::check()){
             if(Auth::user()->role == 'admin'){
                 return redirect()->route('admin#profile');
             }else if(Auth::user()->role == 'user'){
                 return redirect()->route('user#index');
             }
-        }
-    })->name('dashboard');
-});
+
+    }
+    return view('welcome');
+})->name('user#home');
+
+// Route::middleware([
+//     'auth:sanctum',
+//     config('jetstream.auth_session'),
+//     'verified'
+// ])->group(function () {
+//     Route::get('/dashboard', function () {
+//         if(Auth::check()){
+//             if(Auth::user()->role == 'admin'){
+//                 return redirect()->route('admin#profile');
+//             }else if(Auth::user()->role == 'user'){
+//                 return redirect()->route('user#index');
+//             }
+//         }
+//     })->name('dashboard');
+// });
 
 //admin panel
 Route::group(['prefix'=>'admin', 'namespace'=>'Admin','middleware'=>AdminCheckMiddleware::class],function(){
@@ -109,8 +118,9 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Admin','middleware'=>AdminCheckMi
 
 
 //customer Users
-Route::group(['prefix'=>'user','middleware'=>CustomerCheckMiddleware::class],function(){
+Route::group(['prefix'=>'user'],function(){
     Route::get('/home','UserController@index')->name('user#index');
+    Route::get('/products','UserController@products')->name('user#products');
     Route::post('sendMessage','UserController@sendMessage')->name('user#sendMessage');
     Route::get('pizzaDetail/{id}','UserController@pizzaDetails')->name('user#pizzaDetails');
     Route::get('chooseByCatName/{id}','UserController@chooseByCatName')->name('user#chooseByCatName');

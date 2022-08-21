@@ -7,7 +7,7 @@
       
         <!-- carousel start -->
          
-        <div class="container-fluid   ">
+        <div class="container   ">
           <div class="row">
 
             
@@ -22,41 +22,6 @@
             @if (Session::has('outOcStock'))
                 <b class="text-danger">{{Session::get('outOcStock')}}</b>
             @endif
-             <div class="col-12 mt-3  p-0 d-flex flex-wrao align-items-center justify-content-between" style="">
-              <div class="col-7   " style="height:300px;" >
-                <h3 style="margin-top: 15px;padding-left: 20px; ">Welcome to Pizza Myanmar</h3>
-                <p style="text-align: justify;padding: 20px;">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Rerum doloribus non laboriosam eum natus. Excepturi, sapiente explicabo. Quasi accusantium repellat accusamus modi architecto, tempora sapiente, in, temporibus dolor soluta aperiam.
-                  Deserunt laborum nihil exercitationem a quisquam odit quis nam, </p>
-              </div>
-               <!-- Slider main container -->
-
-                <div class="swiper col-5" style="height:300px;">
-                  <!-- Additional required wrapper -->
-                  <div class="swiper-wrapper">
-                    <!-- Slides -->
-                    <div class="swiper-slide">
-                      <img class="" src="{{asset('customer/img/veggie-pizza.jpg')}}" alt="" width="100%" style="object-fit:cover; height: 100%;">
-                    </div>
-                    <div class="swiper-slide">
-                      <img class="" src="{{asset('customer/img/4formaggi_flickr.png')}}" alt="" width="100%" style="object-fit:cover; height: 100%;">
-                    </div>
-                    <div class="swiper-slide">
-                      <img class="" src="{{asset('customer/img/5ortolana_saleepepe.jpg')}}" alt="" width="100%" style="object-fit:cover; height: 100%;">
-                    </div>
-                  
-                  </div>
-                  <!-- If we need pagination -->
-                  <div class="swiper-pagination"></div>
-  
-                  <!-- If we need navigation buttons -->
-                  <div class="swiper-button-prev"></div>
-                  <div class="swiper-button-next"></div>
-  
-                  <!-- If we need scrollbar -->
-                  <!-- <div class="swiper-scrollbar"></div> -->
-                </div>
-
-             </div>
           </div>
         </div>
 

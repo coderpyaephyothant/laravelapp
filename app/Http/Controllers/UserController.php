@@ -34,6 +34,10 @@ class UserController extends Controller
         return view('customer.home')->with(['pizzas'=>$pizzaData, 'category'=>$categoryData  , 'Number'=>$Number ,'totalQty'=>$totalQty   ]);
     }
 
+    public function products(){
+        return view('customer.products');
+    }
+
     //Message
     public function sendMessage (Request $request){
         $validator = Validator::make($request->all(), [
