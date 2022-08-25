@@ -34,7 +34,6 @@ rel="stylesheet"
 
 </head>
 <body >
-
      <!-- scroll to top start -->
   <button class="" onclick="topFunction()" id="myBtn" title="Go to top"><i class="fas fa-caret-up"></i></button>
   <!-- scroll to top end -->
@@ -57,19 +56,32 @@ rel="stylesheet"
 
             <div class="d-flex justify-content-end">
               <div class=" ">
-                <a class="nav-link active text-white" aria-current="page" href="#">Home</a>
+                <a class="nav-link active text-white" aria-current="page" href="{{route('user#home')}}">Home</a>
               </div>
               <div class=" ">
-                <a class="nav-link text-white" aria-current="page" href="#">Shop</a>
+                <a class="nav-link text-white" aria-current="page" href="{{route('user#index')}}">Shop</a>
               </div>
+
+              @if (Auth::check())
+              <div class=" text-white btn  btn-outline-warning me-2">
+                <i class="fas fa-user "></i>
+              {{auth()->user()->name}}
+              </div>
+              
               <div class="">
-                <a class="nav-link text-white " aria-current="page" href="#">Contact</a>
-              </div> <div class="">
+                <form action="{{ route('logout') }}" method="POST">
+                  @csrf
+                  <input type="submit" class="btn btn-success btn-sm px-3 me-2 mb-1" value="Logout">
+              </form>
+              </div>
+              @else 
+                <div class="">
                 <a class="nav-link text-white " aria-current="page" href="{{ route('login') }}">Login</a>
               </div>
               <div class="">
                 <a class="nav-link text-white " aria-current="page" href="{{ route('register') }}">Register</a>
-              </div> 
+              </div>            
+              @endif
             </div>
 
           </div>
@@ -93,7 +105,7 @@ rel="stylesheet"
                   <P class="myfont">" Hello.Our pizzas are so delisious, healthy , best & fast services around the world. Our pizzas are selling with 2000 shops in various countries. We also selling special veggie pizzas for vegan customers."</P>
                   <div class=" d-flex align-items-center justify-content-start">
                     
-                      <a href="{{route('user#products')}}"><button class="btn btn-warning">Shop Now <i class="fas fa-circle-arrow-right"></i> </button></a>
+                      <a href="{{route('user#index')}}"><button class="btn mainBtn">Shop Now <i class="fas fa-circle-arrow-right"></i> </button></a>
                   </div> 
                 </div>
                 
@@ -134,113 +146,6 @@ rel="stylesheet"
   </div>
           </div>
               
-
-                
-                {{-- <div class="d-flex align-items-center justify-content-center mt-3">
-                    <h3>Promotions </h3>
-                </div>
-                <div class="d-flex align-items-center justify-content-around mt-3">
-                    
-                    <div class="" style="width: 15rem;height:13rem;">
-                        <img src="{{asset('customer/img/veggie-pizza.jpg')}}" width="100%" alt="">
-                    </div>
-                    <div class="" style="width: 15rem;height:13rem;">
-                        <img src="{{asset('customer/img/veggie-pizza.jpg')}}" width="100%" alt="">
-                    </div>
-                    <div class="" style="width: 15rem;height:13rem;">
-                        <img src="{{asset('customer/img/veggie-pizza.jpg')}}" width="100%" alt="">
-                    </div>
-                    <div class="" style="width: 15rem;height:13rem;">
-                        <img src="{{asset('customer/img/veggie-pizza.jpg')}}" width="100%" alt="">
-                    </div>
-                </div> <hr> --}}
-                {{-- <div class="d-flex align-items-center justify-content-center mt-3">
-                    <h3>Best Selling</h3>
-                </div>
-                <div class="d-flex align-items-center justify-content-around mt-3">
-                    
-                    <div class="" style="width: 15rem;height:13rem;">
-                        <img src="{{asset('customer/img/veggie-pizza.jpg')}}" width="100%" alt="">
-                    </div>
-                    <div class="" style="width: 15rem;height:13rem;">
-                        <img src="{{asset('customer/img/veggie-pizza.jpg')}}" width="100%" alt="">
-                    </div>
-                    <div class="" style="width: 15rem;height:13rem;">
-                        <img src="{{asset('customer/img/veggie-pizza.jpg')}}" width="100%" alt="">
-                    </div>
-                    <div class="" style="width: 15rem;height:13rem;">
-                        <img src="{{asset('customer/img/veggie-pizza.jpg')}}" width="100%" alt="">
-                    </div>
-                </div> <hr>
-                <div class="d-flex align-items-center justify-content-center mt-3">
-                    <h3>Others</h3>
-                </div>
-                <div class="d-flex align-items-center justify-content-around mt-3">
-                    
-                    <div class="" style="width: 15rem;height:13rem;">
-                        <img src="{{asset('customer/img/veggie-pizza.jpg')}}" width="100%" alt="">
-                    </div>
-                    <div class="" style="width: 15rem;height:13rem;">
-                        <img src="{{asset('customer/img/veggie-pizza.jpg')}}" width="100%" alt="">
-                    </div>
-                    <div class="" style="width: 15rem;height:13rem;">
-                        <img src="{{asset('customer/img/veggie-pizza.jpg')}}" width="100%" alt="">
-                    </div>
-                    <div class="" style="width: 15rem;height:13rem;">
-                        <img src="{{asset('customer/img/veggie-pizza.jpg')}}" width="100%" alt="">
-                    </div>
-                </div> <hr> --}}
-
-               {{-- <div class="d-flex align-items-center justify-content-around flex-wrap "> 
-                <div class="card bg-success mb-3" style="width: 15rem;height:13rem;">
-                    <div class="bg-success" style="height: 80%; ">
-                        <img src="{{asset('customer/img/veggie-pizza.jpg')}}" style="width: 100%; height:100%;object-fit:cover" class="" alt="...">
-                    </div>
-                    <div class="d-flex align-items-center justify-content-center text-white p-2">
-                      <div>Chicken Pizzas</div>
-                    </div>
-                  </div>
-                  <div class="card bg-success mb-3" style="width: 15rem;height:13rem;">
-                    <div class="bg-success" style="height: 80%; ">
-                        <img src="{{asset('customer/img/veggie-pizza.jpg')}}" style="width: 100%; height:100%;object-fit:cover" class="" alt="...">
-                    </div>
-                    <div class="d-flex align-items-center justify-content-center text-white p-2">
-                      <div>BBQ Pizzas</div>
-                    </div>
-                  </div>
-                  <div class="card bg-success mb-3" style="width: 15rem;height:13rem;">
-                    <div class="bg-success" style="height: 80%; ">
-                        <img src="{{asset('customer/img/veggie-pizza.jpg')}}" style="width: 100%; height:100%;object-fit:cover" class="" alt="...">
-                    </div>
-                    <div class="d-flex align-items-center justify-content-center text-white p-2">
-                      <div>Seafood Pizzas</div>
-                    </div>
-                  </div>
-                  <div class="card bg-success mb-3" style="width: 15rem;height:13rem;">
-                    <div class="bg-success" style="height: 80%; ">
-                        <img src="{{asset('customer/img/veggie-pizza.jpg')}}" style="width: 100%; height:100%;object-fit:cover" class="" alt="...">
-                    </div>
-                    <div class="d-flex align-items-center justify-content-center text-white p-2">
-                      <div>Local Flavors</div>
-                    </div>
-                  </div>
-                  <div class="card bg-success mb-3" style="width: 15rem;height:13rem;">
-                    <div class="bg-success" style="height: 80%; ">
-                        <img src="{{asset('customer/img/veggie-pizza.jpg')}}" style="width: 100%; height:100%;object-fit:cover" class="" alt="...">
-                    </div>
-                    <div class="d-flex align-items-center justify-content-center text-white p-2">
-                      <div>Veggie Pizzas</div>
-                    </div>
-                  </div>
-                  <div class="card bg-success mb-3" style="width: 15rem;height:13rem;">
-                    <div class="bg-success" style="height: 80%; ">
-                        <img src="{{asset('customer/img/veggie-pizza.jpg')}}" style="width: 100%; height:100%;object-fit:cover" class="" alt="...">
-                    </div>
-                    <div class="d-flex align-items-center justify-content-center text-white p-2">
-                      <div>Beef Pizzas</div>
-                    </div>
-                  </div>
-               </div> --}}
             </div>
         </div>
 

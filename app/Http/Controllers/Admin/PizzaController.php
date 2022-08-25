@@ -18,7 +18,8 @@ class PizzaController extends Controller
         if (Session::has('searchData')) {
             Session::forget('searchData');
         }
-        $pizzaData = pizza::orderBy('pizza_id','desc')->paginate(3);
+        $pizzaData = pizza::orderBy('pizza_id','desc')->get();
+        // dd($pizzaData->toArray());
         
         // dd(count($pizzaData));
         if(count($pizzaData) == 0){
@@ -170,6 +171,7 @@ class PizzaController extends Controller
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
                 'price' => 'required',
+                'state'=>'reqired',
                 'ps' => 'required',
                 'discount_percentage' => 'required',
                 'quantity' => 'required',
@@ -194,6 +196,7 @@ class PizzaController extends Controller
                 'pizza_name' => $request->name,
                 'image' => $name,
                 'price' => $request->price,
+                'new' => $request->state,
                 'discount_percentage' => $request->discount_percentage,
                 'publish_status' => $request->ps,
                 'discount_price' =>$discount_price,
@@ -214,6 +217,7 @@ class PizzaController extends Controller
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
                 'price' => 'required',
+                'state' => 'required',
                 'ps' => 'required',
                 'discount_percentage' => 'required',
                 'quantity' => 'required',
@@ -232,6 +236,7 @@ class PizzaController extends Controller
             $data = [
                 'pizza_name' => $request->name,
                 'price' => $request->price,
+                'new'=>$request->state,
                 'publish_status' => $request->ps,
                 'discount_percentage' => $request->discount_percentage,
                 'quantity' =>$request->quantity,

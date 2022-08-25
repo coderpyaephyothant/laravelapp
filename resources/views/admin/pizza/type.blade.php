@@ -78,14 +78,20 @@
                     $id = 1;
                 @endphp
                     @if ($fileNumber == 0)
-                      <tr ><td colspan="7">
+                      <tr class="" ><td colspan="7">
                         <p class="text-danger">No  datas to show here. . . .</p>
                         </td></tr>
                     @else
                     @foreach ($pizzaData as $item)
 
-                    <tr>
-                      <td>{{$id}}</td>
+                    <tr class="text-center">
+                      <td class=" d-flex align-items-center justify-content-center flex-column"><p>{{$id}}</p>  
+                        <p class="@if ($item->new )
+                        bg-danger text-white 
+                        @endif" style="width: 30px; height:30px; font-size:10px; line-height:25px; border-radius:50%;">@if ($item->new == 1)
+                        new                   
+                      @endif</p>
+                    </td>
                       <td>{{$item->pizza_name}}</td>
                       <td>
                         {{-- <img src="https://st.depositphotos.com/1003814/5052/i/950/depositphotos_50523105-stock-photo-pizza-with-tomatoes.jpg" class="img-thumbnail" width="100px"> --}}

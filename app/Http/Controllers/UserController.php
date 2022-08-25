@@ -6,13 +6,14 @@ use App\Cart;
 use App\Models\pizza;
 use App\Models\category;
 use App\Models\SaleOrder;
-use App\Models\SaleOrderDetails;
 use App\Models\SendMessage;
 use Illuminate\Http\Request;
+use App\Models\SaleOrderDetails;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
-use Symfony\Component\HttpFoundation\Session\Session as SessionSession;
 use Symfony\Component\Translation\Provider\Dsn;
+use Symfony\Component\HttpFoundation\Session\Session as SessionSession;
 
 class UserController extends Controller
 {   //Index
@@ -20,7 +21,7 @@ class UserController extends Controller
         $totalQty = Session::get('cart');
         
        $pizzaData =  pizza::get();
-       
+    //    dd($pizzaData->toArray());
        $categoryData = category::get();
        $public = $pizzaData->toArray();
         $count = count($public);
@@ -40,6 +41,7 @@ class UserController extends Controller
 
     //Message
     public function sendMessage (Request $request){
+        if (Auth::check()) {
         $validator = Validator::make($request->all(), [
             'title' => 'required',
             'message' => 'required',
@@ -53,8 +55,14 @@ class UserController extends Controller
 
         $messageData = $this->message($request);
         // dd($messageData);
-        SendMessage::create($messageData);
+        
+            SendMessage::create($messageData);
         return back()->with(['sent' => 'Thanks you for message!']);
+
+        }else{
+            return back()->with(['sent'=>'Incorrect Credentials... Please Sign In or Register first...']);
+        }
+        
     }
     
     //For Message
@@ -130,51 +138,57 @@ class UserController extends Controller
 
         //checkout or odrder submit
         public function checkout(){
-            if (Session::get('cart')!= null) {
+            if (Auth::check()) {
+                if (Session::get('cart')!= null) {
                 
-                $itemsInThe = Session::get('cart');
-                $cart = new Cart($itemsInThe);
-                // dd($cart);
-                $usrId = auth()->user()->id;
-                $totalPrice = $cart->totalPrice;
-                $totalQuantity = $cart->totalQuantity;
-                                                        //for into sale_order Table
-                $dataForSaleOrder = [
-                    'user_id' => $usrId,
-                    'total_price' => $totalPrice,
-                    'total_quantity' => $totalQuantity,
-                ];
-                                                        //insert into sale_order Table
-                 $sale = SaleOrder::create($dataForSaleOrder);
-                                                        //for sale_order_details
-
-                 $saleOrderId = $sale->id;              //sale order id
-                foreach ($cart->items as $key => $value) {
-                 $productId = $value['item']['pizza_id']; //product_id ('pizza_id)
-                 $quantity = $value['quantity'];        //product quantity
-                 $PizzaDetails = pizza::where('pizza_id',$productId); //choose pizza details By ID
-                 $qutny =  $PizzaDetails->first()->toArray();
-                 $pizzaQtny = $qutny['quantity'];
-                 $calculateQty =  $pizzaQtny - $quantity; // substract orderQuantity from Database Quantity
-                 $CalculatedQuntyForDatabse = [
-                    'quantity' => $calculateQty,
-                 ];
-                 pizza::where('pizza_id',$productId)->update($CalculatedQuntyForDatabse); //update pizza quantity By ID
-                $dataFOrSaleOrderDetails = [
-                    'sale_order_id' => $saleOrderId,
-                    'product_id' => $productId,
-                    'quantity' => $quantity,
-                ];
-                $orderDetails = SaleOrderDetails::create($dataFOrSaleOrderDetails); //insert into sale_order_details table
-                 }
-                session()->forget('cart');
-
-                return redirect()->route('user#index')->with(['success'=>'Thanks for your ordeder!']);
+                    $itemsInThe = Session::get('cart');
+                    $cart = new Cart($itemsInThe);
+                    // dd($cart);
+                    $usrId = auth()->user()->id;
+                    $totalPrice = $cart->totalPrice;
+                    $totalQuantity = $cart->totalQuantity;
+                                                            //for into sale_order Table
+                    $dataForSaleOrder = [
+                        'user_id' => $usrId,
+                        'total_price' => $totalPrice,
+                        'total_quantity' => $totalQuantity,
+                    ];
+                                                            //insert into sale_order Table
+                     $sale = SaleOrder::create($dataForSaleOrder);
+                                                            //for sale_order_details
     
-            
-            }else{
-                return back();
+                     $saleOrderId = $sale->id;              //sale order id
+                    foreach ($cart->items as $key => $value) {
+                     $productId = $value['item']['pizza_id']; //product_id ('pizza_id)
+                     $quantity = $value['quantity'];        //product quantity
+                     $PizzaDetails = pizza::where('pizza_id',$productId); //choose pizza details By ID
+                     $qutny =  $PizzaDetails->first()->toArray();
+                     $pizzaQtny = $qutny['quantity'];
+                     $calculateQty =  $pizzaQtny - $quantity; // substract orderQuantity from Database Quantity
+                     $CalculatedQuntyForDatabse = [
+                        'quantity' => $calculateQty,
+                     ];
+                     pizza::where('pizza_id',$productId)->update($CalculatedQuntyForDatabse); //update pizza quantity By ID
+                    $dataFOrSaleOrderDetails = [
+                        'sale_order_id' => $saleOrderId,
+                        'product_id' => $productId,
+                        'quantity' => $quantity,
+                    ];
+                    $orderDetails = SaleOrderDetails::create($dataFOrSaleOrderDetails); //insert into sale_order_details table
+                     }
+                    session()->forget('cart');
+    
+                    return redirect()->route('user#index')->with(['success'=>'Thanks for your ordeder!']);
+        
+                
+                }else{
+                    return back();
+                }
+            } else{
+                return back()->with(['please' => 'Incorrect credentials.LogIn or Register now!']);
             }
+
+           
         }
 
 

@@ -33,21 +33,21 @@ Route::get('/', function () {
     return view('welcome');
 })->name('user#home');
 
-// Route::middleware([
-//     'auth:sanctum',
-//     config('jetstream.auth_session'),
-//     'verified'
-// ])->group(function () {
-//     Route::get('/dashboard', function () {
-//         if(Auth::check()){
-//             if(Auth::user()->role == 'admin'){
-//                 return redirect()->route('admin#profile');
-//             }else if(Auth::user()->role == 'user'){
-//                 return redirect()->route('user#index');
-//             }
-//         }
-//     })->name('dashboard');
-// });
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified'
+])->group(function () {
+    Route::get('/dashboard', function () {
+        if(Auth::check()){
+            if(Auth::user()->role == 'admin'){
+                return redirect()->route('admin#profile');
+            }else if(Auth::user()->role == 'user'){
+                return redirect()->route('user#index');
+            }
+        }
+    })->name('dashboard');
+});
 
 //admin panel
 Route::group(['prefix'=>'admin', 'namespace'=>'Admin','middleware'=>AdminCheckMiddleware::class],function(){

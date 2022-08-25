@@ -1,6 +1,6 @@
 
 
-  <div class="container-fluid mt-2 position-sticky  bar ">
+  <div class="container-fluid  position-fixed  bar ">
     <div class="row  ">
        <!-- nav start -->
        <nav class="navbar navbar-expand-lg navbar-light bg-success d-flex justify-content-around  align-items-center">
@@ -30,23 +30,31 @@
                 <a class="nav-link active text-white" aria-current="page" href="{{route('user#home')}}">Home</a>
               </div>
               <div class=" ">
-                <a class="nav-link text-white" aria-current="page" href="#">Service</a>
+                <a class="nav-link text-white" aria-current="page" href="{{route('user#index')}}">Shop</a>
               </div>
               <div class="">
-                <a class="nav-link text-white " aria-current="page" href="#">Contact</a>
+                <a class="nav-link text-white " aria-current="page" href="#contact">Contact</a>
               </div> 
               @if (Auth::check())
               <div class=" text-white btn  btn-outline-warning me-2">
                 <i class="fas fa-user "></i>
               {{auth()->user()->name}}
               </div>
-              @endif
+              
               <div class="">
                 <form action="{{ route('logout') }}" method="POST">
                   @csrf
                   <input type="submit" class="btn btn-success btn-sm px-3 me-2 mb-1" value="Logout">
               </form>
-              </div>         
+              </div>
+              @else 
+                <div class="">
+                <a class="nav-link text-white " aria-current="page" href="{{ route('login') }}">Login</a>
+              </div>
+              <div class="">
+                <a class="nav-link text-white " aria-current="page" href="{{ route('register') }}">Register</a>
+              </div>            
+              @endif        
             </div>
 
           </div>

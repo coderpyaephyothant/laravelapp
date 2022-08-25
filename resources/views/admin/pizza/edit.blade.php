@@ -57,6 +57,31 @@
                               @endif
                             </div>
                         </div>
+                        {{-- for new or old? --}}
+                        {{-- start new  --}}
+
+                        <div class="form-group row">
+                          <label for="" class="col-sm col-form-label">State New/Old</label>
+                          <div class="col-sm-10">
+                            <select name="state" id="" class="form-control">
+                              <option value="" @if ($data->new == "")
+                                selected
+                              @endif>choose</option>
+                              <option value="1"@if ($data->new == 1)
+                                selected
+                              @endif>new product</option>
+                              <option value="0" @if ($data->new == 0)
+                                selected
+                              @endif>old product</option>
+                            </select>
+                            @if ($errors->has('state'))
+                              <p class="text-danger">{{$errors->first('state')}}</p>
+                                
+                            @endif
+                          </div>
+                          </div>
+
+                        {{-- end new --}}
                             <div class="form-group row">
                                 <label for="public" class="col-sm-2 col-form-label">Public Status</label>
                                 <div class="col-sm-10">

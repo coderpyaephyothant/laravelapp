@@ -148,3 +148,21 @@ body{
   .productp{
     text-align: center;
   }
+
+  /* slide bar shadow */
+  .sldshdw{
+    box-shadow: 1px -2px 24px 0px rgba(0,0,0,0.87);
+-webkit-box-shadow: 1px -2px 24px 0px rgba(0,0,0,0.87);
+-moz-box-shadow: 1px -2px 24px 0px rgba(0,0,0,0.87);
+  }
+
+  .stk{
+    position: fixed;
+    top: 30px;
+    right: 0;
+    z-index: 1000;
+  }
+  /* divided by names */
+  .hname{
+    font-family: 'Permanent Marker', cursive;
+  }

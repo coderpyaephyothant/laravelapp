@@ -1,28 +1,32 @@
 @extends('customer.layout.style')
 @section('content')
     <div class="container-fluid mybody">
-        <div class="col-12 ">
-            <h3 class="">Your Cart is Here </h3>
-            </div>
-           
-			<a href="{{route('user#index')}}" class="btn btn-sm btn-danger mt-3"><i class="fas fa-arrow-left "></i> Back</a>
- @if (Session::has('success'))
-            <p class="text-success">{{Session::get('success')}}</p>
-    
+        <div class="col-12 mt-5"> <br> <br>
+          @if (Session::has('success'))
+          <p class="text-success">{{Session::get('success')}}</p>
+  
 @endif     
 @if (Session::has('fail'))
-            <p class="text-danger">{{Session::get('fail')}}</p>
-    
+          <p class="text-danger">{{Session::get('fail')}}</p>
+  
 @endif  
 
 @if (Session::has('outOcStock'))
-            <div class="text-center"><b class="text-danger ">{{Session::get('outOcStock')}}</b></div>
-    
+          <div class="text-center"><b class="text-danger ">{{Session::get('outOcStock')}}</b></div>
+  
 @endif 
 
-
-
- <table class="table"> 
+@if (Session::has('please'))
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{Session::get('please')}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+  
+@endif 
+			    <a href="{{route('user#index')}}" class="btn btn-sm btn-danger mb-3 "><i class="fas fa-arrow-left "></i> Back</a>
+          
+{{-- table start --}}
+        <table class="table"> 
             <thead>
              
               <tr>
@@ -75,33 +79,38 @@
                 <td>
                   <a href="{{route('user#deleteOrderItem',$product['item']['pizza_id'])}}"><button class="btn btn-sm btn-danger">Delete</button></a>
                 </td>
-    @php
-        $i ++
-    @endphp
+                @php
+                    $i ++
+                @endphp
                 
                 @endforeach
               @endif
               </tr>
             </tbody>
           </table>
+          {{-- table end --}}
 
           <div class="container-fluid d-flex justify-content-end  " style="">
-          <div class="  col-4 align-items-center">
-            <div class="d-flex  flex-column">
-              <div class="">Total Price : {{$totalPrice}} Kyats</div> <hr>
-              <div class="">Total Quantity : {{$totalQty}}</div> <hr>
-              <div class="d-flex align-items-center justify-content-around">
-                <a href="{{route('user#checkout')}}"><button class="btn btn-sm btn-warning">order submit</button></a> <br>   
-              <a href="@if ($totalQty == null)
-                {{'user#index'}}
-              @else
-              {{route('user#cartClear')}}
-              @endif" style="" ><button class="btn btn-sm btn-danger">clear cart</button></a>  
-              </div>    
+            <div class="  col-4 align-items-center">
+              <div class="d-flex  flex-column">
+                <div class="">Total Price : {{$totalPrice}} Kyats</div> <hr>
+                <div class="">Total Quantity : {{$totalQty}}</div> <hr>
+                <div class="d-flex align-items-center justify-content-around">
+                  <a href="{{route('user#checkout')}}"><button class="btn btn-sm btn-warning">order submit</button></a> <br>   
+                <a href="@if ($totalQty == null)
+                  {{'user#index'}}
+                @else
+                {{route('user#cartClear')}}
+                @endif" style="" ><button class="btn btn-sm btn-danger">clear cart</button></a>  
+                </div>    
+              </div>                     
+            </div>
+        </div>
+      </div>
+    </div>
+@endsection
 
-
-            </div>            
-            {{-- <p>Payment System :</p>           
+ {{-- <p>Payment System :</p>           
               <div class="">
                 <div class=" d-flex justify-content-center   " style="">
                   <div>
@@ -133,9 +142,3 @@
              <div class="d-flex justify-content-center">
           <button class="btn btn-sm btn-warning"> Order Now <i class="fas fa-check"></i> </button>
              </div> --}}
-          </div>
-        </div>
-
-
-    </div>
-@endsection
