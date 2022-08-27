@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\category;
+use Facade\FlareClient\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +18,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::group([
+    'prefix'=>'pizzaCategory','namespace'=>'Api'], function(){
+    Route::get('list','ApiController@List');  //data show
+    Route::post('createCategory', 'ApiController@CreateCategory'); //data create
+    Route::post('categoryDetail','ApiController@Detail'); //data detail show by post method
+    Route::get('categoryDetailGet/{id}','ApiController@DetailGet'); // data detail show by get method
+    Route::get('categoryDelete/{id}','ApiController@deleteCategory');
 });

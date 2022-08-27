@@ -136,3 +136,4 @@ Route::group(['prefix'=>'user'],function(){
     Route::get('checkout','UserController@checkout')->name('user#checkout');
     Route::get('clearCart','UserController@clearCart')->name('user#cartClear');
 });
+
