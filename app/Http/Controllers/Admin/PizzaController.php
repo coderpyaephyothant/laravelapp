@@ -18,7 +18,7 @@ class PizzaController extends Controller
         if (Session::has('searchData')) {
             Session::forget('searchData');
         }
-        $pizzaData = pizza::orderBy('pizza_id','desc')->get();
+        $pizzaData = pizza::orderBy('pizza_id','desc')->paginate(2);
         // dd($pizzaData->toArray());
         
         // dd(count($pizzaData));
@@ -95,7 +95,9 @@ class PizzaController extends Controller
             'image' => 'required',
             'price' => 'required',
             'ps' => 'required',
-            'discount' => 'required',
+            'discountPercentage' => 'required',
+            'oldNew' => 'required',
+            'stockItem' => 'required',
             'category' => 'required',
             'bg' => 'required',
             'wt' => 'required',
@@ -112,7 +114,8 @@ class PizzaController extends Controller
         $uniqueId = uniqid();
         $name = $uniqueId.'_Adminthant_'. $file->getClientOriginalName();
         $file->move(public_path().'/uploadedImages/',$name);
-        
+        $discount_price = $request->price * ($request->discountPercentage/100);
+        // dd($discount_price);
         // dd($name);
 
 
@@ -121,7 +124,10 @@ class PizzaController extends Controller
             'image' => $name,
             'price' => $request->price,
             'publish_status' => $request->ps,
-            'discount_price' => $request->discount,
+             'discount_price' => $discount_price,
+            'discount_percentage' => $request->discountPercentage,
+            'new'=>$request->oldNew,
+            'quantity' => $request->stockItem,
             'category_id' => $request->category,
             'buy_one_get_one' => $request->bg,
             'waiting_time' => $request->wt,

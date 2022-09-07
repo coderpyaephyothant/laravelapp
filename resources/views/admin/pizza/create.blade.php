@@ -66,11 +66,33 @@
                                 </div>
                               </div>
                               <div class="form-group row">
-                                <label for="discount" class="col-sm-2 col-form-label">Discount Price</label>
+                                <label for="discountPercentage" class="col-sm-2 col-form-label">Discount Percentage (%)</label>
                                 <div class="col-sm-10">
-                                  <input type="text" class="form-control" placeholder="discount"  name="discount" value="{{old('discount')}}">
-                                  @if ($errors->has('discount'))
-                                      <p class="text-danger">{{$errors->first('discount')}}</p>
+                                  <input type="number" class="form-control" placeholder="discountPercentage"  name="discountPercentage" value="{{old('discountPercentage')}}">
+                                  @if ($errors->has('discountPercentage'))
+                                      <p class="text-danger">{{$errors->first('discountPercentage')}}</p>
+                                  @endif
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label for="oldNew" class="col-sm-2 col-form-label">Product (New)</label>
+                                <div class="col-sm-10">
+                                  <select name="oldNew" id="" class="form-control">
+                                    <option value="">select</option>
+                                    <option value="1">New</option>
+                                    <option value="0">Old</option>
+                                  </select>
+                                  @if ($errors->has('oldNew'))
+                                      <p class="text-danger">{{$errors->first('oldNew')}}</p>
+                                  @endif
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label for="stockItem" class="col-sm-2 col-form-label">Stock Items</label>
+                                <div class="col-sm-10">
+                                  <input type="number" class="form-control" placeholder="stockItem"  name="stockItem" value="{{old('stockItem')}}">
+                                  @if ($errors->has('stockItem'))
+                                      <p class="text-danger">{{$errors->first('stockItem')}}</p>
                                   @endif
                                 </div>
                               </div>

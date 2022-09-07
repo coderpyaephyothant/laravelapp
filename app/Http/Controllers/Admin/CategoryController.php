@@ -39,7 +39,10 @@ class CategoryController extends Controller
         return view('admin.category.list')->with(['categoriesData'=> $data] );
     }
 
+
+
     //for search session data that will delete next search button or back to category lit again..
+    
     // searchCategory
     public function searchCategory(Request $request){
         if (Session::has('searchData')) {
@@ -181,11 +184,6 @@ class CategoryController extends Controller
        return view('admin.category.categoryItem')->with(['pizzaData' => $data]);
     }
    
-    //Category Item Search 
-    public function categoryItemSearch(Request $request){
-        
-        dd($request->all());
-    }
 
     // Category Item Delete
     public function categoryItemDelete($id){

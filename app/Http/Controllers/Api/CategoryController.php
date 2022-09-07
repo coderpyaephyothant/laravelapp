@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Response;
 
-class ApiController extends Controller
+class CategoryController extends Controller
 {
     // data for customers with API
     public function List(){
@@ -96,5 +96,73 @@ class ApiController extends Controller
                 'message' => 'Incorrect Credentials.'
             ]);
         }
+    }
+    //delete category by POST Methode
+    public function deletePOST(Request $request){
+        $id = $request->id;
+        $data = category::where('category_id',$id)->first();
+        if (!empty($data)) {
+            $deleteData = category::where('category_id',$id)->delete();
+            return Response::json([
+                'status' => '200',
+                'message' => 'successfully deleted',
+            ]);
+        }else{
+            return Response::json([
+                'status' => '200',
+                'message' => 'Incorrect Credentials',
+            ]);
+        }
+    }
+
+    //update category by GET Method
+    public function updateGet(Request $request){
+        $categoryID = $request->categoryId;
+        $categoryName = $request->name;
+        $data = category::where('category_id',$categoryID)->first();
+        if(!empty($data)){
+            $updateData = [
+                'category_name' => $categoryName,
+                'updated_at' => Carbon::now(),
+            ];
+            $nowUpdate = category::where('category_id',$categoryID)->update($updateData);
+            return Response::json([
+                'status' => '200',
+                'message' => 'successfully updated.'
+            ]);
+        }else{
+            return Response::json([
+                'status' => '200',
+                'message' => 'Incorrect Credentials.'
+            ]);
+        }
+    }
+
+    //search key with POST Method
+    public function searchCategory(Request $request){
+        $searchKey = $request->search_key;
+        if ($searchKey != '') {
+            $data = category::where('category_name','Like','%'.$searchKey.'%')->get();
+        $searchedData = $data->toArray();
+        if(!empty($searchedData)){
+            return Response::json([
+                'status' => '200',
+                'message' => 'Success',
+                'data' => $searchedData,
+            ]);
+        }else{
+            return Response::json([
+                'status' => '200',
+                'message' => 'Incorrect Credentials',
+            ]);
+        }
+        }else{
+            return Response::json([
+                'status' => '200',
+                'message' => 'Incorrect Credentials',
+            ]);
+        }
+        
+
     }
 }
