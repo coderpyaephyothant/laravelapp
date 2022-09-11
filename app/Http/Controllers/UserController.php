@@ -19,14 +19,14 @@ class UserController extends Controller
 {   //Index
     public function index(){
         $totalQty = Session::get('cart');
-        
+
        $pizzaData =  pizza::get();
     //    dd($pizzaData->toArray());
        $categoryData = category::get();
        $public = $pizzaData->toArray();
         $count = count($public);
-        
-        
+
+
     if(count($pizzaData) == 0){
         $Number = 0;
     }else{
@@ -46,7 +46,7 @@ class UserController extends Controller
             'title' => 'required',
             'message' => 'required',
         ]);
- 
+
         if ($validator->fails()) {
             return back()
                         ->withErrors($validator)
@@ -55,16 +55,16 @@ class UserController extends Controller
 
         $messageData = $this->message($request);
         // dd($messageData);
-        
+
             SendMessage::create($messageData);
         return back()->with(['sent' => 'Thanks you for message!']);
 
         }else{
             return back()->with(['sent'=>'Incorrect Credentials... Please Sign In or Register first...']);
         }
-        
+
     }
-    
+
     //For Message
     private function message($request){
         return [
@@ -82,55 +82,55 @@ class UserController extends Controller
     }
 
     //addToCart
-    
+
 
     public function addToCart(Request $request,$id){
+
         $pizza = pizza::where('pizza_id',$id)->first();
-        $dataBaseQty = $pizza->quantity;
-        // dd($dataBaseQty);
-        // if ($request->quantity) {
-        //     $pizzaQuantity = $request->quantity;
-        // }
-        $pizzaQuantity =  $request->quantity ? $request->quantity : 0 ;
+        $dataBaseQty = $pizza->quantity; //for dataBase
+        $pizzaQuantity =  $request->quantity ? $request->quantity : 1 ;  //one error please check!!!!!!!!!!!!!!!!!!
         $itemsInThe = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart($itemsInThe);
-        $cart->add($pizza,$pizza->pizza_id,$pizzaQuantity);   
+        $cart->add($pizza,$pizza->pizza_id,$pizzaQuantity);
+
+
         $yourQuantity = $cart->items[$id]['quantity'];
-        // dd($yourQuantity);
         if ($yourQuantity > $dataBaseQty) {
            return back()->with(['outOcStock'=>'out of stock now...']);
-        }   
+        }
         $request->Session()->put('cart',$cart);
         // dd($cart->totalPrice);
         $success = $pizza->pizza_name. '   is successfully added to the Cart!';
         return redirect()->route('user#index')->with(['success'=>$success]);
-        
+
     }
 
     //order List
     public function orderList(Request $request){
        $categoryData = category::get();
        $pizzaData =  pizza::get();
-        
-        
+
+
 
         $itemsInThe = Session::get('cart');
         // $user_id = auth()->user()->id;
         $cart = new Cart($itemsInThe);
         // dd(auth()->user()->id);
-        // dd($cart->totalPrice);
+        $c = $cart->items;
+    //    dd($cart);
+
         // foreach ($cart->items as $key => $value) {
         //    dd($value['item']['pizza_name']);
         // }
         if ($cart->items != null) {
         return view('customer.orderList', ['pizzas' => $cart->items, 'totalPrice' => $cart->totalPrice, 'totalQty'=>$cart->totalQuantity]);
-           
+
         }else{
             // dd($cart);
             return view('customer.orderList')->with(['totalQty'=>'no data','pizzas' => $cart->items, 'totalPrice' => $cart->totalPrice]);
 
         }
-        
+
         // if(! Session::has('cart') ) {
         //     return view('customer.orderList')->with(['pizzas' => $cart->items, 'totalPrice' => $cart->totalPrice,'totalQty'=>'no data']);
         // }
@@ -140,7 +140,7 @@ class UserController extends Controller
         public function checkout(){
             if (Auth::check()) {
                 if (Session::get('cart')!= null) {
-                
+
                     $itemsInThe = Session::get('cart');
                     $cart = new Cart($itemsInThe);
                     // dd($cart);
@@ -156,7 +156,7 @@ class UserController extends Controller
                                                             //insert into sale_order Table
                      $sale = SaleOrder::create($dataForSaleOrder);
                                                             //for sale_order_details
-    
+
                      $saleOrderId = $sale->id;              //sale order id
                     foreach ($cart->items as $key => $value) {
                      $productId = $value['item']['pizza_id']; //product_id ('pizza_id)
@@ -177,10 +177,10 @@ class UserController extends Controller
                     $orderDetails = SaleOrderDetails::create($dataFOrSaleOrderDetails); //insert into sale_order_details table
                      }
                     session()->forget('cart');
-    
+
                     return redirect()->route('user#index')->with(['success'=>'Thanks for your ordeder!']);
-        
-                
+
+
                 }else{
                     return back();
                 }
@@ -188,17 +188,17 @@ class UserController extends Controller
                 return back()->with(['please' => 'Incorrect credentials.LogIn or Register now!']);
             }
 
-           
+
         }
 
 
     //quantity Update
     public function quantityUpdate(Request $request, $id){
-        
+
         $validator = Validator::make($request->all(), [
             'quantity' => 'required|numeric|min:1'
         ]);
- 
+
         if ($validator->fails()) {
             return back()
                         ->withErrors($validator)
@@ -210,7 +210,7 @@ class UserController extends Controller
         $dataBaseQty = $product->quantity;
 
         $quantity = $request->quantity;
-        
+
         $itemsInThe = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart($itemsInThe);
         $cart->update($pizzaId,$quantity,$product);
@@ -224,7 +224,7 @@ class UserController extends Controller
         return back()->with(['success'=> 'successfully updated']);
         }else{
         return back()->with(['fail'=> 'Incorrect Credentials']);
-        
+
         }
     }
 
@@ -235,7 +235,10 @@ class UserController extends Controller
        $toDeletePizza = pizza::where('pizza_id',$id)->first();
        $itemsInThe = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart($itemsInThe);
+
         $cart->remove($pizzaId,$toDeletePizza);
+        
+
         $request->session()->put('cart', $cart);
         return back();
 
@@ -256,14 +259,14 @@ class UserController extends Controller
         if (Session::get('cart') == null) {
             return back();
         }else{
-            
+
         // $itemsInThe = Session::get('cart');
         // $cart = new Cart($itemsInThe);
         $items = session()->forget('cart');
         return redirect()->route('user#index');
         }
-        
-      
+
+
     }
 
 
@@ -293,25 +296,25 @@ class UserController extends Controller
         $data = pizza::select('*');
         if (!is_null($minimumPrice) && is_null($maximumPrice)) {
             $choose = $data->where('price' , '>=', $minimumPrice);
-            
+
 
         } elseif (is_null($minimumPrice) && !is_null($maximumPrice)) {
             $choose = $data->where('price' , '<=', $maximumPrice);
-            
+
 
         } elseif (is_null($minimumPrice) && is_null($maximumPrice)) {
             return redirect()->route('user#index');
-            
+
 
 
         } elseif (!is_null($minimumPrice) && !is_null($maximumPrice)) {
             $choose = $data->where('price' , '<=' , $maximumPrice)
                             ->where( 'price','>=', $minimumPrice);
-            
+
 
         }
             $pizzaData =  $choose->get();
-            // dd($pizzaData->toArray());   
+            // dd($pizzaData->toArray());
 
           if ($pizzaData == '' || $pizzaData == 'null' || count($pizzaData) == 0) {
             $Number = 0;
@@ -320,17 +323,17 @@ class UserController extends Controller
             $Number = 1;
         }
                 return view('customer.home')->with(['pizzas'=>$pizzaData, 'category'=>$categoryData  , 'Number'=>$Number]);
-    }   
+    }
 
     //Search By Date
     public function searchByDate(Request $request){
-        
+
         $from = $request->from;
         $to = $request->to;
         $categoryData = category::get();
         $data = pizza::select('*');
         if (!is_null($from) && is_null($to)) {
-            $choose = $data->whereDate('created_at' , '>=', $from);            
+            $choose = $data->whereDate('created_at' , '>=', $from);
         } elseif (is_null($from) && !is_null($to)) {
             $choose = $data->whereDate('created_at' , '<=', $to);
         } elseif (is_null($from) && is_null($to)) {
@@ -351,7 +354,7 @@ class UserController extends Controller
         // dd($pizzaData->toArray());
     }
 
-    
+
     //order Data
     public function orderData(){
         return view('customer.addToCart');

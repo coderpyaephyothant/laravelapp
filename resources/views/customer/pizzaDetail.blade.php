@@ -14,7 +14,7 @@
 						<img class="img-fluid rounded " src="{{asset('uploadedImages/'.$item->image)}}" alt="" >
 					</div>
 			</div>
-			<div class="col-lg-5 offset-lg-1 mt-1">					
+			<div class="col-lg-5 offset-lg-1 mt-1">
 					<h3 class=""> {{$item->pizza_name}} </h3>
 					<h3 class="text-danger"><b>{{$item->price - $item->discount_price}} Ks</b></h3>
 					<p class="text-primary text-decoration-line-through" style=""> ({{$item->price}} Ks)</p><hr>
@@ -27,19 +27,18 @@
 						@csrf
 					<div class=" d-flex align-items-center justify-content-start ">
 						<input type="number" name="quantity" class="form-control me-3" style="width:100px;" value="1">
-					<button type="submit" class="btn btn-sm mainBtn">Add to Cart</button>	
-					</div>			
+					<button type="submit" class="btn btn-sm mainBtn">Add to Cart</button>
+					</div>
 					</form>
 					 <hr>
-
 						<br> <br>
 
-									</div>
-										@endforeach										
+								</div>
+										@endforeach
 									</div>
 				</div>
 
-				
+
 			</div>
 								</div>
 							</div>

@@ -4,37 +4,37 @@
         <div class="col-12 mt-5"> <br> <br>
           @if (Session::has('success'))
           <p class="text-success">{{Session::get('success')}}</p>
-  
-@endif     
+
+@endif
 @if (Session::has('fail'))
           <p class="text-danger">{{Session::get('fail')}}</p>
-  
-@endif  
+
+@endif
 
 @if (Session::has('outOcStock'))
           <div class="text-center"><b class="text-danger ">{{Session::get('outOcStock')}}</b></div>
-  
-@endif 
+
+@endif
 
 @if (Session::has('please'))
           <div class="alert alert-danger alert-dismissible fade show" role="alert">
             {{Session::get('please')}}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
-  
-@endif 
+
+@endif
 			    <a href="{{route('user#index')}}" class="btn btn-sm btn-danger mb-3 "><i class="fas fa-arrow-left "></i> Back</a>
-          
+
 {{-- table start --}}
-        <table class="table"> 
+        <table class="table">
             <thead>
-             
+
               <tr>
-              
+
                 @if ($errors->has('quantity'))
-                    
+
                 <p class="text-danger text-center">( Quantity must be at least 1 Or you can delete )</p>
-               
+
             @endif
                 <th width="5%" scope="col">Number</th>
                 <th width="20%" scope="col">Name</th>
@@ -45,26 +45,26 @@
               </tr>
             </thead>
             <tbody>
-             
+
              @if ($totalQty)
              @if ($totalQty == 0 )
              <tr ><td colspan="7">
                    <div class="text-danger text-center"><b>no data</b></div>
                   </td>
                   </tr>
-              @endif 
+              @endif
              @endif
 
-              
+
                  @php
                       $i = 1;
                  @endphp
-            
+
 
               @if ($pizzas != null)
               @foreach ($pizzas as $product)
               <tr>
-                 
+
                 <td>{{$i}}</td>
                 <td>{{$product['item']['pizza_name']}}</td>
                 <td><img src="{{asset('uploadedImages/'.$product['item']['image'])}}" alt="cartImg" width="100px"></td>
@@ -82,7 +82,7 @@
                 @php
                     $i ++
                 @endphp
-                
+
                 @endforeach
               @endif
               </tr>
@@ -96,21 +96,21 @@
                 <div class="">Total Price : {{$totalPrice}} Kyats</div> <hr>
                 <div class="">Total Quantity : {{$totalQty}}</div> <hr>
                 <div class="d-flex align-items-center justify-content-around">
-                  <a href="{{route('user#checkout')}}"><button class="btn btn-sm btn-warning">order submit</button></a> <br>   
+                  <a href="{{route('user#checkout')}}"><button class="btn btn-sm btn-warning">order submit</button></a> <br>
                 <a href="@if ($totalQty == null)
                   {{'user#index'}}
                 @else
                 {{route('user#cartClear')}}
-                @endif" style="" ><button class="btn btn-sm btn-danger">clear cart</button></a>  
-                </div>    
-              </div>                     
+                @endif" style="" ><button class="btn btn-sm btn-danger">clear cart</button></a>
+                </div>
+              </div>
             </div>
         </div>
       </div>
     </div>
 @endsection
 
- {{-- <p>Payment System :</p>           
+ {{-- <p>Payment System :</p>
               <div class="">
                 <div class=" d-flex justify-content-center   " style="">
                   <div>
@@ -125,7 +125,7 @@
                 <br>
 
               </div>
-              
+
              <hr>
              <div>
               <p>Township : </p>

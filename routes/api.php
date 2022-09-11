@@ -62,3 +62,8 @@ Route::group([
     Route::post('updateAdmin','AdminController@updateAdmin'); //update admins with api
     Route::post('deleteAdmin' , 'AdminController@deleteAdmin'); //delete admins wit api
 });
+
+Route::group([
+    'prefix' => 'orders' , 'namespace' => 'Api'], function(){
+        Route::get('List', 'OrderController@List'); //data show for orders with api
+    });
