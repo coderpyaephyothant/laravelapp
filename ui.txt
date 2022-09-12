@@ -1,0 +1,11 @@
+UI Fix
+
+1. logo create {finished}
+2.categories loop {finished}
+3.delete heart  {finished}
+4. to add new type columns - chicken -vegetable -beef -seafood (Need to CRUD IN Admin dashboard)
+	type table build migration and model. {finished}
+5. Need to create More pizzas with types
+6.change project color in ui/css/style.css
+7.
+

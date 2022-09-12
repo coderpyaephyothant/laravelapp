@@ -237,7 +237,7 @@ class UserController extends Controller
         $cart = new Cart($itemsInThe);
 
         $cart->remove($pizzaId,$toDeletePizza);
-        
+
 
         $request->session()->put('cart', $cart);
         return back();
@@ -358,5 +358,15 @@ class UserController extends Controller
     //order Data
     public function orderData(){
         return view('customer.addToCart');
+    }
+
+    public function uiupdate(){
+       $categoryData =  category::get();
+       $pizzaData = pizza::get();
+
+       $categories = $categoryData->toArray();
+       $pizzas = $pizzaData->toArray();
+    //    dd($pizzas);
+        return view('customer.uiupdate')->with(['catData'=>$categories, 'pizzaData' => $pizzas]);
     }
 }

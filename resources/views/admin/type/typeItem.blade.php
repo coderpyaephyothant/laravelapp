@@ -15,7 +15,7 @@
       <div class="container-fluid">
         <div class="row mt-3 col-12">
           <div class="">
-            <div class=""><a href="{{route('admin#category')}}" class="btn btn-sm btn-danger"><i class="fas fa-arrow-left "> Back</i></a></div>
+            <div class=""><a href="{{route('admin#type')}}" class="btn btn-sm btn-danger"><i class="fas fa-arrow-left "> Back</i></a></div>
             <div class="card mt-3">
               <div class="card-header bg-success">
                 <h3 class="card-title">
@@ -25,7 +25,7 @@
 
 
                 {{-- <div class="card-tools mt-1">
-                  <form action="{{route('admin#categoryItemSearch')}}" method="get">
+                  <form action="" method="get">
                     @csrf
                     <div class="input-group input-group-sm" style="width: 150px;">
                       <input type="text" name="search" class="form-control float-right" placeholder="Search items">
@@ -46,7 +46,7 @@
                     <tr>
                       <th>Number</th>
                       <th>Pizza Name</th>
-                      <th>Category Name</th>
+                      <th>Type Menu Name</th>
                       <th>Image</th>
                       <th>Price</th>
                       <th>Created Date</th>
@@ -62,7 +62,7 @@
                      <tr>
                       <td>{{$id}}</td>
                      <td>{{$item->pizza_name}}</td>
-                     <td>{{$item->category_name}}</td>
+                     <td>{{$item->type_name}}</td>
                      <td>
                         <img class="responsive img-thumbnail" width="200px" src="{{asset('uploadedImages/'.$item->image)}}" alt="{{$item->pizza_name}}">
                      </td>

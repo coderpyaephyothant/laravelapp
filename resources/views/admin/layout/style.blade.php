@@ -52,6 +52,15 @@
           </li>
 
           <li class="nav-item">
+            <a href="{{route('admin#type')}}" class="nav-link">
+              <i class="fas fa-fish"></i>
+              <p>
+                Type
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
             <a href="{{route('admin#pizza')}}" class="nav-link">
               <i class="fas fa-pizza-slice "></i>
               <p>

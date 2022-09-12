@@ -1,89 +1,38 @@
 @extends('customer.layout.style')
 @section('content')
-    
+
   <!-- scroll to top start -->
   <button class="" onclick="topFunction()" id="myBtn" title="Go to top"><i class="fas fa-caret-up"></i></button>
   <!-- scroll to top end -->
-      
+
         <!-- carousel start -->
-         
+
         <div class="container mt-5 ">
           <div class="row">
 
-           
+
           </div>
         </div>
-
-        <!-- carousel end -->
-
-         <!-- Weekly Special start -->
-         {{-- <div class="col-12 d-flex mt-3 bg-success p-2">
-          <div class=" navbar-brand text-white ">Hot Pizzas</div>
-
-        </div>
-
-        
-          <div class=" mt-2 mb-5 d-flex justify-content-around flex-wrap  ">
-          @foreach ($pizzas as $item)
-          <a href="{{route('user#pizzaDetails',$item->pizza_id)}}">
-            <div class="card mt-5" style="width: 15rem; height: 10rem;">
-              <img src="{{asset('uploadedImages/'.$item->image)}}" class="card-img-top" alt="Sunset Over the Sea" style="object-fit:cover;height: 90% !important;"/>
-              <div class="text-center card-bg bg-success">
-                <small class="card-text">{{$item->pizza_name}}</small><br>
-                <small>{{$item->price}}</small>
-              </div>
-            </div>
-          </a>
-          @endforeach
-        </div>  --}}
-            
-      <!-- Lists end -->
-
-      <!-- pizzas and menus -->
-
-          {{-- <div class="container">
-            <div class="row">
-              <div class="col-12 d-flex bg-success mt-2 p-2 align-items-center">
-                <div class=" navbar-brand text-white  ">Pizzas</div>
-                <div class=" ">
-                  <div class="dropdown">
-                    <button class="btn btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Menu
-                    </button>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="{{route('user#index')}}">ALL</a></li>
-                      @foreach ($category as $item)
-                      <li><a class="dropdown-item" href="{{route('user#chooseByCatName',$item->category_id)}}">{{$item->category_name}}</a></li>
-                      @endforeach
-                    </ul>
-                  </div>
-                 </div>
-                </div>
-            </div>
-          </div> --}}
-
-      <!-- pizzas and menus end -->
-      
 
 
        <!-- Lists start -->
 <div class="container mt-5">
   <div class="row">
     <div class="col-12  d-flex" style="">
-      
-        <div class="col-10 p-3">
+
+        <div class="col-lg-10 col-md-10 p-3">
           @if (Session::has('sent'))
           <div class="alert alert-primary alert-dismissible fade show" role="alert">
             {{Session::get('sent')}}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
         @endif
-      
+
       @if (Session::has('success'))
       <div class="alert alert-success alert-dismissible fade show" role="alert">
         <p>{{Session::get('success')}}</p>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>              
+      </div>
       @endif
 
       @if (Session::has('outOcStock'))
@@ -95,9 +44,9 @@
           <div class=" mb-3 mt-5 d-flex justify-content-around flex-wrap ">
             @if ($Number == 0)
                   <p class="text-danger"><b>No  Datas to show here. . . .</b></p>
-                      
+
                   @endif
-                  <ul id="lightSlider4"> 
+                  <ul id="lightSlider4">
             @foreach ($pizzas as $item)
             @if ($item->publish_status > 0  && $item->quantity > 0 )
             <li>
@@ -105,7 +54,7 @@
               <div class=" overflow-hidden" style="height: 10rem;">
               <img src="{{asset('uploadedImages/'.$item->image)}}" class="card-img-top img-fluid pImg" alt="Sunset Over the Sea" style="object-fit:cover;height: 100% !important;"/>
               </div>
-  
+
               <div class="card-bg bg-success " style="height:20rem">
                 @if ($item->discount_price > 0)
                 <div style="width:40%;position: absolute; top:0px;margin-radius:5px;" class="text-white  bg-danger d-flex align-items-center justify-content-center">
@@ -131,25 +80,25 @@
                   </div>
                 </div>
                 <div class="d-flex align-items-center justify-content-around pBtn  w-100">
-                  <a href="{{route('user#pizzaDetails',$item->pizza_id)}}"> 
+                  <a href="{{route('user#pizzaDetails',$item->pizza_id)}}">
                   <button class="btn  btn-sm mainBtn">More details</button>
                      </a>
                   <form action="{{route('user#addToCart',$item->pizza_id)}}" method="post">
                     @csrf
                     <button type="submit" class="btn  btn-sm mainBtn"><i class="fas fa-cart-shopping "></i>Add to cart</button>
-                  
+
                   </form>
                 </div>
-                
-  
+
+
               </div>
             </div>
-                
+
             @endif
           </li>
             @endforeach
         </ul>
-            </div> 
+            </div>
             {{-- new items show --}}
             @foreach ($pizzas as $item)
             @if ($item->publish_status > 0  && $item->quantity > 0 && $item->new == 1 )
@@ -159,7 +108,7 @@
             @endif
             @endforeach
             <div class=" mb-3 mt-5 d-flex justify-content-around flex-wrap ">
-                  </div> 
+                  </div>
               <ul id="lightSlider3">
               @foreach ($pizzas as $item)
               @if ($item->publish_status > 0  && $item->quantity > 0 && $item->new == 1 )
@@ -168,7 +117,7 @@
                 <div class=" overflow-hidden" style="height: 10rem;">
                 <img src="{{asset('uploadedImages/'.$item->image)}}" class="card-img-top img-fluid pImg" alt="Sunset Over the Sea" style="object-fit:cover;height: 100% !important;"/>
                 </div>
-    
+
                 <div class="card-bg bg-success " style="height:20rem">
                   @if ($item->discount_price > 0)
                   <div style="width:40%;position: absolute; top:0px;margin-radius:5px;" class="text-white  bg-danger d-flex align-items-center justify-content-center">
@@ -194,21 +143,21 @@
                     </div>
                   </div>
                   <div class="d-flex align-items-center justify-content-around pBtn  w-100">
-                    <a href="{{route('user#pizzaDetails',$item->pizza_id)}}"> 
+                    <a href="{{route('user#pizzaDetails',$item->pizza_id)}}">
                     <button class="btn  btn-sm mainBtn">More details</button>
                        </a>
                     <form action="{{route('user#addToCart',$item->pizza_id)}}" method="post">
                       @csrf
                       <button type="submit" class="btn  btn-sm mainBtn"><i class="fas fa-cart-shopping "></i>Add to cart</button>
-                    
+
                     </form>
                   </div>
-                  
-    
+
+
                 </div>
-              </div>     
+              </div>
               @endif
-            </li>     
+            </li>
               @endforeach
 
           </ul>
@@ -225,7 +174,7 @@
                 <div class=" overflow-hidden" style="height: 10rem;">
                 <img src="{{asset('uploadedImages/'.$item->image)}}" class="card-img-top img-fluid pImg" alt="Sunset Over the Sea" style="object-fit:cover;height: 100% !important;"/>
                 </div>
-    
+
                 <div class="card-bg bg-success " style="height:20rem">
                   @if ($item->discount_price > 0)
                   <div style="width:40%;position: absolute; top:0px;margin-radius:5px;" class="text-white  bg-danger d-flex align-items-center justify-content-center">
@@ -251,27 +200,27 @@
                     </div>
                   </div>
                   <div class="d-flex align-items-center justify-content-around pBtn  w-100">
-                    <a href="{{route('user#pizzaDetails',$item->pizza_id)}}"> 
+                    <a href="{{route('user#pizzaDetails',$item->pizza_id)}}">
                     <button class="btn  btn-sm mainBtn">More details</button>
                        </a>
                     <form action="{{route('user#addToCart',$item->pizza_id)}}" method="post">
                       @csrf
                       <button type="submit" class="btn  btn-sm mainBtn"><i class="fas fa-cart-shopping "></i>Add to cart</button>
-                    
+
                     </form>
                   </div>
-                  
-    
+
+
                 </div>
               </div>
-                  
+
               @endif
             </li>
               @endforeach
-              
-             
 
-              
+
+
+
             </ul>
 
             <div class="d-flex align-items-center justify-content-around text-white bg-success mt-3 p-3">
@@ -283,7 +232,7 @@
                   <div class="card mt-5" style="width: 15rem; height: 15rem;">
                     <div class="overflow-hidden" style="" >
                       <img src="{{asset('customer/img/cc.jpg')}}" class="card-img-top pImg" alt="Sunset Over the Sea" style="object-fit:cover;height: 100% !important;"/>
-        
+
                     </div>
                       <div class="text-center card-bg bg-success">
                         <small class="card-text">Coca Cola</small><br>
@@ -295,7 +244,7 @@
                   <div class="card mt-5" style="width: 15rem; height: 15rem;">
                     <div class="overflow-hidden" style="height: 100%;">
                     <img src="{{asset('customer/img/ps.png')}}" class="card-img-top img-fluid pImg" alt="Sunset Over the Sea" style="  height: 100% !important;"/>
-      
+
                     </div>
                     <div class="text-center card-bg bg-success">
                       <small class="card-text">Pepsi</small><br>
@@ -307,7 +256,7 @@
                   <div class="card mt-5" style="width: 15rem; height: 15rem;">
                     <div class="overflow-hidden"  style="height: 100%;">
                     <img src="{{asset('customer/img/org.png')}}" class="card-img-top img-fluid pImg" alt="Sunset Over the Sea" style="object-fit:cover;height: 100% !important;"/>
-      
+
                     </div>
                     <div class="text-center  card-bg bg-success">
                       <small class="card-text">Fanta Orange</small><br>
@@ -319,7 +268,7 @@
                   <div class="card mt-5" style="width: 15rem; height: 15rem;">
                     <div class="overflow-hidden" style="height: 100%;">
                     <img src="{{asset('customer/img/sp.jpg')}}" class="card-img-top img-fluid pImg" alt="Sunset Over the Sea" style="object-fit:cover;height: 100% !important;"/>
-                      
+
                     </div>
                     <div class="text-center  card-bg bg-success">
                       <small class="card-text">Fanta Sprite</small><br>
@@ -328,20 +277,20 @@
                   </div>
                 </li>
               </ul>
-              
-                
-                
-                
+
+
+
+
 
 
             <div id="contact" class="text-center  text-white bg-success p-3 mt-2">Contact Us</div>
 
-            
+
             <div class="d-flex justify-content-center mt-3 col-12 " id="">
-           
+
 
               <div class="col-6">
-                
+
                   <form action="{{route('user#sendMessage')}}" method="post">
                     @csrf
                       <div class="form-group">
@@ -362,12 +311,12 @@
                   </form>
               </div>
             </div>
-          </div> 
-          
+          </div>
+
 
 
       </div>
-      <div class="col-3   mt-5 stk ms-3">
+      <div class="col-lg-3 d-sm-none   mt-5 stk ms-3">
         <div class=" p-5" style="width: 100%; ">
           <div class="align-items-center ">
             <div class=" d-flex align-items-center justify-content-center ">
@@ -389,7 +338,7 @@
               @csrf
               <input type="number" name="min" id="" class="form-control" placeholder="Minimum">
               <input type="number" name="max" id="" class="form-control" placeholder="Maximum">
-              <input type="submit" class="btn btn-sm btn-success mt-1 " style="float: right;" value="find">  
+              <input type="submit" class="btn btn-sm btn-success mt-1 " style="float: right;" value="find">
             </form>
             </div> <br><br>
             <div class="" style=";">
@@ -401,52 +350,23 @@
               <input type="submit" class="btn btn-sm btn-success mt-1 " style="float: right;" value="find">
             </form>
             </div> <br><br>
-            
+
           </div>
-          
+
         </div>
       </div>
         </div>
 
-      
+
     </div>
 
 </div>
-  {{-- Sauce Start --}}
-  {{-- <div class="container">
-    <div class="row">
-      <div class="col-10 p-3 bg-success">
-      </div>
-    </div>
-  </div> --}}
-  {{-- Sauce End --}}
 
-
-
-
-
-      {{-- Drinks start--}}
-      {{-- <div class="container">
-        <div class="row">
-          <div class="col-10 d-flex bg-success mt-2 p-3">
-            
-             
-            </div>
-            
-        </div>
-      </div> --}}
-
-        
-        {{-- Drinks end --}}
-          
-    <!-- Lists end -->
-
-    <!-- button -->
     <div class="container">
       <div class="row">
-        
 
-          
+
+
       </div>
     </div>
 @endsection

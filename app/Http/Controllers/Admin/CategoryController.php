@@ -19,8 +19,8 @@ class CategoryController extends Controller
     //     return view('admin.home');
     // }
 
-        
-    
+
+
 
     //category
     public function category(){
@@ -32,8 +32,8 @@ class CategoryController extends Controller
                     ->leftjoin('pizzas','pizzas.category_id','categories.category_id')
                     ->groupBy('categories.category_id')
                     ->orderBy('categories.category_id','desc')
-        ->paginate(5); 
-       
+        ->paginate(5);
+
         // dd($data->toArray());
 
         return view('admin.category.list')->with(['categoriesData'=> $data] );
@@ -41,8 +41,8 @@ class CategoryController extends Controller
 
 
 
-    //for search session data that will delete next search button or back to category lit again..
-    
+    //for search session data that will delete next search button or back to category list again..
+
     // searchCategory
     public function searchCategory(Request $request){
         if (Session::has('searchData')) {
@@ -63,7 +63,7 @@ class CategoryController extends Controller
                 ->paginate(5);
                 // dd($data->toArray());
                 // ->paginate(2);
-                return view('admin.category.list')->with(['categoriesData'=> $data]); 
+                return view('admin.category.list')->with(['categoriesData'=> $data]);
     }
 
 
@@ -85,12 +85,12 @@ class CategoryController extends Controller
             ->leftjoin('pizzas','pizzas.category_id','categories.category_id')
             ->groupBy('categories.category_id')
             ->orderBy('categories.category_id','desc')
-            ->get(); 
+            ->get();
         }
 
-        
+
             $csvExporter = new \Laracsv\Export();
-                
+
             $csvExporter->build($data, [
                 'category_id' => 'Id',
                 'category_name' => 'Category name',
@@ -98,17 +98,17 @@ class CategoryController extends Controller
                 'created_at' => 'Created at',
                 'updated_at' => 'Updatede at',
             ]);
-            
+
             $csvReader = $csvExporter->getReader();
             $csvReader->setOutputBOM(\League\Csv\Reader::BOM_UTF8);
 
             $filename = 'categoryList19822.csv';
-    
+
             return response((string) $csvReader)
                 ->header('Content-Type', 'text/csv; charset=UTF-8')
                 ->header('Content-Disposition', 'attachment; filename="'.$filename.'"');
 
-            
+
 
 
     }
@@ -124,7 +124,7 @@ class CategoryController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required',
         ]);
- 
+
         if ($validator->fails()) {
             return back()
                         ->withErrors($validator)
@@ -157,7 +157,7 @@ class CategoryController extends Controller
             'name' => 'required',
 
         ]);
- 
+
         if ($validator->fails()) {
             return back()
                         ->withErrors($validator)
@@ -170,7 +170,7 @@ class CategoryController extends Controller
         return redirect()->route('admin#category')->with(['updated'=>'new category name is successfully updated']);
     }
 
-    
+
 
     //Category Itemn
     public function categoryItem($id, Request $request){
@@ -183,18 +183,18 @@ class CategoryController extends Controller
 
        return view('admin.category.categoryItem')->with(['pizzaData' => $data]);
     }
-   
+
 
     // Category Item Delete
     public function categoryItemDelete($id){
-        $pizzaImage = pizza::select('image')->where('pizza_id',$id)->first();  
+        $pizzaImage = pizza::select('image')->where('pizza_id',$id)->first();
         $pizzaImageName = $pizzaImage['image'];
             // dd($pizzaImage);
         if(File::exists(public_path().'/uploadedImages/'.$pizzaImageName)){
             File::delete(public_path().'/uploadedImages/'.$pizzaImageName);
         }
         pizza::where('pizza_id',$id)->delete();
-        return back()->with(['successDelete'=> 'Successfully Deleted!']);       
+        return back()->with(['successDelete'=> 'Successfully Deleted!']);
     }
 
     //user
@@ -212,5 +212,5 @@ class CategoryController extends Controller
         return view('admin.carrier.delivery');
     }
 
-    
+
 }

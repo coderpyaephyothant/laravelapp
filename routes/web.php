@@ -61,15 +61,28 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Admin','middleware'=>AdminCheckMi
     //admin->category
     Route::get('category','CategoryController@category')->name('admin#category');
     Route::get('addCategory', 'CategoryController@addCategory')->name('admin#addCategory');
-    Route::post('createCategory', 'CategoryController@createCategory')->name('admin#createCategory'); 
+    Route::post('createCategory', 'CategoryController@createCategory')->name('admin#createCategory');
     Route::get('categoryDelete/{id}','CategoryController@categoryDelete')->name('admin#categoryDelete');
     Route::get('categoryEdit/{id}','CategoryController@categoryEdit')->name('admin#categoryEdit');
     Route::post('updateCategory/{id}','CategoryController@updateCategory')->name('admin#updateCategory');
     Route::get('category/search','CategoryController@searchCategory')->name('admin#searchCategory');
     Route::get('categoryItem/{id}','CategoryController@categoryItem')->name('admin#categoryItem');
-    Route::get('categoryItemsearch','CategoryController@categoryItemSearch')->name('admin#categoryItemSearch');
+    // Route::get('categoryItemsearch','CategoryController@categoryItemSearch')->name('admin#categoryItemSearch');
     Route::get('categoryItemDelete/{id}','CategoryController@categoryItemDelete')->name('admin#categoryItemDelete');
-    Route::get('category/dowmload','CategoryController@categoryDownload')->name('admin#categoryDownload');
+    Route::get('category/download','CategoryController@categoryDownload')->name('admin#categoryDownload');
+
+
+    //admin->type
+    Route::get('type','TypeController@type')->name('admin#type');
+    Route::get('createType','TypeController@createType')->name('admin#createType');
+    Route::post('newType','TypeController@newType')->name('admin#newType');
+    Route::get('typeItem/{id}','TypeController@typeItem')->name('admin#typeItem');
+    Route::get('typeItemDelete/{id}','TypeController@typeItemDelete')->name('admin#typeItemDelete');
+    Route::get('type/download','TypeController@typeDownload')->name('admin#typeDownload');
+    Route::get('type/search','TypeController@searchType')->name('admin#searchType');
+
+
+
 
 
     //admin->pizza
@@ -126,8 +139,10 @@ Route::group(['prefix'=>'user'],function(){
     Route::get('chooseByCatName/{id}','UserController@chooseByCatName')->name('user#chooseByCatName');
     Route::post('/home','UserController@searchByPrice')->name('user#searchByPrice');
     Route::post('/home/date','UserController@searchByDate')->name('user#searchByDate');
+    Route::get('uiupdate','UserController@uiupdate')->name('user#uiupdate');
+
     //I solved same post method and same route error By using Laravel HTTP redirect method from Laravel Documents. 6:25pm july31/22
-    
+
     // cart
     Route::post('addToCart/{id}','UserController@addToCart')->name('user#addToCart');
     Route::get('orderList','UserController@orderList')->name('user#orderList');
