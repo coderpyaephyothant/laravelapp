@@ -1,11 +1,38 @@
-UI Fix
+	UI Fix
 
-1. logo create {finished}
-2.categories loop {finished}
-3.delete heart  {finished}
-4. to add new type columns - chicken -vegetable -beef -seafood (Need to CRUD IN Admin dashboard)
-	type table build migration and model. {finished}
-5. Need to create More pizzas with types
-6.change project color in ui/css/style.css
-7.
+		1. logo create {finished}
+		2.categories loop {finished}
+		3.delete heart  {finished}
+		4. to add new type columns - chicken -vegetable -beef -seafood (Need to CRUD IN Admin dashboard)
+			type table build migration and model. {finished}
+		5. Need to create More pizzas with types {finished}
+		6.change project color in ui/css/style.css {finished}
+
+		7.animation featured control set up ( just manual set up ) {finished}
+
+		first all -> detail page set up ( delete heart sign In detail page. add to cart button set up, sell price show and percentage off)
+
+
+		footer include !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+		8. Cart alive for uiupdate
+		9. Log in Log Out (Show your name after Log in)
+		10. Detail Page with cart 
+			-Detail in Home uiupdate page 1.carousel 2. Oppa''s best pizzas 3.buy one get one {{finished}}
+			-to show dynamic detail....( detail page with discount, percentage ,dataBase for star, delete favorite icon and Review, Availability show and valid number, size price!!!! )
+		11.if i click cart -> show order List
+
+		12.UI search active {{finished}}
+ 			- for pizza search ( must be public ---- first check !!!!!!) => pizza_name, price,type,category (3tables Join !!!!) {{finished}}
+ 			- Need to show data after search IN SHOP Page.....
+ 			- Validate Search Form
+
+		13. you can order after Login
+		14.Sign Up 
+		15.Message sent function
+		16. *** All Responsive pages included So just edit / fill data as you like ***
+
+ 
+
 

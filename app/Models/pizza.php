@@ -17,9 +17,10 @@ class pizza extends Model
         'publish_status',
         'discount_price',
         'category_id',
+        'type',
         'buy_one_get_one',
         'waiting_time',
         'description',
-        
+
     ];
 }

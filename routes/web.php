@@ -140,6 +140,13 @@ Route::group(['prefix'=>'user'],function(){
     Route::post('/home','UserController@searchByPrice')->name('user#searchByPrice');
     Route::post('/home/date','UserController@searchByDate')->name('user#searchByDate');
     Route::get('uiupdate','UserController@uiupdate')->name('user#uiupdate');
+    Route::get('uishop','UserController@uishop')->name('user#uishop');
+    Route::get('uifilter/{id}','UserController@uifilter')->name('user#uifilter');
+    Route::get('uisearch','UserController@uisearch')->name('user#uisearch');
+    Route::get('uiproducts','UserController@uiproducts')->name('user#uiproducts');
+    Route::get('uilinkopenType/{id}','UserController@uilinkopenType')->name('user#uilinkopenType');
+    Route::get('uilinkopenCat/{id}','UserController@uilinkopenCat')->name('user#uilinkopenCat');
+    Route::get('uidetail/{id}','UserController@uidetail')->name('user#uidetail');
 
     //I solved same post method and same route error By using Laravel HTTP redirect method from Laravel Documents. 6:25pm july31/22
 

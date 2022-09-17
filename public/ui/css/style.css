@@ -1,42 +1,42 @@
-/******************************************************************
-  Template Name: Ogani
-  Description:  Ogani eCommerce  HTML Template
-  Author: Colorlib
-  Author URI: https://colorlib.com
-  Version: 1.0
-  Created: Colorlib
-******************************************************************/
-
-/*------------------------------------------------------------------
-[Table of contents]
-
-1.  Template default CSS
-	1.1	Variables
-	1.2	Mixins
-	1.3	Flexbox
-	1.4	Reset
-2.  Helper Css
-3.  Header Section
-4.  Hero Section
-5.  Service Section
-6.  Categories Section
-7.  Featured Section
-8.  Latest Product Section
-9.  Contact
-10.  Footer Style
--------------------------------------------------------------------*/
-
-/*----------------------------------------*/
-/* Template default CSS
-/*----------------------------------------*/
 
 html,
+
 body {
 	height: 100%;
 	font-family: "Cairo", sans-serif;
 	-webkit-font-smoothing: antialiased;
-	font-smoothing: antialiased;
+    scroll-behavior: smooth;
+
 }
+
+html{
+    scroll-behavior: smooth;
+}
+
+ /* scroll to top */
+ #myBtn {
+    display: none; /* Hidden by default */
+    position: fixed; /* Fixed/sticky position */
+    bottom: 20px; /* Place the button at the bottom of the page */
+    right: 30px; /* Place the button 30px from the right */
+    z-index: 99; /* Make sure it does not overlap */
+    border: none; /* Remove borders */
+    outline: none; /* Remove outline */
+    background-color: #F0BE0D; /* Set a background color */
+    color: #3B3939; /* Text color */
+    cursor: pointer; /* Add a mouse pointer on hover */
+    height: 50px; /* Some padding */
+    width: 50px;
+    border-radius: 50%; /* Rounded corners */
+    font-size: 25px; /* Increase font size */
+    transition: 1s;
+  }
+
+  #myBtn:hover {
+    background-color: #fff; /* Add a dark-grey background on hover */
+    color: green;
+    transition: 0.5s;
+  }
 
 h1,
 h2,
@@ -138,6 +138,7 @@ ol {
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: top center;
+    border-radius: 3%;
 }
 
 .spad {
@@ -191,7 +192,7 @@ ol {
 	top: 0;
 	left: 0;
 	z-index: 999999;
-	background: #000;
+	background: #fff;
 }
 
 .loader {
@@ -211,19 +212,19 @@ ol {
 	0% {
 		-webkit-transform: rotate(0deg);
 		transform: rotate(0deg);
-		border: 4px solid #f44336;
+		border: 4px solid #198754;
 		border-left-color: transparent;
 	}
 	50% {
 		-webkit-transform: rotate(180deg);
 		transform: rotate(180deg);
-		border: 4px solid #673ab7;
+		border: 4px solid #198754;
 		border-left-color: transparent;
 	}
 	100% {
 		-webkit-transform: rotate(360deg);
 		transform: rotate(360deg);
-		border: 4px solid #f44336;
+		border: 4px solid #198754;
 		border-left-color: transparent;
 	}
 }
@@ -231,17 +232,17 @@ ol {
 @-webkit-keyframes loader {
 	0% {
 		-webkit-transform: rotate(0deg);
-		border: 4px solid #f44336;
+		border: 4px solid #198754;
 		border-left-color: transparent;
 	}
 	50% {
 		-webkit-transform: rotate(180deg);
-		border: 4px solid #673ab7;
+		border: 4px solid #198754;
 		border-left-color: transparent;
 	}
 	100% {
 		-webkit-transform: rotate(360deg);
-		border: 4px solid #f44336;
+		border: 4px solid #198754;
 		border-left-color: transparent;
 	}
 }
@@ -818,6 +819,7 @@ ol {
 .featured__controls {
 	text-align: center;
 	margin-bottom: 50px;
+    user-select: none;
 }
 
 .featured__controls ul li {
@@ -858,10 +860,12 @@ ol {
 }
 
 .featured__item__pic {
-	height: 270px;
+	height: 250px;
 	position: relative;
 	overflow: hidden;
 	background-position: center center;
+    border-radius: 3%;
+
 }
 
 .featured__item__pic__hover {
@@ -1041,13 +1045,14 @@ ol {
 .breadcrumb-section {
 	display: flex;
 	align-items: center;
-	padding: 45px 0 40px;
+	padding: 15px 0 10px;
+    background-color:#198754;
 }
 
 .breadcrumb__text h2 {
-	font-size: 46px;
+	/* font-size: 46px; */
 	color: #ffffff;
-	font-weight: 700;
+	font-weight: 500;
 }
 
 .breadcrumb__option a {
@@ -1264,14 +1269,14 @@ ol {
 
 .product__discount__title {
 	text-align: left;
-	margin-bottom: 65px;
+	margin-bottom: 35px;
 }
 
-.product__discount__title h2 {
+.product__discount__title h5 {
 	display: inline-block;
 }
 
-.product__discount__title h2:after {
+.product__discount__title h5:after {
 	margin: 0;
 	width: 100%;
 }
@@ -1406,14 +1411,14 @@ ol {
 .product__discount__slider.owl-carousel .owl-dots button {
 	height: 12px;
 	width: 12px;
-	border: 1px solid #b2b2b2;
+	border: 1px solid #198754;
 	border-radius: 50%;
 	margin-right: 12px;
 }
 
 .product__discount__slider.owl-carousel .owl-dots button.active {
-	background: #707070;
-	border-color: #6f6f6f;
+	background: #198754;
+	border-color: #198754;
 }
 
 .product__discount__slider.owl-carousel .owl-dots button:last-child {
@@ -1422,7 +1427,7 @@ ol {
 
 .filter__item {
 	padding-top: 45px;
-	border-top: 1px solid #ebebeb;
+	border-top: 1px solid #198754;
 	padding-bottom: 20px;
 }
 
@@ -1432,12 +1437,12 @@ ol {
 
 .filter__sort span {
 	font-size: 16px;
-	color: #6f6f6f;
+	color: #198754;
 	display: inline-block;
 }
 
 .filter__sort .nice-select {
-	background-color: #fff;
+	background-color: #198754 !important;
 	border-radius: 0;
 	border: none;
 	display: inline-block;
@@ -1727,8 +1732,8 @@ ol {
 
 .product__details__text ul {
 	border-top: 1px solid #ebebeb;
-	padding-top: 40px;
-	margin-top: 50px;
+	padding-top: 10px;
+	margin-top: 10px;
 }
 
 .product__details__text ul li {
@@ -2275,10 +2280,18 @@ ol {
 
 .blog__item {
 	margin-bottom: 60px;
+    width: 100%;
+    background-color: #198754;
+
+
 }
 
+
+
 .blog__item__pic img {
-	min-width: 100%;
+	width: 100%;
+
+
 }
 
 .blog__item__text {

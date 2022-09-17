@@ -2,6 +2,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500&display=swap');
 body{
     background-color:#EFEAE7;
+    scroll-behavior: smooth;
+
 }
 
 /* .mybg{
@@ -48,7 +50,7 @@ body{
     font-size: 25px; /* Increase font size */
     transition: 1s;
   }
-  
+
   #myBtn:hover {
     background-color: #fff; /* Add a dark-grey background on hover */
     color: green;
@@ -56,7 +58,7 @@ body{
   }
   .pmg{
     transition: all 2s;
-    
+
   }
   .pImg:hover {
     transform: scale(1.07);
@@ -99,8 +101,8 @@ body{
   /* btn for home pizzas */
 
   .mainBtn{
-    background-color: #F0BE0D; 
-    color: #3B3939; 
+    background-color: #F0BE0D;
+    color: #3B3939;
     transition: 1s;
   }
 

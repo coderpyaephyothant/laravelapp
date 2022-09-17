@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Cart;
+use Carbon\Carbon;
+use App\Models\Type;
 use App\Models\pizza;
 use App\Models\category;
 use App\Models\SaleOrder;
 use App\Models\SendMessage;
 use Illuminate\Http\Request;
 use App\Models\SaleOrderDetails;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
@@ -293,6 +296,7 @@ class UserController extends Controller
         $minimumPrice = $request->min;
         $maximumPrice = $request->max;
         $categoryData = category::get();
+
         $data = pizza::select('*');
         if (!is_null($minimumPrice) && is_null($maximumPrice)) {
             $choose = $data->where('price' , '>=', $minimumPrice);
@@ -360,13 +364,217 @@ class UserController extends Controller
         return view('customer.addToCart');
     }
 
+    //UI
+
+    //ui update
+
     public function uiupdate(){
        $categoryData =  category::get();
+                                // dd($categoryData->toArray());
+
        $pizzaData = pizza::get();
+       $typeData = Type::get();
 
        $categories = $categoryData->toArray();
        $pizzas = $pizzaData->toArray();
+       $types = $typeData->toArray();
     //    dd($pizzas);
-        return view('customer.uiupdate')->with(['catData'=>$categories, 'pizzaData' => $pizzas]);
+        return view('customer.uiupdate')->with(['catData'=>$categories, 'pizzaData' => $pizzas, 'typeData'=>$types]);
     }
+
+    //uishop
+    public function uishop(){
+
+        $categoryData =  category::join('pizzas','categories.category_id', '=', 'pizzas.category_id')
+                                    ->select('*',DB::raw('COUNT(pizzas.category_id)as count') )
+                                    ->groupBy('categories.category_id')->get();
+        $pizzaForAll = pizza::get(); //for sale off;
+       $pizzasForPaginate = pizza::paginate(8);
+    //    dd($pizzaData->total());
+       $typeData = Type::join('pizzas','types.type_id', '=', 'pizzas.type')
+       ->select('*',DB::raw('COUNT(pizzas.type)as count') )
+       ->groupBy('types.type_id')->get();
+    //    dd($typeData->toArray());
+       $categories = $categoryData->toArray();
+       $types = $typeData->toArray();
+        return view('customer.uishop')->with(['catData'=>$categories, 'pizzaData'=>$pizzaForAll, 'pizzaForPaginate' => $pizzasForPaginate, 'typeData'=>$types]);
+    }
+
+    //ui filter
+    public function uifilter($id, Request $request){
+        $categoryData =  category::join('pizzas','categories.category_id', '=', 'pizzas.category_id')
+        ->select('*',DB::raw('COUNT(pizzas.category_id)as count') )
+        ->groupBy('categories.category_id')->get();
+        $pizzaForAll = pizza::get(); //for sale off;
+        $pizzasForPaginate = pizza::paginate(8);
+        //    dd($pizzaData->total());
+        $typeData = Type::join('pizzas','types.type_id', '=', 'pizzas.type')
+        ->select('*',DB::raw('COUNT(pizzas.type)as count') )
+        ->groupBy('types.type_id')->get();
+        //    dd($typeData->toArray());
+        $categories = $categoryData->toArray();
+        $types = $typeData->toArray();
+
+        $pizzaForAll = pizza::get();
+
+        $list = pizza::paginate(8);
+        // dd($inthis);
+        if ($id == 5) {
+            $list = pizza::paginate(8);
+            $inthis = 5;
+        }
+
+
+        if ($id == 1) {
+            $today = Carbon::today();
+            $lastWeek = $today->subWeek();
+            $pdata = pizza::select('*');
+            $choose = $pdata->whereDate('created_at' , '>=', $lastWeek);
+
+            $list = $choose->paginate(8);
+            $inthis = 1; //the pizza should be greater than last month! For lastest new pizzas!
+
+
+            //for Carbon ------ ----- ------ ----- ----
+            //https://www.digitalocean.com/community/tutorials/easier-datetime-in-laravel-and-php-with-carbon
+            //--------- -----
+
+        }
+
+        if ($id == 4) {
+            $today = Carbon::today();
+            $lastMonth = $today->subMonth();
+            $pdata = pizza::select('*');
+            $choose = $pdata->whereDate('created_at' , '>=', $lastMonth);
+
+            $list = $choose->paginate(8);
+            $inthis = 4;
+        }
+        if ($id == 2) {
+            $pdata = pizza::select('*');
+            $choose = $pdata->orderBy('price' , 'desc');
+            $list = $choose->paginate(8);
+            $inthis = 2;
+        }
+        if ($id == 3) {
+            $pdata = pizza::select('*');
+            $choose = $pdata->orderBy('price' , 'asc');
+            $list = $choose->paginate(8);
+            $inthis = 3;
+        }
+
+
+        return view('customer.uishop')->with(['catData'=>$categories, 'pizzaData'=>$pizzaForAll, 'pizzaForPaginate' => $list, 'typeData'=>$types, 'inthis'=>$inthis]);
+
+}
+
+    //ui search
+    public function uisearch(Request $request){
+        if (Session::has('searchData')) {
+            Session::forget('searchData');
+        }
+
+        $categoryData =  category::join('pizzas','categories.category_id', '=', 'pizzas.category_id')
+                                    ->select('*',DB::raw('COUNT(pizzas.category_id)as count') )
+                                    ->groupBy('categories.category_id')->get();
+        $typeData = Type::join('pizzas','types.type_id', '=', 'pizzas.type')
+                                    ->select('*',DB::raw('COUNT(pizzas.type)as count') )
+                                    ->groupBy('types.type_id')->get();
+
+        $categories = $categoryData->toArray();
+        $types = $typeData->toArray();
+
+        $userSearch = $request->name;
+        // $pdata = pizza::select('*')->get();
+        // dd($pdata->toArray());
+        // dd($userSearch);
+        Session::put('userSearch',$userSearch);
+
+
+        $public = pizza::join('categories', 'pizzas.category_id' ,'=', 'categories.category_id')
+                            ->join('types', 'type' , '=', 'types.type_id')
+                            // ->select('pizzas.pizza_name','pizzas.price','categories.category_name','types.type_name','pizzas.description')
+                            ->where('publish_status',1)
+                            ->where(function ($query) use($userSearch) {
+                                $query->orwhere('pizzas.pizza_name','like','%'.$userSearch.'%')
+                                ->orwhere('pizzas.price','like','%'.$userSearch.'%')
+                                ->orwhere('pizzas.description','like','%'.$userSearch.'%')
+                                ->orwhere('categories.category_name','like','%'.$userSearch.'%')
+                                ->orwhere('types.type_name','like','%'.$userSearch.'%');
+
+                            })
+                            ->orderBy('pizzas.pizza_name' , 'asc')
+                            ->paginate(8);
+                            $public->appends($request->all()); //its important
+                            // dd($public->toArray());
+                            return view('customer.uiproducts')->with(['pizzaForPaginate'=> $public,'catData'=>$categories,'typeData'=>$types]);
+
+
+    }
+
+    public function uilinkopenType($id){
+        $categoryData =  category::join('pizzas','categories.category_id', '=', 'pizzas.category_id')
+                                    ->select('*',DB::raw('COUNT(pizzas.category_id)as count') )
+                                    ->groupBy('categories.category_id')->get();
+        $typeData = Type::join('pizzas','types.type_id', '=', 'pizzas.type')
+                                    ->select('*',DB::raw('COUNT(pizzas.type)as count') )
+                                    ->groupBy('types.type_id')->get();
+
+        $categories = $categoryData->toArray();
+        $types = $typeData->toArray();
+        $typeId = $id;
+        $pizzas = pizza::where('type',$typeId)
+        ->orderBy('pizza_name' , 'asc')
+        ->paginate(8);
+        return view('customer.uiproducts')->with(['pizzaForPaginate'=> $pizzas,'catData'=>$categories,'typeData'=>$types]);
+
+    }
+    public function uilinkopenCat($id){
+        $categoryData =  category::join('pizzas','categories.category_id', '=', 'pizzas.category_id')
+                                    ->select('*',DB::raw('COUNT(pizzas.category_id)as count') )
+                                    ->groupBy('categories.category_id')->get();
+        $typeData = Type::join('pizzas','types.type_id', '=', 'pizzas.type')
+                                    ->select('*',DB::raw('COUNT(pizzas.type)as count') )
+                                    ->groupBy('types.type_id')->get();
+
+        $categories = $categoryData->toArray();
+        $types = $typeData->toArray();
+        $catId = $id;
+        $pizzas = pizza::where('category_id',$catId)
+        ->orderBy('pizza_name' , 'asc')
+        ->paginate(8);
+
+        return view('customer.uiproducts')->with(['pizzaForPaginate'=> $pizzas,'catData'=>$categories,'typeData'=>$types]);
+
+
+    }
+
+    //UI Detail
+    public function uidetail($id){
+        $pizzaId = $id;
+        //FOR LATEST
+            $today = Carbon::today();
+            $lastMonth = $today->subWeek();
+            $pdata = pizza::select('*');
+            $pizzadata = $pdata->whereDate('created_at' , '>=', $lastMonth)->get();
+            $pizzas = $pizzadata->toArray();
+            // dd($pizzas->toArray());
+            //LATEST
+
+        $data = pizza::where('pizza_id',$pizzaId)
+                ->join('categories', 'pizzas.category_id' ,'=', 'categories.category_id')
+                ->join('types', 'type' , '=', 'types.type_id')
+                ->select('*',DB::raw('COUNT(pizzas.type)as count') )
+                ->groupBy('types.type_id')
+
+                // ->select('pizzas.pizza_name','pizzas.image','pizzas.price','categories.category_name','types.type_name','pizzas.description')
+                ->get();
+        $mainDetail = $data->toArray();
+        $typeId = $mainDetail[0]['type'];
+        $sameTypePizzas = pizza::where('type',$typeId)->get();
+        $sameTypes = $sameTypePizzas->toArray();
+        // dd($sameCats);
+        return view('customer.uidetail')->with(['mainDetail' => $mainDetail, 'sameTyps'=>$sameTypes , 'pizzas'=>$pizzas]);
+    }
+
 }

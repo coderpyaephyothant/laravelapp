@@ -2,7 +2,7 @@
 @section('content')
 
   <!-- scroll to top start -->
-  <button class="" onclick="topFunction()" id="myBtn" title="Go to top"><i class="fas fa-caret-up"></i></button>
+  <button class="" onclick="topFunction()" id="myBtn" title="Go to top"><i class="fas fa-arrow"></i></button>
   <!-- scroll to top end -->
 
         <!-- carousel start -->
@@ -316,7 +316,7 @@
 
 
       </div>
-      <div class="col-lg-3 d-sm-none   mt-5 stk ms-3">
+      <div class="col-lg-3 d-   mt-5 stk ms-3">
         <div class=" p-5" style="width: 100%; ">
           <div class="align-items-center ">
             <div class=" d-flex align-items-center justify-content-center ">

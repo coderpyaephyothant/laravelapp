@@ -111,6 +111,20 @@
                                 </div>
                               </div>
                               <div class="form-group row">
+                                <label for="category" class="col-sm-2 col-form-label">Type Menu</label>
+                                <div class="col-sm-10">
+                                    <select name="type"  class="form-control">
+                                        <option value="" active>choose type menu</option>
+                                        @foreach ($typeData as $item)
+                                        <option value="{{$item->type_id}}">{{$item->type_name}}</option>
+                                        @endforeach
+                                      </select>
+                                  @if ($errors->has('type'))
+                                      <p class="text-danger">{{$errors->first('type')}}</p>
+                                  @endif
+                                </div>
+                              </div>
+                              <div class="form-group row">
                                 <label for="bg" class="col-sm-2 col-form-label">buy1get1</label>
                                 <div class="col-sm-10">
                                   <div class="form-control">
@@ -135,7 +149,7 @@
                         <a href="{{route('admin#pizza')}}" class="btn btn-success">Back</a>
                         <input type="submit" value="Create" class="btn btn-danger">
                       </form>
-                      
+
                     </div>
                     </div>
                   </div>

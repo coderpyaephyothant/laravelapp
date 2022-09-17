@@ -7,6 +7,7 @@ use App\Models\pizza;
 use App\Models\category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Type;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
@@ -20,7 +21,7 @@ class PizzaController extends Controller
         }
         $pizzaData = pizza::orderBy('pizza_id','desc')->paginate(2);
         // dd($pizzaData->toArray());
-        
+
         // dd(count($pizzaData));
         if(count($pizzaData) == 0){
             $fileNumber = 0;
@@ -34,7 +35,8 @@ class PizzaController extends Controller
     //pizza create
     public function pizzaCreate(){
         $categoryData = category::get();
-        return view('admin.pizza.create')->with(['categoryData'=>$categoryData]);
+        $typeData = Type::get();
+        return view('admin.pizza.create')->with(['categoryData'=>$categoryData, 'typeData'=>$typeData]);
     }
 
      //pizza search
@@ -55,18 +57,18 @@ class PizzaController extends Controller
         }
         return view('admin.pizza.type')->with(['pizzaData'=>$data,'fileNumber'=> $fileNumber]);
     }
-    
+
 
     //pizzaDownload
     public function pizzaDownload(){
         if (Session::has('searchData')) {
             $sessionSearchWord = Session::get('searchData');
-            $data = pizza::where('pizza_name','like','%'.$sessionSearchWord.'%')->get();   
+            $data = pizza::where('pizza_name','like','%'.$sessionSearchWord.'%')->get();
         }else{
             $data = pizza::orderBy('pizza_id','desc')->get();
         }
             $csvExporter = new \Laracsv\Export();
-                
+
             $csvExporter->build($data, [
                 'pizza_id' => 'Id',
                 'pizza_name' => 'Pizza name',
@@ -76,7 +78,7 @@ class PizzaController extends Controller
                 'created_at' => 'Created at',
                 'updated_at' => 'Updatede at',
             ]);
-            
+
             $csvReader = $csvExporter->getReader();
             $csvReader->setOutputBOM(\League\Csv\Reader::BOM_UTF8);
 
@@ -99,12 +101,13 @@ class PizzaController extends Controller
             'oldNew' => 'required',
             'stockItem' => 'required',
             'category' => 'required',
+            'type' => 'required',
             'bg' => 'required',
             'wt' => 'required',
             'desc' => 'required',
 
         ]);
- 
+
         if ($validator->fails()) {
             return back()
                         ->withErrors($validator)
@@ -129,6 +132,7 @@ class PizzaController extends Controller
             'new'=>$request->oldNew,
             'quantity' => $request->stockItem,
             'category_id' => $request->category,
+            'type' => $request->type,
             'buy_one_get_one' => $request->bg,
             'waiting_time' => $request->wt,
             'description' => $request->desc,
@@ -141,12 +145,12 @@ class PizzaController extends Controller
         return redirect()->route('admin#pizza')->with(['success'=>'new pizza is successfully created']);
     }
 
-   
+
     //pizza Delete
     public function pizzaDelete($id){
-        
-        $folderImage = pizza::select('image')->where('pizza_id',$id)->first();  
-        
+
+        $folderImage = pizza::select('image')->where('pizza_id',$id)->first();
+
         $folderImageName = $folderImage['image'];
             // dd($folderImage);
         if(File::exists(public_path().'/uploadedImages/'.$folderImageName)){
@@ -159,11 +163,11 @@ class PizzaController extends Controller
 
     //pizza edit
     public function pizzaEdit($id){
-        
+
         $data = pizza::where('pizza_id',$id)->first();
         // dd($data->toArray());
         $categoryData = category::get();
-        
+
         return view('admin.pizza.edit')->with(['data'=>$data,'categoryData'=>$categoryData]);
     }
 
@@ -185,9 +189,9 @@ class PizzaController extends Controller
                 'bg' => 'required',
                 'wt' => 'required',
                 'desc' => 'required',
-    
+
             ]);
-     
+
             if ($validator->fails()) {
                 return back()
                             ->withErrors($validator)
@@ -231,9 +235,9 @@ class PizzaController extends Controller
                 'bg' => 'required',
                 'wt' => 'required',
                 'desc' => 'required',
-    
+
             ]);
-     
+
             if ($validator->fails()) {
                 return back()
                             ->withErrors($validator)
@@ -253,12 +257,12 @@ class PizzaController extends Controller
                 'description' => $request->desc,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
-               
+
             ];
             // dd($data);
             pizza::where('pizza_id',$id)->update($data);
         return redirect()->route('admin#pizza')->with(['updated'=>'successfully updated!']);
-        }      
+        }
     }
     //pizza details
     public function pizzaDetail($id){
@@ -267,5 +271,5 @@ class PizzaController extends Controller
         // dd($categoryData);
         return view('admin.pizza.detail')->with(['data'=>$data,'categoryData'=>$categoryData]);
     }
-    
+
 }
