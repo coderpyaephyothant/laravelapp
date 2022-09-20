@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Validator;
 use Symfony\Component\Translation\Provider\Dsn;
 use Symfony\Component\HttpFoundation\Session\Session as SessionSession;
 
+use function Symfony\Component\String\b;
+
 class UserController extends Controller
 {   //Index
     public function index(){
@@ -84,60 +86,55 @@ class UserController extends Controller
 
     }
 
-    //addToCart
+    //addToCart  //ui add to cart
 
 
-    public function addToCart(Request $request,$id){
+    // public function addToCart(Request $request,$id){
 
-        $pizza = pizza::where('pizza_id',$id)->first();
-        $dataBaseQty = $pizza->quantity; //for dataBase
-        $pizzaQuantity =  $request->quantity ? $request->quantity : 1 ;  //one error please check!!!!!!!!!!!!!!!!!!
-        $itemsInThe = Session::has('cart') ? Session::get('cart') : null;
-        $cart = new Cart($itemsInThe);
-        $cart->add($pizza,$pizza->pizza_id,$pizzaQuantity);
-
-
-        $yourQuantity = $cart->items[$id]['quantity'];
-        if ($yourQuantity > $dataBaseQty) {
-           return back()->with(['outOcStock'=>'out of stock now...']);
-        }
-        $request->Session()->put('cart',$cart);
-        // dd($cart->totalPrice);
-        $success = $pizza->pizza_name. '   is successfully added to the Cart!';
-        return redirect()->route('user#index')->with(['success'=>$success]);
-
-    }
-
-    //order List
-    public function orderList(Request $request){
-       $categoryData = category::get();
-       $pizzaData =  pizza::get();
+    //     $pizza = pizza::where('pizza_id',$id)->first();
+    //     $dataBaseQty = $pizza->quantity; //for dataBase
+    //     $pizzaQuantity =  $request->quantity ? $request->quantity : 1 ;  //one error please check!!!!!!!!!!!!!!!!!!
+    //     $itemsInThe = Session::has('cart') ? Session::get('cart') : null;
+    //     $cart = new Cart($itemsInThe);
+    //     $cart->add($pizza,$pizza->pizza_id,$pizzaQuantity);
 
 
+    //     $yourQuantity = $cart->items[$id]['quantity'];
+    //     if ($yourQuantity > $dataBaseQty) {
+    //        return back()->with(['outOcStock'=>'out of stock now...']);
+    //     }
+    //     $request->Session()->put('cart',$cart);
+    //     // dd($cart->totalPrice);
+    //     $success = $pizza->pizza_name. '   is successfully added to the Cart!';
+    //     return redirect()->route('user#index')->with(['success'=>$success]);
 
-        $itemsInThe = Session::get('cart');
-        // $user_id = auth()->user()->id;
-        $cart = new Cart($itemsInThe);
-        // dd(auth()->user()->id);
-        $c = $cart->items;
-    //    dd($cart);
+    // }
 
-        // foreach ($cart->items as $key => $value) {
-        //    dd($value['item']['pizza_name']);
-        // }
-        if ($cart->items != null) {
-        return view('customer.orderList', ['pizzas' => $cart->items, 'totalPrice' => $cart->totalPrice, 'totalQty'=>$cart->totalQuantity]);
+    // //order List
+    // public function orderList(Request $request){
+    //    $categoryData = category::get();
+    //    $pizzaData =  pizza::get();
 
-        }else{
-            // dd($cart);
-            return view('customer.orderList')->with(['totalQty'=>'no data','pizzas' => $cart->items, 'totalPrice' => $cart->totalPrice]);
 
-        }
 
-        // if(! Session::has('cart') ) {
-        //     return view('customer.orderList')->with(['pizzas' => $cart->items, 'totalPrice' => $cart->totalPrice,'totalQty'=>'no data']);
-        // }
-    }
+    //     $itemsInThe = Session::get('cart');
+    //     // $user_id = auth()->user()->id;
+    //     $cart = new Cart($itemsInThe);
+    //     // dd(auth()->user()->id);
+    //     $c = $cart->items;
+    //     if ($cart->items != null) {
+    //     return view('customer.orderList', ['pizzas' => $cart->items, 'totalPrice' => $cart->totalPrice, 'totalQty'=>$cart->totalQuantity]);
+
+    //     }else{
+    //         // dd($cart);
+    //         return view('customer.orderList')->with(['totalQty'=>'no data','pizzas' => $cart->items, 'totalPrice' => $cart->totalPrice]);
+
+    //     }
+
+    //     // if(! Session::has('cart') ) {
+    //     //     return view('customer.orderList')->with(['pizzas' => $cart->items, 'totalPrice' => $cart->totalPrice,'totalQty'=>'no data']);
+    //     // }
+    // }
 
         //checkout or odrder submit
         public function checkout(){
@@ -195,47 +192,49 @@ class UserController extends Controller
         }
 
 
-    //quantity Update
-    public function quantityUpdate(Request $request, $id){
+    // //quantity Update
+    // public function quantityUpdate(Request $request, $id){
 
-        $validator = Validator::make($request->all(), [
-            'quantity' => 'required|numeric|min:1'
-        ]);
+    //     $validator = Validator::make($request->all(), [
+    //         'quantity' => 'required|numeric|min:1'
+    //     ]);
 
-        if ($validator->fails()) {
-            return back()
-                        ->withErrors($validator)
-                        ->withInput();
-        }
-        if(Session::has('cart')){
-        $pizzaId = $id;
-        $product = pizza::where('pizza_id',$id)->first();
-        $dataBaseQty = $product->quantity;
+    //     if ($validator->fails()) {
+    //         return back()
+    //                     ->withErrors($validator)
+    //                     ->withInput();
+    //     }
+    //     if(Session::has('cart')){
+    //     $pizzaId = $id;
+    //     $product = pizza::where('pizza_id',$id)->first();
+    //     $dataBaseQty = $product->quantity;
 
-        $quantity = $request->quantity;
+    //     $quantity = $request->quantity;
 
-        $itemsInThe = Session::has('cart') ? Session::get('cart') : null;
-        $cart = new Cart($itemsInThe);
-        $cart->update($pizzaId,$quantity,$product);
-        $yourQty = $cart->items[$id]['quantity'];
-        if ($quantity > $dataBaseQty){
-            return back()->with(['outOcStock'=>'out of stock now...']);
+    //     $itemsInThe = Session::has('cart') ? Session::get('cart') : null;
+    //     $cart = new Cart($itemsInThe);
+    //     $cart->update($pizzaId,$quantity,$product);
+    //     $yourQty = $cart->items[$id]['quantity'];
+    //     if ($quantity > $dataBaseQty){
+    //         return back()->with(['outOcStock'=>'out of stock now...']);
 
-        }
+    //     }
 
-        $request->session()->put('cart', $cart);
-        return back()->with(['success'=> 'successfully updated']);
-        }else{
-        return back()->with(['fail'=> 'Incorrect Credentials']);
+    //     $request->session()->put('cart', $cart);
+    //     return back()->with(['success'=> 'successfully updated']);
+    //     }else{
+    //     return back()->with(['fail'=> 'Incorrect Credentials']);
 
-        }
-    }
+    //     }
+    // }
 
     //orderitem delete
     public function deleteOrderItem(Request $request,$id){
 
        $pizzaId = $id;
        $toDeletePizza = pizza::where('pizza_id',$id)->first();
+       $name = $toDeletePizza->pizza_name;
+    //    $toDeletePizzaName =
        $itemsInThe = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart($itemsInThe);
 
@@ -243,7 +242,7 @@ class UserController extends Controller
 
 
         $request->session()->put('cart', $cart);
-        return back();
+        return back()->with(['deleted'=> $name.' is Successfully deleted']);
 
         // if ($remove == 0) {
         // $request->session()->forget('cart');
@@ -255,22 +254,22 @@ class UserController extends Controller
 
     }
 
-    //cartClear
-    public function clearCart(){
-        // dd(Session::get('cart'));
-        ;
-        if (Session::get('cart') == null) {
-            return back();
-        }else{
+    // cartClear
+    // public function clearCart(){
+    //     // dd(Session::get('cart'));
+    //     ;
+    //     if (Session::get('cart') == null) {
+    //         return back()->with(['inc'=> 'Incorrect Credentials...']);
+    //     }else{
 
-        // $itemsInThe = Session::get('cart');
-        // $cart = new Cart($itemsInThe);
-        $items = session()->forget('cart');
-        return redirect()->route('user#index');
-        }
+    //     // $itemsInThe = Session::get('cart');
+    //     // $cart = new Cart($itemsInThe);
+    //     $items = session()->forget('cart');
+    //     return redirect()->route('user#index');
+    //     }
 
 
-    }
+    // }
 
 
 
@@ -577,4 +576,110 @@ class UserController extends Controller
         return view('customer.uidetail')->with(['mainDetail' => $mainDetail, 'sameTyps'=>$sameTypes , 'pizzas'=>$pizzas]);
     }
 
+    //ui cart
+    public function uicart(){
+        return view('customer.uiShoppingCart');
+    }
+
+    //ui add to cart
+    public function addToCart(Request $request,$id){
+        // dd('add to cart');
+        $pizza = pizza::where('pizza_id',$id)->first();
+        $dataBaseQty = $pizza->quantity; //for dataBase
+        $pizzaQuantity =  $request->quantity ? $request->quantity : 1 ;  //(solved !)one error please check!!!!!!!!!!!!!!!!!!
+        $itemsInThe = Session::has('cart') ? Session::get('cart') : null;
+        $cart = new Cart($itemsInThe);
+        $cart->add($pizza,$pizza->pizza_id,$pizzaQuantity);
+
+
+        $yourQuantity = $cart->items[$id]['quantity'];
+        if ($yourQuantity > $dataBaseQty) {
+           return back()->with(['outOcStock'=>'out of stock now...']);
+        }
+        $request->Session()->put('cart',$cart);
+        // dd($cart->totalPrice);
+        // dd(Session::get('cart'));
+        $success = $pizza->pizza_name. '   is successfully added to the Cart!';
+        return redirect()->route('user#uishop')->with(['success'=>$success]);
+
+    }
+
+     // ui order List
+     public function orderList(Request $request){
+        $categoryData = category::get();
+        $pizzaData =  pizza::get();
+
+
+
+         $itemsInThe = Session::get('cart');
+         // $user_id = auth()->user()->id;
+         $cart = new Cart($itemsInThe);
+         // dd(auth()->user()->id);
+         if ($cart->items != null) {
+            // dd($cart);
+         return view('customer.uiShoppingCart', ['pizzas' => $cart->items, 'totalPrice' => $cart->totalPrice, 'totalQty'=>$cart->totalQuantity]);
+
+         }else{
+             // dd($cart);
+             return view('customer.uiShoppingCart')->with(['totalQty'=>'no data','pizzas' => $cart->items, 'totalPrice' => $cart->totalPrice]);
+
+         }
+
+         // if(! Session::has('cart') ) {
+         //     return view('customer.orderList')->with(['pizzas' => $cart->items, 'totalPrice' => $cart->totalPrice,'totalQty'=>'no data']);
+         // }
+     }
+
+      //ui  quantity Update
+    public function quantityUpdate(Request $request, $id){
+
+        $validator = Validator::make($request->all(), [
+            'quantity' => 'required|numeric|min:1'
+        ]);
+
+        if ($validator->fails()) {
+            return back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+        if(Session::has('cart')){
+        $pizzaId = $id;
+        $product = pizza::where('pizza_id',$id)->first();
+        $dataBaseQty = $product->quantity;
+
+        $quantity = $request->quantity;
+            // dd($quantity);
+        $itemsInThe = Session::has('cart') ? Session::get('cart') : null;
+        $cart = new Cart($itemsInThe);
+        $cart->update($pizzaId,$quantity,$product);
+        $yourQty = $cart->items[$id]['quantity'];
+        if ($quantity > $dataBaseQty){
+            return back()->with(['outOcStock'=>'out of stock now...']);
+
+        }
+
+        $request->session()->put('cart', $cart);
+        return back()->with(['success'=> 'successfully updated']);
+        }else{
+        return back()->with(['fail'=> 'Incorrect Credentials']);
+
+        }
+    }
+
+    // cartClear
+    public function clearCart(){
+        // dd(Session::get('cart'));
+        ;
+        if (Session::get('cart') == null) {
+            return back()->with(['inc'=> 'Incorrect Credentials...']);
+        }else{
+
+        // $itemsInThe = Session::get('cart');
+        // $cart = new Cart($itemsInThe);
+        $items = session()->forget('cart');
+        return redirect()->route('user#uishop');
+        }
+
+
+    }
 }

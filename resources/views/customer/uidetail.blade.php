@@ -9,7 +9,7 @@
     </div>
     <div class="humberger__menu__cart">
         <ul>
-            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+            <li><a href="#"><i class="fas fa-shopping-cart"></i> <span>3</span></a></li>
         </ul>
         <div class="header__cart__price">item: <span>$150.00</span></div>
     </div>
@@ -107,26 +107,26 @@
                     <ul>
                         <li class=""><a href="{{route('user#uiupdate')}}">Home</a></li>
                         <li class="active"><a  href="{{route('user#uishop')}}">Shop</a></li>
-                        <li><a href="#">Pages</a>
-                            <ul class="header__menu__dropdown">
-                                <li><a href="./shop-details.html">Shop Details</a></li>
-                                <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-                                <li><a href="./checkout.html">Check Out</a></li>
-                                <li><a href="./blog-details.html">Blog Details</a></li>
-                            </ul>
-                        </li>
+                        <li><a href="#">Cart</a></li>
                         <li><a href="./blog.html">Blog</a></li>
                         <li><a href="./contact.html">Contact Us</a></li>
                     </ul>
                 </nav>
-                <!-- Breadcrumb Section Begin -->
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="{{route('user#uiupdate')}}">Home</a></li>
-      <li class="breadcrumb-item"><a href="{{route('user#uishop')}}">Shop</a></li>
-      <li class="breadcrumb-item"><a href="{{route('user#uishop')}}">Pizza Name</a></li>
-    </ol>
-  </nav>
+    <!-- Breadcrumb Section Begin -->
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{route('user#uiupdate')}}">Home</a></li>
+                    @if (url()->previous() == 'http://127.0.0.1:8000/user/uishop')
+                    <li class="breadcrumb-item"><a href="{{route('user#uishop')}}">Shop</a></li>
+                    @endif
+                    @if (url()->previous() == 'http://127.0.0.1:8000/user/uisearch?name=')
+                    <li class="breadcrumb-item"><a href="{{route('user#uiproducts')}}">products</a></li>
+                    @endif
+                    @foreach ($mainDetail as $item)
+                    <li class="breadcrumb-item"><a href="{{route('user#uishop')}}">{{$item['pizza_name']}}</a></li>
+                    @endforeach
+                    </ol>
+                </nav>
     <!-- Breadcrumb Section End -->
             </div>
             <div class="col-lg-3">
@@ -151,7 +151,7 @@
                 <div class="product__details__pic">
                     @foreach ($mainDetail as $item)
                     <div class="product__details__pic__item">
-                        <img class="product__details__pic__item--large"
+                        <img style="border-radius: 3%;" class="product__details__pic__item--large"
                             src="{{asset('uploadedImages/'.$item['image'])}}" alt="">
                     </div>
                     @endforeach
@@ -215,10 +215,10 @@
                         <li><b>Waiting Time</b><span>{{$item['waiting_time']}} Minutes</span></li>
                         <li><b>Share on</b>
                             <div class="share">
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-instagram"></i></a>
-                                <a href="#"><i class="fa fa-pinterest"></i></a>
+                                <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                                <a href="#"><i class="fa-brands fa-pinterest"></i></a>
                             </div>
                         </li>
                     </ul>
