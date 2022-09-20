@@ -89,12 +89,12 @@
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="header__top__right">
-                        {{-- <div class="header__top__right__social">
+                        <div class="header__top__right__social">
                             <a href="#"><i class="fa-brands fa-facebook"></i></a>
                             <a href="#"><i class="fa-brands fa-twitter"></i></a>
                             <a href="#"><i class="fa-brands fa-linkedin"></i></a>
                             <a href="#"><i class="fa-brands fa-pinterest-p"></i></a>
-                        </div> --}}
+                        </div>
                         <div class="header__top__right__language">
                             <img src="{{asset('ui/img/hero/lg.jpg')}}" alt="">
                             <div>English</div>
