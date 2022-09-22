@@ -26,11 +26,11 @@ Route::get('/', function () {
             if(Auth::user()->role == 'admin'){
                 return redirect()->route('admin#profile');
             }else if(Auth::user()->role == 'user'){
-                return redirect()->route('user#index');
+                return redirect()->route('user#uishop');
             }
 
     }
-    return view('welcome');
+    return redirect()->route('user#uiupdate');
 })->name('user#home');
 
 Route::middleware([
@@ -43,7 +43,7 @@ Route::middleware([
             if(Auth::user()->role == 'admin'){
                 return redirect()->route('admin#profile');
             }else if(Auth::user()->role == 'user'){
-                return redirect()->route('user#index');
+                return redirect()->route('user#uiupdate');
             }
         }
     })->name('dashboard');
@@ -139,7 +139,7 @@ Route::group(['prefix'=>'user'],function(){
     Route::get('chooseByCatName/{id}','UserController@chooseByCatName')->name('user#chooseByCatName');
     Route::post('/home','UserController@searchByPrice')->name('user#searchByPrice');
     Route::post('/home/date','UserController@searchByDate')->name('user#searchByDate');
-    Route::get('uiupdate','UserController@uiupdate')->name('user#uiupdate');
+    Route::get('home','UserController@uiupdate')->name('user#uiupdate');
     Route::get('uishop','UserController@uishop')->name('user#uishop');
     Route::get('uifilter/{id}','UserController@uifilter')->name('user#uifilter');
     // Route::get('uisearch','UserController@uisearch')->name('user#uisearch');

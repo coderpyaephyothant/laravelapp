@@ -105,7 +105,7 @@
                                     <li>Total Quantity <span>{{$totalQty}}</span></li>
                                     <li>Total Price<span>{{$totalPrice}}</span></li>
                                 </ul>
-                                <a href="#" class="primary-btn">Continue Checkout</a>
+                                <a href="{{route('user#checkout')}}" class="primary-btn">Checkout</a>
                             </div>
                         </div>
 

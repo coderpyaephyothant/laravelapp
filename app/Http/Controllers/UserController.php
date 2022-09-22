@@ -178,7 +178,7 @@ class UserController extends Controller
                      }
                     session()->forget('cart');
 
-                    return redirect()->route('user#index')->with(['success'=>'Thanks for your ordeder!']);
+                    return redirect()->route('user#uishop')->with(['success'=>'Thanks for your ordeder!']);
 
 
                 }else{

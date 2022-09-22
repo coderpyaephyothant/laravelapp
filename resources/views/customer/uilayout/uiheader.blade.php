@@ -143,7 +143,7 @@
                 <div class="col-lg-6 ">
                     <nav class="header__menu">
                         <ul>
-                            <li @if ($path == 'uiupdate')
+                            <li @if ($path == 'home')
                             class="active"
                             @endif><a href="{{route('user#uiupdate')}}">Home</a></li>
                             <li @if ($path == 'uishop')
@@ -160,7 +160,7 @@
         <!-- Breadcrumb Section Begin -->
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                        @if ($path == 'uiupdate')
+                        @if ($path == 'home')
                         <li class="breadcrumb-item"></li>
                         @else
                         <li class="breadcrumb-item"><a href="{{route('user#uiupdate')}}">Home</a></li>
@@ -216,6 +216,13 @@
                     {{Session::get('inc')}}
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
+                @endif
+                @if (Session::has('please'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{Session::get('please')}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+
                 @endif
              </div>
         </div>
