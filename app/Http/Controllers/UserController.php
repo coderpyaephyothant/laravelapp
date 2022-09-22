@@ -553,11 +553,11 @@ class UserController extends Controller
         $pizzaId = $id;
         //FOR LATEST
             $today = Carbon::today();
-            $lastMonth = $today->subWeek();
+            $lastMonth = $today->subMonth();
             $pdata = pizza::select('*');
             $pizzadata = $pdata->whereDate('created_at' , '>=', $lastMonth)->get();
             $pizzas = $pizzadata->toArray();
-            // dd($pizzas->toArray());
+            // dd($pizzas);
             //LATEST
 
         $data = pizza::where('pizza_id',$pizzaId)
@@ -583,7 +583,7 @@ class UserController extends Controller
 
     //ui add to cart
     public function addToCart(Request $request,$id){
-        // dd('add to cart');
+        // dd($request->quantity);
         $pizza = pizza::where('pizza_id',$id)->first();
         $dataBaseQty = $pizza->quantity; //for dataBase
         $pizzaQuantity =  $request->quantity ? $request->quantity : 1 ;  //(solved !)one error please check!!!!!!!!!!!!!!!!!!

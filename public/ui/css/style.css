@@ -15,6 +15,12 @@ html{
     scroll-behavior: smooth;
 }
 
+/* in out image */
+#inOutZoom {
+    overflow: hidden;
+    border-radius: 3%;
+}
+
  /* scroll to top */
  #myBtn {
     display: none; /* Hidden by default */

@@ -43,6 +43,27 @@ else welcomeText = welcomeTypes[2];
 greeting.innerHTML = welcomeText;
 // end greeting message
 
+
+//start in out image zoom
+const containerTag = document.getElementById("inOutZoom");
+const imgTag = document.getElementById("inoutimg");
+
+if (containerTag) {
+    containerTag.addEventListener("mousemove",(e)=>{
+        const x = e.clientX - e.target.offsetLeft;
+        const y = e.clientY - e.target.offsetTop;
+        imgTag.style.transformOrigin = `${x}px ${y}px`;
+        imgTag.style.transform = "scale(1.3)"
+    });
+}
+document.body.addEventListener("mouseover", ()=>{
+    imgTag.style.transform = "scale(1)";
+    return;
+});
+
+//end in out image zoom
+
+
 // scroll to top
 //Get the button:
 mybutton = document.getElementById("myBtn");

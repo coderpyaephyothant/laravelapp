@@ -49,8 +49,8 @@
                     <li><a href="./blog-details.html">Blog Details</a></li>
                 </ul>
             </li>
-            <li><a href="./blog.html">Blog</a></li>
-            <li><a href="./contact.html">Contact Us</a></li>
+            {{-- <li><a href="./blog.html">Blog</a></li> --}}
+            <li><a href="#contact_us">Contact Us</a></li>
         </ul>
     </nav>
     <div id="mobile-menu-wrap"></div>
@@ -89,12 +89,12 @@
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="header__top__right">
-                        <div class="header__top__right__social">
+                        {{-- <div class="header__top__right__social">
                             <a href="#"><i class="fa-brands fa-facebook"></i></a>
                             <a href="#"><i class="fa-brands fa-twitter"></i></a>
                             <a href="#"><i class="fa-brands fa-linkedin"></i></a>
                             <a href="#"><i class="fa-brands fa-pinterest-p"></i></a>
-                        </div>
+                        </div> --}}
                         <div class="header__top__right__language">
                             <img src="{{asset('ui/img/hero/lg.jpg')}}" alt="">
                             <div>English</div>
@@ -127,6 +127,12 @@
             </div>
         </div>
     </div>
+    @php
+        $link = url()->current();
+        $address = explode('/',$link);
+        $path = end($address);
+
+    @endphp
     <div class="container">
         <div class="row">
                 <div class="col-lg-3 ">
@@ -137,37 +143,43 @@
                 <div class="col-lg-6 ">
                     <nav class="header__menu">
                         <ul>
-                            <li class="active"><a href="{{route('user#uiupdate')}}">Home</a></li>
-                            <li class=""><a  href="{{route('user#uishop')}}">Shop</a></li>
-                            <li><a href="{{route('user#uicart')}}">Cart</a> </li>
-                            <li><a href="./blog.html">Blog</a></li>
-                            <li><a href="./contact.html">Contact Us</a></li>
+                            <li @if ($path == 'uiupdate')
+                            class="active"
+                            @endif><a href="{{route('user#uiupdate')}}">Home</a></li>
+                            <li @if ($path == 'uishop')
+                            class="active"
+                            @endif><a  href="{{route('user#uishop')}}">Shop</a></li>
+                            <li @if ($path == 'uicart')
+                            class="active"
+                            @endif><a href="{{route('user#uicart')}}">Cart</a> </li>
+                            {{-- <li><a href="./blog.html">Blog</a></li> --}}
+                            <li><a href="#contact_us">Contact Us</a></li>
                         </ul>
                     </nav>
 
         <!-- Breadcrumb Section Begin -->
-                    @php
-                        $link = url()->current();
-                        $address = explode('/',$link);
-                        $path = end($address);
-
-                    @endphp
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
+                        @if ($path == 'uiupdate')
+                        <li class="breadcrumb-item"></li>
+                        @else
                         <li class="breadcrumb-item"><a href="{{route('user#uiupdate')}}">Home</a></li>
+                        @endif
                         @if ($path == 'uishop')
                         <li class="breadcrumb-item"><a href="{{route('user#uishop')}}">Shop</a></li>
                         @endif
                         @if ($path == 'uiproducts')
+                        <li class="breadcrumb-item"><a href="{{route('user#uishop')}}">Shop</a></li>
                         <li class="breadcrumb-item"><a href="{{route('user#uiproducts')}}">Products</a></li>
                         @endif
                         @if ($path == 'uicart')
+                        <li class="breadcrumb-item"><a href="{{route('user#uishop')}}">Shop</a></li>
                         <li class="breadcrumb-item"><a href="{{route('user#uicart')}}">Cart</a></li>
                         @endif
-
                         </ol>
                     </nav>
         <!-- Breadcrumb Section End -->
+
                 </div>
                 <div class="col-lg-3 ">
                     <div class="header__cart">

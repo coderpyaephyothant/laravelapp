@@ -34,11 +34,11 @@
                         </div>
                         <div class="hero__search__phone">
                             <div class="hero__search__phone__icon">
-                                <i class="fa fa-phone"></i>
+                                <i class="fa-brands fa-facebook"></i>
                             </div>
                             <div class="hero__search__phone__text">
-                                <h5>+959 123456789</h5>
-                                <span>support 24/7 time</span>
+                                <h5>Oppa's Community</h5>
+                                <span>Happy with oppa's pizzas</span>
                             </div>
                         </div>
                     </div>
@@ -54,24 +54,7 @@
         </div>
     </section>
     <!-- Hero Section End -->
-    <!-- Categories Section Begin -->
-    <section class="categories">
-        <div class="container">
-            <div class="row">
-                <div class="categories__slider owl-carousel">
-                    @foreach ($pizzaData as $item)
-                        <div class="col-lg-3" style="width: 80% !important;">
-                                <div class="categories__item set-bg" data-setbg="{{asset('uploadedImages/'.$item['image'])}}">
-                                <h5><a href="{{route('user#uidetail',$item['pizza_id'])}}">{{$item['pizza_name']}}</a></h5>
-                            </div>
-                        </div>
-                    @endforeach
 
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Categories Section End -->
 
     <!-- Featured Section Begin -->
     <section class="featured spad">
@@ -79,7 +62,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title">
-                        <h2>Oppa"s Best Pizzas</h2>
+                        <h2>Oppa's Best Pizzas</h2>
                     </div>
                     <div class="featured__controls ">
                         <ul>
@@ -187,7 +170,7 @@
     <!-- Featured Section End -->
 
     <!-- Banner Begin -->
-    <div class="banner">
+    {{-- <div class="banner">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6">
@@ -202,8 +185,26 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!-- Banner End -->
+     <!-- Categories Section Begin -->
+     <section class="categories">
+        <div class="container">
+            <div class="row">
+                <div class="categories__slider owl-carousel">
+                    @foreach ($pizzaData as $item)
+                        <div class="col-lg-3" style="width: 80% !important;">
+                                <div class="categories__item set-bg" data-setbg="{{asset('uploadedImages/'.$item['image'])}}">
+                                <h5><a href="{{route('user#uidetail',$item['pizza_id'])}}">{{$item['pizza_name']}}</a></h5>
+                            </div>
+                        </div>
+                    @endforeach
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Categories Section End -->
 
 
     <!-- Blog Section Begin -->

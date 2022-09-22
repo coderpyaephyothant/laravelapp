@@ -65,11 +65,11 @@
                         </div>
                         <div class="hero__search__phone">
                             <div class="hero__search__phone__icon">
-                                <i class="fa fa-phone"></i>
+                                <i class="fa-brands fa-facebook"></i>
                             </div>
                             <div class="hero__search__phone__text">
-                                <h5>+959 123456789</h5>
-                                <span>support 24/7 time</span>
+                                <h5>Oppa's Community</h5>
+                                <span>Happy with oppa's pizzas</span>
                             </div>
                         </div>
                     </div>

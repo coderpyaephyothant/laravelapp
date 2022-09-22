@@ -17,7 +17,7 @@
                         <thead>
 
                                     <tr>
-                                        <th width="5%" >Number</th>
+                                        <th  >Number</th>
                                         <th class="">Pizzas</th>
                                         <th>Price</th>
                                         <th>Quantity</th>
@@ -102,7 +102,7 @@
                             <div class="shoping__checkout">
                                 <h5>Cart Total</h5>
                                 <ul>
-                                    <li>Quantity <span>{{$totalQty}}</span></li>
+                                    <li>Total Quantity <span>{{$totalQty}}</span></li>
                                     <li>Total Price<span>{{$totalPrice}}</span></li>
                                 </ul>
                                 <a href="#" class="primary-btn">Continue Checkout</a>
