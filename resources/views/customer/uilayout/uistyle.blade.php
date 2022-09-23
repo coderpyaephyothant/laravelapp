@@ -7,7 +7,7 @@
     <meta name="keywords" content="Ogani, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Oppa Pizzas</title>
+    <title>Oppa'sPizzas</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
@@ -39,13 +39,13 @@
 
 
     <!-- Footer Section Begin -->
-    <footer class="footer spad">
+    <footer class="footer spad" id="contact_us">
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="footer__about">
                         <div class="footer__about__logo">
-                            <a href="./index.html"><img src="{{asset('ui/img/opplogo.png')}}" alt=""></a>
+                            <a href="">Oppa's Pizza</a>
                         </div>
                         <ul>
                             <li>Address: Lanmadaw Yangon</li>
@@ -69,10 +69,10 @@
                     <div class="">
                         <h6>Join Oppa Fan's Community Now</h6>
                         <div class="d-flex justify-content-around">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-instagram"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-pinterest"></i></a>
+                            <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                            <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                            <a href="#"><i class="fa-brands fa-pinterest"></i></a>
                         </div> <br>
                         <p>Send Your Messages</p>
                         <form action="#">

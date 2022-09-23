@@ -30,6 +30,38 @@
 
 // document.location.reload(true);
 
+// start greeting message
+const greeting = document.getElementById("greeting");
+const hour = new Date().getHours();
+const welcomeTypes = ["Good morning", "Good afternoon", "Good evening"];
+let welcomeText = "";
+
+if (hour < 12) welcomeText = welcomeTypes[0];
+else if (hour < 18) welcomeText = welcomeTypes[1];
+else welcomeText = welcomeTypes[2];
+
+greeting.innerHTML = welcomeText;
+// end greeting message
+
+
+//start in out image zoom
+const containerTag = document.getElementById("inOutZoom");
+const imgTag = document.getElementById("inoutimg");
+
+if (containerTag) {
+    containerTag.addEventListener("mousemove",(e)=>{
+        const x = e.clientX - e.target.offsetLeft;
+        const y = e.clientY - e.target.offsetTop;
+        imgTag.style.transformOrigin = `${x}px ${y}px`;
+        imgTag.style.transform = "scale(1.3)"
+    });
+}
+document.body.addEventListener("mouseover", ()=>{
+    imgTag.style.transform = "scale(1)";
+    return;
+});
+
+//end in out image zoom
 
 
 // scroll to top

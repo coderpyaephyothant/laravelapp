@@ -29,13 +29,13 @@ class Cart {
             if (array_key_exists($id,$this->items)) {
                 $keep = $this->items[$id];
                 $this->totalQuantity +=$keep_items['quantity'] ;
-                $this->totalPrice += $keep_items['price'];
-
+                $this->totalPrice += ( $keep_items['quantity'] * $keep_items['price'] );
                 // dd($this->totalQuantity);
                 $updatedQty = $keep['quantity'] += $keep_items['quantity'];
                 $keep_items['quantity'] = $updatedQty;
 
                 $keep_items['price'] = $keep_items['quantity'] * $keep_items['price'];
+
                 // dd($keep_items['price']);
                 $this->items[$id] = $keep_items;
 

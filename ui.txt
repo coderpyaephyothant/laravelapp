@@ -33,6 +33,9 @@
 		15.Message sent function
 		16. *** All Responsive pages included So just edit / fill data as you like ***
 
+/////////////
+17. uistyle robus code. check after cart setup !!!!!!!!!!!!!!!!!!!!!!!!!
+
  
 
 

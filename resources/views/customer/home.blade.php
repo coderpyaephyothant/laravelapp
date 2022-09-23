@@ -36,8 +36,11 @@
       @endif
 
       @if (Session::has('outOcStock'))
-          <b class="text-danger">{{Session::get('outOcStock')}}</b>
-      @endif
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <p>{{Session::get('outOcStock')}}</p>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
           <div class="mt-3 text-center">
             <h3 class="text-danger hname">FAVORITES</h3>
           </div> <hr>
