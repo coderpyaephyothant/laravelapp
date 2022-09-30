@@ -3,35 +3,28 @@
 
     @section('content')
     <!-- Page Preloder -->
- <div id="preloder">
+ {{-- <div id="preloder">
     <div class="loader"></div>
-</div>
-    @include('customer.uilayout.uiheader')
+</div> --}}
+    {{-- @include('customer.uilayout.uiheader') --}}
     <!-- Hero Section Begin -->
     <section class="hero">
         <div class="container">
             <div class="row">
-                {{-- <div class="col-lg-3">
-                    <div class="hero__categories">
-                        <div class="hero__categories__all">
-                            <i class="fa fa-bars"></i>
-                            <span>Categories</span>
-                        </div>
-                        <ul>
-                            @foreach ($catData as $item)
-                            <li><a href="">{{$item['category_name'] }} <span class="text-danger font-weight-bold">( {{$item['count']}} )</span> </a></li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </div> --}}
+
                 <div class="col-lg-12">
-                    <div class="hero__search ">
+                    {{-- <div class="hero__search ">
                         <div class="hero__search__form">
-                            <form action="{{route('user#products')}}">
+                            <form action=""></form>
+                            <form method="get" action="{{route('user#uiproducts')}}">
+                                @csrf
+                               <div>
                                 <input type="text" name="name" placeholder="OPPA PIZZAS">
-                                <button type="submit" class="site-btn">SEARCH</button>
+                                <button type="submit"  class="btn-danger btn">SEARCH</button>
+                               </div>
                             </form>
                         </div>
+
                         <div class="hero__search__phone">
                             <div class="hero__search__phone__icon">
                                 <i class="fa-brands fa-facebook"></i>
@@ -41,11 +34,11 @@
                                 <span>Happy with oppa's pizzas</span>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="hero__item set-bg" data-setbg="{{asset('ui/img/hero/bn1.jpg')}}">
                         <div class="hero__text">
                             <span>Oppa's New</span>
-                            <h2>Vegetable <br />100% Organic</h2>
+                            <h2>Vegetable <br /> Pizza</h2>
                             <a href="{{route('user#uishop')}}" class="primary-btn ">SHOP NOW</a>
                         </div>
                     </div>

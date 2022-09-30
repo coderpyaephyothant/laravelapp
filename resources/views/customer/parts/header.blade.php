@@ -27,10 +27,10 @@
 
             <div class="d-flex justify-content-end">
               <div class=" ">
-                <a class="nav-link active text-white" aria-current="page" href="{{route('user#home')}}">Home</a>
+                <a class="nav-link active text-white" aria-current="page" href="">Home</a>
               </div>
               <div class=" ">
-                <a class="nav-link text-white" aria-current="page" href="{{route('user#index')}}">Shop</a>
+                <a class="nav-link text-white" aria-current="page" href="{{route('user#uishop')}}">Shop</a>
               </div>
               <div class="">
                 <a class="nav-link text-white " aria-current="page" href="#contact">Contact</a>
@@ -40,16 +40,17 @@
                 <i class="fas fa-user "></i>
               {{auth()->user()->name}}
               </div>
-              
+
               <div class="">
                 <form action="{{ route('logout') }}" method="POST">
                   @csrf
-                  <input type="submit" class="btn btn-success btn-sm px-3 me-2 mb-1" value="Logout">
+                  {{-- <button type="submit" class="btn btn-success btn-sm px-3 me-2 mb-1">Logout</button> --}}
+                  <input type="submit" value="Logout">
               </form>
               </div>
               @else
                 <div class="">
-                <a class="nav-link text-white " aria-current="page" href="{{ route('login') }}">Login</a>
+                <a class="nav-link text-white " aria-current="page" href="{{ route('login') }}">Sign In</a>
               </div>
               <div class="">
                 <a class="nav-link text-white " aria-current="page" href="{{ route('register') }}">Register</a>

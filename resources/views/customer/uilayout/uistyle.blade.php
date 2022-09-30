@@ -10,7 +10,10 @@
     <title>Oppa'sPizzas</title>
 
     <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+    {{-- <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet"> --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@200;300;400;500&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
     <link rel="stylesheet" href="{{asset('ui/css/bootstrap.min.css')}}" type="text/css">
@@ -29,9 +32,9 @@
 <!-- scroll to top start -->
 <button class="" onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa-solid fa-arrow-up"></i></button>
 <!-- scroll to top end -->
+@include('customer.uilayout.uiheader')
 
     @yield('content')
-
 
 
 
@@ -45,7 +48,7 @@
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="footer__about">
                         <div class="footer__about__logo">
-                            <a href="">Oppa's Pizza</a>
+                            <a href="{{route('user#uiupdate')}}">Oppa's Pizza</a>
                         </div>
                         <ul>
                             <li>Address: Lanmadaw Yangon</li>
@@ -75,10 +78,18 @@
                             <a href="#"><i class="fa-brands fa-pinterest"></i></a>
                         </div> <br>
                         <p>Send Your Messages</p>
-                        <form action="#">
+                        <form action="{{route('user#sendMessage')}}" method="POST">
+                            @csrf
                             {{-- <input type="text" placeholder="Your Message"> --}}
                             <div class="d-flex flex-column ">
-                                <textarea name="" id="" cols="20" rows="10" placeholder=""></textarea><br>
+                                <input type="text" name="title" placeholder="title"> <br>
+                                @if ($errors->has('title'))
+                                    <p class="text-danger">{{$errors->first('title')}}</p>
+                                @endif
+                                <textarea name="message" id="" cols="20" rows="10" placeholder="message"></textarea><br>
+                                @if ($errors->has('message'))
+                                    <p class="text-danger">{{$errors->first('message')}}</p>
+                                @endif
                             <button type="submit" class="btn btn-secondary btn-sm">Send</button>
                             </div>
                         </form> <br>
@@ -86,12 +97,12 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-12">
+            <div class="row ">
+                <div class="col-lg-12 ">
                     <div class="footer__copyright">
-                        <div class="footer__copyright__text"><p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p></div>
+                        <div class="footer__copyright__text">
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved |Colorlib template. <span>Modified by Pyae Phyo Thant</span>
+</div>
                         <div class="footer__copyright__payment"><img src="img/payment-item.png" alt=""></div>
                     </div>
                 </div>

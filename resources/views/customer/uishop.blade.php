@@ -2,7 +2,7 @@
 
 @section('content')
 
-@include('customer.uilayout.uiheader')
+{{-- @include('customer.uilayout.uiheader') --}}
 
 
       <!-- Product Section Begin -->
@@ -59,23 +59,27 @@
                     </div>
                 </div>
                 <div class="col-lg-9 col-md-7">
-                    <div class="hero__search">
-                        <div class="hero__search__form">
-                            <form  action="{{route('user#uiproducts')}}">
-                                <input type="text" name="name" placeholder="OPPA PIZZAS">
-                                <button type="submit" class="site-btn">SEARCH</button>
-                            </form>
-                        </div>
+                    <div class="">
+                    <form action=""></form>
+                    {{-- upper Empty form is need for form action (Form is not appearing but its content does ) I solved this solution  --}}
+                    <form action="{{route('user#uiproducts')}}">
+                        @csrf
+                        <input class="" name="name"    placeholder="OPPA PIZZAS" style="width: 50%;">
+                        {{-- <button class="btn btn-outline-success" type="submit">Search</button> --}}
+                        <input class="misearch btn " type="submit" value="search">
+                    </form>
+
                         <div class="hero__search__phone">
                             <div class="hero__search__phone__icon">
                                 <i class="fa-brands fa-facebook"></i>
                             </div>
                             <div class="hero__search__phone__text">
                                 <h5>Oppa's Community</h5>
-                                <span>Happy with oppa's pizzas</span>
+                                <span>Happy with oppa's fans</span>
                             </div>
                         </div>
                     </div>
+
 
                     {{-- test for search bar hide or  appear under routes --}}
                         {{-- start --}}
@@ -86,16 +90,16 @@
                         {{-- end --}}
 
 
-                     <div class="product__discount">
+                     <div class="product__discount mt-3">
                         <div class="section-title product__discount__title">
                             <h5>Sale Off</h5>
                         </div>
-                        <div class="row">
-                            <div class="product__discount__slider owl-carousel">
+                        <div class="">
+                            <div class="product__discount__slider owl-carousel ">
                                 @foreach ($pizzaData as $item)
 
 
-                                    <div class="col-lg-4" style="width: 80% !important;">
+                                    <div class="col-lg-4 " style="width: 95% !important;">
                                         <div class="product__discount__item">
                                             <form action="{{route('user#addToCart',$item->pizza_id)}}" method="post">
                                                 @csrf

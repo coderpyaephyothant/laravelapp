@@ -2,7 +2,7 @@
 
 @section('content')
 
-@include('customer.uilayout.uiheader')
+{{-- @include('customer.uilayout.uiheader') --}}
 
 <!-- Shoping Cart Section Begin -->
 <section class="shoping-cart spad">
@@ -41,18 +41,37 @@
                                             {{$product['item']['price'] - $product['item']['discount_price']}}
                                         </td>
                                         {{-- update start --}}
+                                        <form action=""></form>
+                                        <form action="{{route('user#quantityUpdate',$product['item']['pizza_id'])}}" method="post">
+                                            @csrf
                                         <td class="shoping__cart__quantity">
                                             <div class="quantity">
-                                                <form action="{{route('user#quantityUpdate',$product['item']['pizza_id'])}}" method="post">
-                                                @csrf
+
                                                 <div class="pro-qty" style="user-select: none;">
                                                     <input  type="text" name="quantity" value="{{$product['quantity']}}">
                                                 </div>
-                                                <button title="update items in the cart" style="background-color: #198754 ;" class="btn  btn-sm text-white me-1">update</button>
-                                                </form>
+                                                <button type="submit" title="update items in the cart" style="background-color: #198754 ;" class="btn  btn-sm text-white me-1">update</button>
+
                                             </div>
                                         </td>
+                                    </form>
                                         {{-- update end --}}
+
+                                        {{-- test
+
+                                            <form action="{{route('user#addToCart',$item->pizza_id)}}" method="post">
+                                                @csrf
+                                                <div class="product__discount__item__pic set-bg"
+                                                    data-setbg="{{asset('uploadedImages/'.$item->image)}}">
+                                                    <div class="product__discount__percent">{{$item->discount_percentage}}%</div>
+                                                    <ul class="product__item__pic__hover">
+                                                        <button class="" style="background-color: transparent; border-style:hidden;" type="submit"><li ><i class="fas fa-shopping-cart"></i></li></button>
+                                                    </ul>
+                                                </div>
+                                            </form>
+
+
+                                            --}}
                                         <td class="shoping__cart__total">
                                             {{$product['quantity'] * ($product['item']['price'] - $product['item']['discount_price'])}}
                                         </td>

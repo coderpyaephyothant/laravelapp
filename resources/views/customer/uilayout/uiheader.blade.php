@@ -6,7 +6,7 @@
     </div>
     <div class="humberger__menu__cart">
         <ul>
-            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>{{ Session::has('cart') ? Session::get('cart')->totalQuantity : 0 }}</span></a></li>
+            <li><a href="{{route('user#uicart')}}"><i class="fa fa-shopping-bag"></i> <span>{{ Session::has('cart') ? Session::get('cart')->totalQuantity : 0 }}</span></a></li>
         </ul>
         <div class="header__cart__price">item: <span>$150.00</span></div>
     </div>
@@ -76,19 +76,25 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="header__top__left">
                         <ul>
-                            <li id="greeting">
+                            <li id="greeting" class="greeting">
                             </li>
+                            @if (Auth::check())
                             <li>
-                                @if (Auth::check())
-                                    {{auth()->user()->name}}
-                                @endif
+
+                                    {{substr(auth()->user()->name,0,10)}}
+
                             </li>
+                            @endif
+                        <li class="cicon"><a href="{{route('user#uicart')}}"><i class="fas fa-shopping-cart"></i> <span>{{ Session::has('cart') ? Session::get('cart')->totalQuantity : 0 }}</span></a></li>
 
                         </ul>
+
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="header__top__right">
+
+
                         {{-- <div class="header__top__right__social">
                             <a href="#"><i class="fa-brands fa-facebook"></i></a>
                             <a href="#"><i class="fa-brands fa-twitter"></i></a>
@@ -110,7 +116,7 @@
                             <div class="header__top__right__auth">
                                 <form action="{{ route('logout') }}" method="POST">
                                     @csrf
-                                <button class="" style="background-color: transparent; border-style:hidden;"><i class="fas fa-lock"></i> Logout</button>
+                                <button type="submit" class="" style="background-color: transparent; border-style:hidden;"><i class="fas fa-lock"></i> Logout</button>
 
                             </div>
 
@@ -127,26 +133,28 @@
             </div>
         </div>
     </div>
-    @php
-        $link = url()->current();
-        $address = explode('/',$link);
-        $path = end($address);
 
-    @endphp
     <div class="container">
         <div class="row">
                 <div class="col-lg-3 ">
                     <div class="header__logo">
-                        <h3 style="color: #198754">Oppa's Pizza</h3>
+                        <a href="{{route('user#uiupdate')}}"><h3 style="color: #198754">Oppa's Pizza</h3></a>
+
                     </div>
                 </div>
+                @php
+                $link = url()->current();
+                $address = explode('/',$link);
+                $path = end($address);
+
+            @endphp
                 <div class="col-lg-6 ">
                     <nav class="header__menu">
                         <ul>
-                            <li @if ($path == 'home')
+                            <li @if ($path == 'uiUpdate')
                             class="active"
                             @endif><a href="{{route('user#uiupdate')}}">Home</a></li>
-                            <li @if ($path == 'uishop')
+                            <li @if ($path == 'uiShop')
                             class="active"
                             @endif><a  href="{{route('user#uishop')}}">Shop</a></li>
                             <li @if ($path == 'uicart')
@@ -155,20 +163,25 @@
                             {{-- <li><a href="./blog.html">Blog</a></li> --}}
                             <li><a href="#contact_us">Contact Us</a></li>
                         </ul>
+
                     </nav>
 
-        <!-- Breadcrumb Section Begin -->
-                    <nav aria-label="breadcrumb">
+                </div>
+
+            {{-- {{$path}} --}}
+                 <!-- Breadcrumb Section Begin -->
+
+                    <nav class="" aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                        @if ($path == 'home')
-                        <li class="breadcrumb-item"></li>
+                        @if ($path == 'uiUpdate')
+                        <li class="breadcrumb-item" ></li>
                         @else
-                        <li class="breadcrumb-item"><a href="{{route('user#uiupdate')}}">Home</a></li>
+                        <li class="breadcrumb-item" ><a href="{{route('user#uiupdate')}}">Home</a></li>
                         @endif
-                        @if ($path == 'uishop')
+                        @if ($path == 'uiShop')
                         <li class="breadcrumb-item"><a href="{{route('user#uishop')}}">Shop</a></li>
                         @endif
-                        @if ($path == 'uiproducts')
+                        @if ($path == 'uiProducts')
                         <li class="breadcrumb-item"><a href="{{route('user#uishop')}}">Shop</a></li>
                         <li class="breadcrumb-item"><a href="{{route('user#uiproducts')}}">Products</a></li>
                         @endif
@@ -178,16 +191,18 @@
                         @endif
                         </ol>
                     </nav>
-        <!-- Breadcrumb Section End -->
 
-                </div>
-                <div class="col-lg-3 ">
-                    <div class="header__cart">
-                        <ul>
-                            <li><a href="{{route('user#uicart')}}"><i class="fas fa-shopping-cart"></i> <span>{{ Session::has('cart') ? Session::get('cart')->totalQuantity : 0 }}</span></a></li>
-                        </ul>
-                    </div>
-                </div>
+    <!-- Breadcrumb Section End -->
+
+    {{-- cart --}}
+    {{-- <div class="col-lg-3 ">
+        <div class="header__cart">
+            <ul>
+                <li><a href="{{route('user#uicart')}}"><i class="fas fa-shopping-cart"></i> <span>{{ Session::has('cart') ? Session::get('cart')->totalQuantity : 0 }}</span></a></li>
+            </ul>
+        </div>
+    </div> --}}
+
 
 
 
@@ -222,7 +237,12 @@
                     {{Session::get('please')}}
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-
+                @endif
+                @if (Session::has('sent'))
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    {{Session::get('sent')}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
                 @endif
              </div>
         </div>

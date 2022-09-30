@@ -20,34 +20,23 @@ use App\Http\Controllers\Admin\UserMessageController;
 |
 */
 
-Route::get('/', function () {
-    if (Auth::check()) {
 
+Route::get('/', function () {
+
+    return redirect()->route('user#uiupdate');
+});
+
+Route::middleware(['auth:sanctum','verified'])->get('/dashboard', function () {
+        if(Auth::check()){
             if(Auth::user()->role == 'admin'){
                 return redirect()->route('admin#profile');
             }else if(Auth::user()->role == 'user'){
                 return redirect()->route('user#uishop');
             }
-
-    }
-    return redirect()->route('user#uiupdate');
-})->name('user#home');
-
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    Route::get('/dashboard', function () {
-        if(Auth::check()){
-            if(Auth::user()->role == 'admin'){
-                return redirect()->route('admin#profile');
-            }else if(Auth::user()->role == 'user'){
-                return redirect()->route('user#uiupdate');
-            }
         }
-    })->name('dashboard');
-});
+})->name('dashboard');
+
+
 
 //admin panel
 Route::group(['prefix'=>'admin', 'namespace'=>'Admin','middleware'=>AdminCheckMiddleware::class],function(){
@@ -120,33 +109,31 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Admin','middleware'=>AdminCheckMi
     Route::get('order/search','OrderController@orderSearch')->name('admin#orderSearch');
     Route::get('orderDetal/{id}','OrderController@orderDetail')->name('admin#orderDetail');
 
-
-
-
-
-
     Route::get('carrier','AdminController@carrier')->name('admin#carrier');
 
 });
 
 
 //customer Users
+    // Route::get('user/products','UserController@products')->name('user#products');
+
 Route::group(['prefix'=>'user'],function(){
-    Route::get('/home','UserController@index')->name('user#index');
-    Route::get('/products','UserController@products')->name('user#products');
+    // Route::get('/home','UserController@index')->name('user#index');
+    // Route::get('/products','UserController@products')->name('user#products');
     Route::post('sendMessage','UserController@sendMessage')->name('user#sendMessage');
-    Route::get('pizzaDetail/{id}','UserController@pizzaDetails')->name('user#pizzaDetails');
-    Route::get('chooseByCatName/{id}','UserController@chooseByCatName')->name('user#chooseByCatName');
-    Route::post('/home','UserController@searchByPrice')->name('user#searchByPrice');
-    Route::post('/home/date','UserController@searchByDate')->name('user#searchByDate');
-    Route::get('home','UserController@uiupdate')->name('user#uiupdate');
-    Route::get('uishop','UserController@uishop')->name('user#uishop');
-    Route::get('uifilter/{id}','UserController@uifilter')->name('user#uifilter');
+    // Route::get('pizzaDetail/{id}','UserController@pizzaDetails')->name('user#pizzaDetails');
+    // Route::get('chooseByCatName/{id}','UserController@chooseByCatName')->name('user#chooseByCatName');
+    // Route::post('/home/price','UserController@searchByPrice')->name('user#searchByPrice');
+    // Route::post('/home/date','UserController@searchByDate')->name('user#searchByDate');
+    Route::get('/uiUpdate','UserController@uiupdate')->name('user#uiupdate');
+    Route::get('/uiShop','UserController@uishop')->name('user#uishop');
+    Route::get('/uiFilter/{id}','UserController@uifilter')->name('user#uifilter');
     // Route::get('uisearch','UserController@uisearch')->name('user#uisearch');
-    Route::get('uiproducts','UserController@uisearch')->name('user#uiproducts');
-    Route::get('uilinkopenType/{id}','UserController@uilinkopenType')->name('user#uilinkopenType');
-    Route::get('uilinkopenCat/{id}','UserController@uilinkopenCat')->name('user#uilinkopenCat');
-    Route::get('uidetail/{id}','UserController@uidetail')->name('user#uidetail');
+    Route::get('/uiProducts','UserController@uisearch')->name('user#uiproducts'); //its also search !
+    Route::get('/uiLinkopenType/{id}','UserController@uilinkopenType')->name('user#uilinkopenType');
+    Route::get('/uiLinkopenCat/{id}','UserController@uilinkopenCat')->name('user#uilinkopenCat');
+    Route::get('/uiDetail/{id}','UserController@uidetail')->name('user#uidetail');
+    Route::get('testing', 'UserController@testing')->name('test');
 
 
     //I solved same post method and same route error By using Laravel HTTP redirect method from Laravel Documents. 6:25pm july31/22
@@ -154,11 +141,11 @@ Route::group(['prefix'=>'user'],function(){
     // cart
     Route::get('uicart', 'UserController@orderList')->name('user#uicart');
 
-    Route::post('addToCart/{id}','UserController@addToCart')->name('user#addToCart');
-    Route::get('orderList','UserController@orderList')->name('user#orderList');
-    Route::post('quantityUpdate/{id}', 'UserController@quantityUpdate')->name('user#quantityUpdate');
-    Route::get('deleteOrderItem/{id}','UserController@deleteOrderItem')->name('user#deleteOrderItem');
-    Route::get('checkout','UserController@checkout')->name('user#checkout');
-    Route::get('clearCart','UserController@clearCart')->name('user#cartClear');
+    Route::post('/addToCart/{id}','UserController@addToCart')->name('user#addToCart');
+    Route::get('/orderList','UserController@orderList')->name('user#orderList');
+    Route::post('/quantityUpdate/{id}', 'UserController@quantityUpdate')->name('user#quantityUpdate');
+    Route::get('/deleteOrderItem/{id}','UserController@deleteOrderItem')->name('user#deleteOrderItem');
+    Route::get('/checkOut','UserController@checkout')->name('user#checkout');
+    Route::get('/clearCart','UserController@clearCart')->name('user#cartClear');
 });
 

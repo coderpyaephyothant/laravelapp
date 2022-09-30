@@ -1,7 +1,7 @@
 @extends('customer.uilayout.uistyle')
 
 @section('content')
-@include('customer.uilayout.uiheader')
+{{-- @include('customer.uilayout.uiheader') --}}
       <!-- Product Section Begin -->
       <section class="product spad">
         <div class="container">
@@ -56,11 +56,13 @@
                     </div>
                 </div>
                 <div class="col-lg-9 col-md-7">
-                    <div class="hero__search">
-                        <div class="hero__search__form">
+                    <div class="">
+                        <div class="">
+                            <form action=""></form>
                             <form  action="{{route('user#uiproducts')}}">
-                                <input type="text" name="name" placeholder="OPPA PIZZAS">
-                                <button type="submit" class="site-btn">SEARCH</button>
+                                @csrf
+                                <input type="" name="name" placeholder="OPPA PIZZAS" style="width: 50%;">
+                                <input class="misearch btn " type="submit" value="search">
                             </form>
                         </div>
                         <div class="hero__search__phone">
@@ -69,7 +71,7 @@
                             </div>
                             <div class="hero__search__phone__text">
                                 <h5>Oppa's Community</h5>
-                                <span>Happy with oppa's pizzas</span>
+                                <span>Happy with oppa's fans</span>
                             </div>
                         </div>
                     </div>
@@ -82,7 +84,9 @@
                         @endif --}}
                         {{-- end --}}
 
-
+                        <div class="section-title product__discount__title mt-3">
+                            <h2 class="">Oppa's Best Pizzas</h2>
+                        </div>
 
 
                     <div class="row">

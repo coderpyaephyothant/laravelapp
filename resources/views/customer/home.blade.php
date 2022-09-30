@@ -1,22 +1,22 @@
-@extends('customer.layout.style')
-@section('content')
+{{-- @extends('customer.layout.style')
+@section('content') --}}
 
   <!-- scroll to top start -->
-  <button class="" onclick="topFunction()" id="myBtn" title="Go to top"><i class="fas fa-arrow"></i></button>
+  {{-- <button class="" onclick="topFunction()" id="myBtn" title="Go to top"><i class="fas fa-arrow"></i></button> --}}
   <!-- scroll to top end -->
 
         <!-- carousel start -->
-
+{{--
         <div class="container mt-5 ">
           <div class="row">
 
 
           </div>
-        </div>
+        </div> --}}
 
 
        <!-- Lists start -->
-<div class="container mt-5">
+{{-- <div class="container mt-5">
   <div class="row">
     <div class="col-12  d-flex" style="">
 
@@ -101,9 +101,9 @@
           </li>
             @endforeach
         </ul>
-            </div>
+            </div> --}}
             {{-- new items show --}}
-            @foreach ($pizzas as $item)
+            {{-- @foreach ($pizzas as $item)
             @if ($item->publish_status > 0  && $item->quantity > 0 && $item->new == 1 )
             <div class="mt-3 text-center">
               <h3 class="text-danger hname">NEW PIZZAS</h3>
@@ -163,10 +163,10 @@
             </li>
               @endforeach
 
-          </ul>
+          </ul> --}}
 
               {{-- new items show --}}
-            <div class=" text-center">
+            {{-- <div class=" text-center">
               <h3 class="text-danger hname">Family Sets</h3>
             </div> <hr>
             <ul id="lightSlider">
@@ -372,4 +372,4 @@
 
       </div>
     </div>
-@endsection
+@endsection --}}

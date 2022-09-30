@@ -41,6 +41,7 @@ class UserController extends Controller
     }
 
     public function products(){
+        // dd('hello');
         return view('customer.products');
     }
 
@@ -469,6 +470,7 @@ class UserController extends Controller
 
     //ui search
     public function uisearch(Request $request){
+        // dd('you search');
         if (Session::has('searchData')) {
             Session::forget('searchData');
         }
@@ -510,6 +512,8 @@ class UserController extends Controller
 
 
     }
+
+
 
     public function uilinkopenType($id){
         $categoryData =  category::join('pizzas','categories.category_id', '=', 'pizzas.category_id')
@@ -583,6 +587,7 @@ class UserController extends Controller
 
     //ui add to cart
     public function addToCart(Request $request,$id){
+        // dd('this is add to cart');
         // dd($request->quantity);
         $pizza = pizza::where('pizza_id',$id)->first();
         $dataBaseQty = $pizza->quantity; //for dataBase
@@ -630,6 +635,13 @@ class UserController extends Controller
          // }
      }
 
+    //  test ui quantity
+
+    // public function quantityUpdatetest(){
+    //     dd('this is a test');
+    // }
+
+    
       //ui  quantity Update
     public function quantityUpdate(Request $request, $id){
 
@@ -681,5 +693,9 @@ class UserController extends Controller
         }
 
 
+    }
+
+    public function testing(){
+        dd('testing');
     }
 }
