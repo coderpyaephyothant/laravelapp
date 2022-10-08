@@ -1,4 +1,4 @@
-@extends('customer.layout.style')
+{{-- @extends('customer.layout.style')
 @section('content')
     <div class="container-fluid mybody">
         <div class="col-12 mt-5"> <br> <br>
@@ -26,7 +26,7 @@
 			    <a href="{{route('user#index')}}" class="btn btn-sm btn-danger mb-3 "><i class="fas fa-arrow-left "></i> Back</a>
 
 {{-- table start --}}
-        <table class="table">
+        {{-- <table class="table">
             <thead>
 
               <tr>
@@ -87,10 +87,10 @@
               @endif
               </tr>
             </tbody>
-          </table>
+          </table> --}}
           {{-- table end --}}
 
-          <div class="container-fluid d-flex justify-content-end  " style="">
+          {{-- <div class="container-fluid d-flex justify-content-end  " style="">
             <div class="  col-4 align-items-center">
               <div class="d-flex  flex-column">
                 <div class="">Total Price : {{$totalPrice}} Kyats</div> <hr>
@@ -108,7 +108,7 @@
         </div>
       </div>
     </div>
-@endsection
+@endsection --}}
 
  {{-- <p>Payment System :</p>
               <div class="">
@@ -141,4 +141,4 @@
              </div><hr>
              <div class="d-flex justify-content-center">
           <button class="btn btn-sm btn-warning"> Order Now <i class="fas fa-check"></i> </button>
-             </div> --}}
+             </div> --}} 

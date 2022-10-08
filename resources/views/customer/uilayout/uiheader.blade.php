@@ -1,25 +1,18 @@
 <!-- Humberger Begin -->
+@php
+                $link = url()->current();
+                $address = explode('/',$link);
+                $path = end($address);
+
+            @endphp
 <div class="humberger__menu__overlay"></div>
 <div class="humberger__menu__wrapper">
-    <div class="humberger__menu__logo">
-        <a href="#"><img src="" alt=""></a>
-    </div>
     <div class="humberger__menu__cart">
         <ul>
-            <li><a href="{{route('user#uicart')}}"><i class="fa fa-shopping-bag"></i> <span>{{ Session::has('cart') ? Session::get('cart')->totalQuantity : 0 }}</span></a></li>
+            <li><a href="{{route('user#uicart')}}"><i class="fas fa-shopping-cart"></i> <span>{{ Session::has('cart') ? Session::get('cart')->totalQuantity : 0 }}</span></a></li>
         </ul>
-        <div class="header__cart__price">item: <span>$150.00</span></div>
     </div>
     <div class="humberger__menu__widget">
-        <div class="header__top__right__language">
-            <img src="{{asset('ui/img/language.png')}}" alt="">
-            <div>English</div>
-            <span class="arrow_carrot-down"></span>
-            <ul>
-                <li><a href="#">Burmese</a></li>
-                <li><a href="#">English</a></li>
-            </ul>
-        </div>
         @if (Auth::check())
 
 
@@ -39,27 +32,19 @@
     </div>
     <nav class="humberger__menu__nav mobile-menu">
         <ul>
-            <li class="active"><a href="{{route('user#uiupdate')}}">Home</a></li>
-            <li class=""><a  href="{{route('user#uishop')}}">Shop</a></li>
-            <li><a href="#">Pages</a>
-                <ul class="header__menu__dropdown">
-                    <li><a href="./shop-details.html">Shop Details</a></li>
-                    <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-                    <li><a href="./checkout.html">Check Out</a></li>
-                    <li><a href="./blog-details.html">Blog Details</a></li>
-                </ul>
-            </li>
-            {{-- <li><a href="./blog.html">Blog</a></li> --}}
+            <li @if ($path == 'uiUpdate')
+            class="active"
+            @endif><a href="{{route('user#uiupdate')}}">Home</a></li>
+            <li @if ($path == 'uiShop')
+            class="active"
+            @endif><a  href="{{route('user#uishop')}}">Shop</a></li>
+            <li @if ($path == 'uicart')
+            class="active"
+            @endif><a href="{{route('user#uicart')}}">Cart</a> </li>
             <li><a href="#contact_us">Contact Us</a></li>
         </ul>
     </nav>
     <div id="mobile-menu-wrap"></div>
-    {{-- <div class="header__top__right__social">
-        <a href="#"><i class="fa-brands fa-facebook"></i></a>
-        <a href="#"><i class="fa-brands fa-twitter"></i></a>
-        <a href="#"><i class="fa-brands fa-linkedin"></i></a>
-        <a href="#"><i class="fa-brands fa-pinterest-p"></i></a>
-    </div> --}}
     <div class="humberger__menu__contact">
         <ul>
             <li></i> welcome from oppa's pizza myanmar.</li>
@@ -93,14 +78,6 @@
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="header__top__right">
-
-
-                        {{-- <div class="header__top__right__social">
-                            <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                            <a href="#"><i class="fa-brands fa-twitter"></i></a>
-                            <a href="#"><i class="fa-brands fa-linkedin"></i></a>
-                            <a href="#"><i class="fa-brands fa-pinterest-p"></i></a>
-                        </div> --}}
                         <div class="header__top__right__language">
                             <img src="{{asset('ui/img/hero/lg.jpg')}}" alt="">
                             <div>English</div>
@@ -142,12 +119,7 @@
 
                     </div>
                 </div>
-                @php
-                $link = url()->current();
-                $address = explode('/',$link);
-                $path = end($address);
 
-            @endphp
                 <div class="col-lg-6 ">
                     <nav class="header__menu">
                         <ul>
@@ -160,7 +132,6 @@
                             <li @if ($path == 'uicart')
                             class="active"
                             @endif><a href="{{route('user#uicart')}}">Cart</a> </li>
-                            {{-- <li><a href="./blog.html">Blog</a></li> --}}
                             <li><a href="#contact_us">Contact Us</a></li>
                         </ul>
 

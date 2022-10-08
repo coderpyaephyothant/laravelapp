@@ -9,14 +9,16 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
-{   
-    
+{
+
     //userList
     public function userList(){
         if (Session::has('searchData')) {
             Session::forget('searchData');
         }
-        $userRole = User::where('role','user')->paginate(4);
+
+        $userRole = User::where('role','user')
+                        ->orderBy('id','desc')->paginate(4);
         return view('admin.user.userList')->with(['userRole'=>$userRole]);
     }
 
@@ -30,14 +32,14 @@ class UserController extends Controller
                 ->orWhere('email','Like','%'.$searchWord.'%')
                 ->orWhere('address','Like','%'.$searchWord.'%')
                 ->orWhere('phone','Like','%'.$searchWord.'%');
-                    
+
             })
             ->get();
         }else{
             $data = User::where('role','user')->get();
         }
             $csvExporter = new \Laracsv\Export();
-                    
+
             $csvExporter->build($data, [
                 'id' => 'Id',
                 'name' => 'Name',
@@ -45,7 +47,7 @@ class UserController extends Controller
                 'address' => 'Address',
                 'phone' => 'Phone'
             ]);
-            
+
             $csvReader = $csvExporter->getReader();
             $csvReader->setOutputBOM(\League\Csv\Reader::BOM_UTF8);
 
@@ -63,7 +65,7 @@ class UserController extends Controller
         }
         $searchWord = $request->table_search;
         Session::put('searchData',$searchWord);
-       $response =  $this->search($request,$request->table_search,'user');       
+       $response =  $this->search($request,$request->table_search,'user');
         return view('admin.user.userList')->with(['userRole'=>$response]);
     }
     //private function for search
@@ -75,7 +77,7 @@ class UserController extends Controller
                             ->orWhere('email','Like','%'.$key.'%')
                             ->orWhere('address','Like','%'.$key.'%')
                             ->orWhere('phone','Like','%'.$key.'%');
-                                
+
                         })
                         ->paginate(4);
         $searchData->appends($request->all());
@@ -101,7 +103,7 @@ class UserController extends Controller
 
     ];
     User::create($data);
-    return back();
+    return redirect()->route('admin#userList');
     }
 
 
@@ -116,7 +118,7 @@ class UserController extends Controller
         return view('admin.user.adminList')->with(['adminRole'=>$adminRole]);
     }
 
-    
+
     //AdminListSearch
     public function adminListSearch(Request $request){
         if(Session::has('searchData')){
@@ -145,14 +147,14 @@ class UserController extends Controller
             ->orWhere('email','Like','%'.$searchWord.'%')
             ->orWhere('address','Like','%'.$searchWord.'%')
             ->orWhere('phone','Like','%'.$searchWord.'%');
-                
+
         })
         ->get();
         }else{
             $data = User::where('role','admin')->get();
             }
             $csvExporter = new \Laracsv\Export();
-                    
+
             $csvExporter->build($data, [
                 'id' => 'Id',
                 'name' => 'Admin Name',
@@ -160,7 +162,7 @@ class UserController extends Controller
                 'address' => 'Address',
                 'phone' => 'Phone'
             ]);
-            
+
             $csvReader = $csvExporter->getReader();
             $csvReader->setOutputBOM(\League\Csv\Reader::BOM_UTF8);
 
@@ -171,5 +173,5 @@ class UserController extends Controller
                 ->header('Content-Disposition', 'attachment; filename="'.$filename.'"');
 
     }
-    
+
 }

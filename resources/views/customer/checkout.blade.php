@@ -1,8 +1,8 @@
-@extends('customer.layout.style')
+{{-- @extends('customer.layout.style')
 @section('content')
 <div class="container-fluid" >
     <div class="row " >
-        
+
         <div class="d-flex justify-content-center" >
 
 
@@ -54,7 +54,7 @@
             </div>
 
         </div>
-        
+
     </div>
 </div>
-@endsection
+@endsection --}}

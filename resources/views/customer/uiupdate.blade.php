@@ -69,19 +69,9 @@
                 </div>
             </div>
             <div class="row featured__filter">
-                {{-- <div class="col-lg-3 col-md-4 col-sm-6 mix chicken ">
-                    <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="{{asset('ui/img/featured/feature-1.jpg')}}">
-                            <ul class="featured__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="featured__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>$30.00</h5>
-                        </div>
-                    </div>
-                </div> --}}
+                @if (count($pizzaData) == 0 )
+                <h4 class="text-danger">No Pizzas here.Please Create pizzas..</h4>
+            @else
                 @foreach ($pizzaData as $item)
                     @if ($item['type'] == 1)
                     <div class="col-lg-3 col-md-4 col-sm-6 mix chicken ">
@@ -157,33 +147,19 @@
             </div>
             @endif
         @endforeach
+        @endif
             </div>
         </div>
     </section>
     <!-- Featured Section End -->
 
-    <!-- Banner Begin -->
-    {{-- <div class="banner">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="banner__pic">
-                        <img src="{{asset('ui/img/banner/banner-1.jpg')}}" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="banner__pic">
-                        <img src="{{asset('ui/img/banner/banner-2.jpg')}}" alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-    <!-- Banner End -->
-     <!-- Categories Section Begin -->
+     <!-- Carousel Section Begin -->
      <section class="categories">
         <div class="container">
             <div class="row">
+                @if (count($pizzaData) == 0 )
+                        <h4 class="text-danger">Pizzas are needed to run Carousel.Please Create pizzas..</h4>
+                    @else
                 <div class="categories__slider owl-carousel">
                     @foreach ($pizzaData as $item)
                         <div class="col-lg-3" style="width: 80% !important;">
@@ -192,12 +168,13 @@
                             </div>
                         </div>
                     @endforeach
+                    @endif
 
                 </div>
             </div>
         </div>
     </section>
-    <!-- Categories Section End -->
+    <!-- Carousel Section End -->
 
 
     <!-- Blog Section Begin -->
@@ -211,6 +188,9 @@
                 </div>
             </div>
             <div class="row">
+                @if (count($pizzaData) == 0 )
+                        <h4 class="text-danger">Pizzas are needed to show .Please Create pizzas..</h4>
+                    @else
                 @foreach ($pizzaData as $item)
                     @if ($item['buy_one_get_one'] == 1 )
                     <div class="col-lg-3 col-md-4 col-sm-6">
@@ -230,6 +210,7 @@
                     </div>
                     @endif
                 @endforeach
+                @endif
             </div>
         </div>
     </section>

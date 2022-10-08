@@ -25,7 +25,7 @@
     </ul>
   </nav>
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <a href="#" class="brand-link">
+    <a href="#" class="brand-link"  style="text-decoration: none";>
 
       <span class="brand-text font-weight-light "> Admin Control Panel </span>
     </a>

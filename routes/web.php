@@ -109,7 +109,7 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Admin','middleware'=>AdminCheckMi
     Route::get('order/search','OrderController@orderSearch')->name('admin#orderSearch');
     Route::get('orderDetal/{id}','OrderController@orderDetail')->name('admin#orderDetail');
 
-    Route::get('carrier','AdminController@carrier')->name('admin#carrier');
+    Route::get('carrier','CarrierController@carrier')->name('admin#carrier');
 
 });
 

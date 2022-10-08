@@ -23,7 +23,7 @@
 
 
 
-  
+
 
 
 
@@ -46,7 +46,7 @@
                       @csrf
                       <div class="input-group input-group-sm" style="">
                         <input type="text" name="search" class="form-control" placeholder="Search">
-    
+
                         <div class="input-group-append">
                           <button type="submit" class="btn btn-white">
                             <i class="fas fa-search text-white"></i>
@@ -55,7 +55,7 @@
                       </div>
                     </form>
                   </div>
-                  
+
 
 
               </div>
@@ -79,17 +79,17 @@
                 @endphp
                     @if ($fileNumber == 0)
                       <tr class="" ><td colspan="7">
-                        <p class="text-danger">No  datas to show here. . . .</p>
+                        <p class="text-danger">No oppa's pizzas data to show here. . . .</p>
                         </td></tr>
                     @else
                     @foreach ($pizzaData as $item)
 
                     <tr class="text-center">
-                      <td class=" d-flex align-items-center justify-content-center flex-column"><p>{{$id}}</p>  
+                      <td class=" d-flex align-items-center justify-content-center flex-column"><p>{{$id}}</p>
                         <p class="@if ($item->new )
-                        bg-danger text-white 
+                        bg-danger text-white
                         @endif" style="width: 30px; height:30px; font-size:10px; line-height:25px; border-radius:50%;">@if ($item->new == 1)
-                        new                   
+                        new
                       @endif</p>
                     </td>
                       <td>{{$item->pizza_name}}</td>
@@ -103,14 +103,14 @@
                         {{$item->discount_price}}
                           {{-- @if ($item->publish_status == 1)
                           Publish
-                          @elseif ($item->publish_status == 0) 
-                          Unpublish      
+                          @elseif ($item->publish_status == 0)
+                          Unpublish
                           @endif --}}
                           </td>
                       {{-- <td> @if ($item->buy_one_get_one == 1)
                         Yes
-                        @elseif ($item->buy_one_get_one == 0) 
-                        Not Now      
+                        @elseif ($item->buy_one_get_one == 0)
+                        Not Now
                         @endif</td> --}}
                         {{-- <td>{{$item->discount_percentage}}</td> --}}
                       <td>
@@ -118,7 +118,7 @@
                         <a class="text-decoration-none text-danger" onclick="return confirm('Are you sure?')" href="{{route('admin#pizzaDelete',$item->pizza_id)}}">Delete</a> &nbsp;
                         <a class="text-decoration-none text-dark"  href="{{route('admin#pizzaDetail',$item->pizza_id)}}">SeeMore...</a>
                       </td>
-                    </tr>                  
+                    </tr>
                     @php
                         $id ++;
                     @endphp

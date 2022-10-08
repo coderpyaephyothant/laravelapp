@@ -13,6 +13,7 @@ class UserMessageController extends Controller
 {
     //userMessage
     public function index(){
+        // dd('messages');
         $messageData = SendMessage::select('send_messages.*','users.name','users.email','users.phone','users.address')
                         ->join('users','users.id','send_messages.author_id')
                         ->orderBy('message_id','desc')
@@ -61,6 +62,6 @@ class UserMessageController extends Controller
         return view('admin.message.message')->with(['messageData' => $messageData , 'msgNumber'=>$msgNumber]);
 
 
-       
+
     }
 }

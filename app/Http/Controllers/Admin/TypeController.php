@@ -24,7 +24,12 @@ class TypeController extends Controller
                     ->groupBy('types.type_id')
                     ->orderBy('types.type_id','desc')
         ->paginate(5);
-        return view('admin.type.type')->with(['typesData'=> $data] );
+        if(count($data) > 0){
+            $number = 1;
+        }else{
+            $number = 0;
+        }
+        return view('admin.type.type')->with(['typesData'=> $data, 'number'=>$number] );
     }
 
     //create

@@ -43,7 +43,7 @@
 
     <!-- Footer Section Begin -->
     <footer class="footer spad" id="contact_us">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="footer__about">
@@ -101,7 +101,7 @@
                 <div class="col-lg-12 ">
                     <div class="footer__copyright">
                         <div class="footer__copyright__text">
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved |Colorlib template. <span>Modified by Pyae Phyo Thant</span>
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved . <span> UI Modified / Backend Created by <b class="" style="">Developer Pyae Phyo Thant</b>.</span>
 </div>
                         <div class="footer__copyright__payment"><img src="img/payment-item.png" alt=""></div>
                     </div>

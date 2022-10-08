@@ -28,6 +28,9 @@
     <div class="container-fluid">
       <div class="row  col-12">
         <div class="">
+            @if ($number == 0)
+                  <h3 class="text-danger p-3">No order datas to show here. . . .</h3>
+                  @endif
           <div class="card mt-3">
             <div class="bg-success d-flex align-items-center flex-wrap justify-content-around p-3">
                 <a href="{{route('admin#createType')}}"><button class="btn btn-danger btn-sm ">Create</button></a>
@@ -69,9 +72,6 @@
                   @php
                   $id = 1;
               @endphp
-
-
-
 
                    @foreach ($typesData as $item)
 

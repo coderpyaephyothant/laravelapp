@@ -4,7 +4,7 @@
 
 {{-- @include('customer.uilayout.uiheader') --}}
 
-
+    {{-- Left Sides --}}
       <!-- Product Section Begin -->
       <section class="product spad">
         <div class="container">
@@ -13,16 +13,26 @@
                     <div class="sidebar">
                         <div class="sidebar__item">
                             <h4>Categories</h4>
+                            @if (count($catData) == 0 )
+                                <h5 class="text-danger">Where is Oppa's Categories?</h5>
+                            @else
                             <ul>
                                 @foreach ($catData as $item)
                                 <li><a href="{{route('user#uilinkopenCat',$item['category_id'])}}">{{$item['category_name']}} <span class="text-danger font-weight-bold">( {{$item['count']}} )</span> </a></li>
                                 @endforeach
                             </ul>
+                            @endif
                         </div>
 
 
                         <div class="sidebar__item">
                             <h4>Sizes</h4>
+                            <div class="sidebar__item__size">
+                                <label for="large">
+                                    More than large (+ < 5000)
+                                    <input type="radio" id="large">
+                                </label>
+                            </div>
                             <div class="sidebar__item__size">
                                 <label for="large">
                                     Large (+ 5000)
@@ -31,30 +41,35 @@
                             </div>
                             <div class="sidebar__item__size">
                                 <label for="medium">
-                                    Medium
+                                    Medium (Normal Size)
                                     <input type="radio" id="medium">
                                 </label>
                             </div>
                             <div class="sidebar__item__size">
                                 <label for="small">
-                                    Small (2000)
+                                    Small (-1000)
                                     <input type="radio" id="small">
                                 </label>
                             </div>
                             <div class="sidebar__item__size">
                                 <label for="tiny">
-                                    Tiny (-3000)
+                                    Tiny (-2000)
                                     <input type="radio" id="tiny">
                                 </label>
                             </div>
                         </div>
                         <div class="sidebar__item">
                             <h4>Menu</h4>
+                            @if (count($typeData) == 0 )
+
+                            <h5 class="text-danger">Did you created Pizza Types?</h5>
+                            @else
                             <ul>
                                 @foreach ($typeData as $item)
                                 <li><a href="{{route('user#uilinkopenType',$item['type_id'])}}">{{$item['type_name']}} <span class="text-danger font-weight-bold">({{$item['count']}})</span> </a></li>
                                 @endforeach
                             </ul>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -95,6 +110,9 @@
                             <h5>Sale Off</h5>
                         </div>
                         <div class="">
+                            @if (count($pizzaData) == 0)
+                                <h5 class="text-danger">You Need to create pizzas to run Carousel...</h5>
+                            @else
                             <div class="product__discount__slider owl-carousel ">
                                 @foreach ($pizzaData as $item)
 
@@ -123,6 +141,7 @@
 
 
                             </div>
+                            @endif
                         </div>
                     </div>
                     <div class="filter__item">
@@ -197,7 +216,10 @@
                     </div>
                     <div class="row">
 
-                            @foreach ($pizzaForPaginate as $item)
+                        @if ($pizzaForPaginate->total() == 0)
+                            <h5 class="text-danger">Where is Oppa's Pizzas?</h5>
+                        @else
+                    @foreach ($pizzaForPaginate as $item)
 
                             <div class="col-lg-4">
 
@@ -225,6 +247,8 @@
                     </div>
             <div>
                 {{$pizzaForPaginate->links()}}
+                @endif
+
             </div>
 
                     {{-- <div class="product__pagination">

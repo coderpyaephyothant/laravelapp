@@ -1,4 +1,4 @@
-@extends('customer.layout.style')
+{{-- @extends('customer.layout.style')
 @section('content')
  <!-- scroll to top start -->
  <button class="" onclick="topFunction()" id="myBtn" title="Go to top"><i class="fas fa-caret-up"></i></button>
@@ -96,4 +96,4 @@
                 </div>
             </div>
     </div>
-@endsection
+@endsection --}}

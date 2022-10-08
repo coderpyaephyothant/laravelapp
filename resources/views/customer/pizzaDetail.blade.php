@@ -1,7 +1,7 @@
-@extends('customer.layout.style')
-@section('content')
+{{-- @extends('customer.layout.style')
+@section('content') --}}
     <!--================Single Product Area =================-->
-	<div class="">
+	{{-- <div class="">
 		<div class="container  mybody">
 
 			<div class="row">
@@ -18,12 +18,11 @@
 					<h3 class=""> {{$item->pizza_name}} </h3>
 					<h3 class="text-danger"><b>{{$item->price - $item->discount_price}} Ks</b></h3>
 					<p class="text-primary text-decoration-line-through" style=""> ({{$item->price}} Ks)</p><hr>
-					{{-- <p>Category : <span class="text-primary">{{$item->category_name}}</span> </p> <hr> --}}
 					<h2 class="text-danger"> <b>{{$item->discount_percentage}} % OFF</b> </h2> <hr>
 					<p class="" style="text-align: justify">{{$item->description}}</p>
-						<hr>
+						<hr> --}}
 					<!-- Add to cart -->
-					<form action="{{route('user#addToCart',$item->pizza_id)}}" method="post">
+					{{-- <form action="{{route('user#addToCart',$item->pizza_id)}}" method="post">
 						@csrf
 					<div class=" d-flex align-items-center justify-content-start ">
 						<input type="number" name="quantity" class="form-control me-3" style="width:100px;" value="1">
@@ -40,7 +39,7 @@
 
 
 			</div>
-								</div>
-							</div>
+								</div> --}}
+							{{-- </div> --}}
 	<!--================End Single Product Area =================-->
-@endsection
+{{-- @endsection --}}

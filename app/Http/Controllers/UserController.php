@@ -87,7 +87,7 @@ class UserController extends Controller
 
     }
 
-    //addToCart  //ui add to cart
+    //addToCart  //ui add to cart   // old
 
 
     // public function addToCart(Request $request,$id){
@@ -179,7 +179,7 @@ class UserController extends Controller
                      }
                     session()->forget('cart');
 
-                    return redirect()->route('user#uishop')->with(['success'=>'Thanks for your ordeder!']);
+                    return redirect()->route('user#uishop')->with(['success'=>'Thanks for your ordeder! We will contact soon. . . . ']);
 
 
                 }else{
@@ -390,6 +390,7 @@ class UserController extends Controller
                                     ->groupBy('categories.category_id')->get();
         $pizzaForAll = pizza::get(); //for sale off;
        $pizzasForPaginate = pizza::paginate(8);
+    //    dd($pizzasForPaginate->total());
     //    dd($pizzaData->total());
        $typeData = Type::join('pizzas','types.type_id', '=', 'pizzas.type')
        ->select('*',DB::raw('COUNT(pizzas.type)as count') )
@@ -641,7 +642,7 @@ class UserController extends Controller
     //     dd('this is a test');
     // }
 
-    
+
       //ui  quantity Update
     public function quantityUpdate(Request $request, $id){
 

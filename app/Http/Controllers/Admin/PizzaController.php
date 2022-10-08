@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use Carbon\Carbon;
+use App\Models\Type;
 use App\Models\pizza;
 use App\Models\category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Type;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
@@ -93,6 +93,7 @@ class PizzaController extends Controller
     //pizza insert
     public function pizzaInsert(Request $request){
         $validator = Validator::make($request->all(), [
+
             'name' => 'required',
             'image' => 'required',
             'price' => 'required',
@@ -163,106 +164,72 @@ class PizzaController extends Controller
 
     //pizza edit
     public function pizzaEdit($id){
-
         $data = pizza::where('pizza_id',$id)->first();
-        // dd($data->toArray());
         $categoryData = category::get();
-
-        return view('admin.pizza.edit')->with(['data'=>$data,'categoryData'=>$categoryData]);
+        $typeData = Type::get();
+        return view('admin.pizza.edit')->with(['data'=>$data,'categoryData'=>$categoryData, 'typeData' => $typeData]);
     }
 
 
 
     //pizza update
     public function pizzaUpdate($id,Request $request){
-        $discount_price = ($request->price) * ($request->discount_percentage/100);
-    //    dd($request->toArray());
-        if(!empty($request->image)){
-            $validator = Validator::make($request->all(), [
-                'name' => 'required',
-                'price' => 'required',
-                'state'=>'reqired',
-                'ps' => 'required',
-                'discount_percentage' => 'required',
-                'quantity' => 'required',
-                'category' => 'required',
-                'bg' => 'required',
-                'wt' => 'required',
-                'desc' => 'required',
+        // dd($request->all());
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'desc' => 'required',
+            'price' => 'required',
+            'ps' => 'required',
+            'state' => 'required',
+            'discount_percentage' => 'required',
+            'quantity' => 'required',
+            'category' => 'required',
+            'bg' => 'required',
+            'wt' => 'required',
+        ]);
 
-            ]);
-
-            if ($validator->fails()) {
-                return back()
-                            ->withErrors($validator)
-                            ->withInput();
-            }
-
-            $file = $request->file('image');
-            $uniqueId = uniqid();
-            $name = $uniqueId.'_Adminthant_'. $file->getClientOriginalName();
-            $file->move(public_path().'/uploadedImages/',$name);
-            $data = [
-                'pizza_name' => $request->name,
-                'image' => $name,
-                'price' => $request->price,
-                'new' => $request->state,
-                'discount_percentage' => $request->discount_percentage,
-                'publish_status' => $request->ps,
-                'discount_price' =>$discount_price,
-                'quantity' =>$request->quantity,
-                'category_id' => $request->category,
-                'buy_one_get_one' => $request->bg,
-                'waiting_time' => $request->wt,
-                'description' => $request->desc,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
-            ];
-
-            pizza::where('pizza_id',$id)->update($data);
-        return redirect()->route('admin#pizza')->with(['updated'=>'successfully updated!']);
-
-
-        }else{
-            $validator = Validator::make($request->all(), [
-                'name' => 'required',
-                'price' => 'required',
-                'state' => 'required',
-                'ps' => 'required',
-                'discount_percentage' => 'required',
-                'quantity' => 'required',
-                'category' => 'required',
-                'bg' => 'required',
-                'wt' => 'required',
-                'desc' => 'required',
-
-            ]);
-
-            if ($validator->fails()) {
-                return back()
-                            ->withErrors($validator)
-                            ->withInput();
-            }
-            $data = [
-                'pizza_name' => $request->name,
-                'price' => $request->price,
-                'new'=>$request->state,
-                'publish_status' => $request->ps,
-                'discount_percentage' => $request->discount_percentage,
-                'quantity' =>$request->quantity,
-                'discount_price' => $discount_price,
-                'category_id' => $request->category,
-                'buy_one_get_one' => $request->bg,
-                'waiting_time' => $request->wt,
-                'description' => $request->desc,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
-
-            ];
-            // dd($data);
-            pizza::where('pizza_id',$id)->update($data);
-        return redirect()->route('admin#pizza')->with(['updated'=>'successfully updated!']);
+        if ($validator->fails()) {
+            return back()
+                        ->withErrors($validator)
+                        ->withInput();
         }
+
+    $discount_price = ($request->price) * ($request->discount_percentage/100);
+    // dd($discount_price);
+    $data = [
+        'pizza_name' => $request->name,
+        'new' => $request->name,
+        'price' => $request->price,
+        'discount_percentage' => $request->discount_percentage,
+        'quantity' => $request->quantity,
+        'publish_status' => $request->ps,
+        'discount_price' => $discount_price,
+        'category_id' => $request->category_id,
+        'type' => $request->type,
+        'buy_one_get_one' => $request->bg,
+        'waiting_time' => $request->wt,
+        'description' => $request->desc,
+        'created_at' => Carbon::now(),
+        'updated_at' => Carbon::now(),
+    ];
+    if (isset($request->image)) {
+        $data['image'] = $request->image;
+    //delete  update image
+        $pData = pizza::where('pizza_id', $id)->first();
+        $oldImg = $pData['image'];
+        if(File::exists(public_path().'/uploadedImages/'.$oldImg)){
+            File::delete(public_path().'/uploadedImages/'.$oldImg);
+        }
+        $file = $request->file('image');
+                $uniqueId = uniqid();
+                $name = $uniqueId.'_Adminppt_'. $file->getClientOriginalName();
+                $file->move(public_path().'/uploadedImages/',$name);
+                $data['image'] = $name;
+    }
+//update data
+    pizza::where('pizza_id',$id)->update($data);
+    return redirect()->route('admin#pizza')->with(['updated'=>'successfully updated!']);
+
     }
     //pizza details
     public function pizzaDetail($id){

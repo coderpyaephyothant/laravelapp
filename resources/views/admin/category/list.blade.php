@@ -26,6 +26,9 @@
       <div class="container-fluid">
         <div class="row  col-12">
           <div class="">
+            @if ($number == 0)
+            <h3 class="text-danger p-3">No category datas to show here. . . .</h3>
+            @endif
             <div class="card mt-3">
               <div class="bg-success d-flex align-items-center flex-wrap justify-content-around p-3">
                 <a class="me-3" href="{{route('admin#addCategory')}}"><button class="btn btn-sm btn-danger"><i class="fa fa-plus"></i></button></a>
@@ -34,21 +37,21 @@
                   <a class="btn btn-sm btn-success">Total: {{$categoriesData->total()}}</a>
                   <a class=" text-decoration-none btn btn-sm btn-success" href="{{route('admin#categoryDownload')}}">csv download <i class="fas fa-download"></i></a>
                 </div>
-                
-                
+
+
                 <div class=" mt-1">
                   <form action="{{route('admin#searchCategory')}}" method="get">
                     @csrf
                     <div class="input-group input-group-sm" style="width: 150px;">
                       <input type="text" name="search" class="form-control float-right" placeholder="Search">
-  
+
                       <div class="input-group-append">
                         <button type="submit" class="btn btn-default">
                           <i class="fas fa-search"></i>
                         </button>
                       </div>
                     </div>
-                  </form> 
+                  </form>
                 </div>
               </div>
               <!-- /.card-header -->
@@ -67,12 +70,12 @@
                     @php
                     $id = 1;
                 @endphp
-                    
-                    
+
+
 
 
                      @foreach ($categoriesData as $item)
-                    
+
                      <tr>
                       <td>{{$id}}</td>
                      <td>{{$item->category_name}}</td>
@@ -96,10 +99,10 @@
                         $id ++;
                     @endphp
                      @endforeach
-                    
+
                   </tbody>
                 </table>
-                
+
               </div>
               <!-- /.card-body -->
             </div>

@@ -35,8 +35,13 @@ class CategoryController extends Controller
         ->paginate(5);
 
         // dd($data->toArray());
+        if(count($data) > 0){
+            $number = 1;
+        }else{
+            $number = 0;
+        }
 
-        return view('admin.category.list')->with(['categoriesData'=> $data] );
+        return view('admin.category.list')->with(['categoriesData'=> $data , 'number'=>$number] );
     }
 
 
